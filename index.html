@@ -5,15 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>යාලුවෝ Chat</title>
     <style>
-    body { font-family: Arial, sans-serif; background: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+    /* මුළු පිටුවේම පෙනුම */
+    body { 
+        font-family: Arial, sans-serif; 
+        background: #f0f2f5; 
+        display: flex; 
+        justify-content: center; 
+        align-items: center; 
+        height: 100vh; 
+        margin: 0; 
+        padding: 0;
+        box-sizing: border-box;
+    }
     
-    /* Login Screen */
-    .login-container { width: 100%; max-width: 350px; background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center; }
-    .login-container h2 { color: #007bff; margin-bottom: 20px; }
-    .login-container input { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 5px; outline: none; font-size: 1rem; box-sizing: border-box; }
+    /* Login Screen - හැම Device එකකටම ගැලපෙන සේ */
+    .login-container { 
+        width: 100%; 
+        max-width: 380px; 
+        background: white; 
+        padding: 30px 25px; 
+        border-radius: 12px; 
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+        text-align: center; 
+        margin: 20px;
+        box-sizing: border-box;
+    }
+    .login-container h2 { color: #007bff; margin-bottom: 25px; font-size: 1.6rem; }
+    .login-container input { 
+        width: 100%; 
+        padding: 12px; 
+        margin-bottom: 15px; 
+        border: 1px solid #ddd; 
+        border-radius: 6px; 
+        outline: none; 
+        font-size: 1rem; 
+        box-sizing: border-box; 
+    }
     
-    .auth-buttons { display: flex; flex-direction: column; gap: 10px; }
-    .login-container button { width: 100%; border: none; padding: 12px; border-radius: 5px; cursor: pointer; font-size: 1rem; font-weight: bold; transition: 0.2s; }
+    .auth-buttons { display: flex; flex-direction: column; gap: 12px; }
+    .login-container button { 
+        width: 100%; 
+        border: none; 
+        padding: 12px; 
+        border-radius: 6px; 
+        cursor: pointer; 
+        font-size: 1rem; 
+        font-weight: bold; 
+        transition: background 0.2s; 
+    }
     
     #startChatBtn { background: #007bff; color: white; }
     #startChatBtn:hover { background: #0056b3; }
@@ -21,10 +60,22 @@
     #signUpBtn { background: #28a745; color: white; }
     #signUpBtn:hover { background: #218838; }
     
-    /* Chat Screen */
-    .chat-container { width: 100%; max-width: 450px; height: 600px; background: white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-radius: 10px; display: none; flex-direction: column; overflow: hidden; margin: 10px; }
-    .chat-header { background: #007bff; color: white; padding: 15px; text-align: center; font-size: 1.2rem; font-weight: bold; }
-    .messages-box { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
+    /* Chat Screen - PC සහ Tablet සඳහා ප්‍රමාණය */
+    .chat-container { 
+        width: 100%; 
+        max-width: 600px; /* Tablet/PC වලදී Chat Box එක ටිකක් පළල් කර ලස්සන කලා */
+        height: 85vh; 
+        max-height: 800px;
+        background: white; 
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+        border-radius: 12px; 
+        display: none; 
+        flex-direction: column; 
+        overflow: hidden; 
+        margin: 20px; 
+    }
+    .chat-header { background: #007bff; color: white; padding: 18px; text-align: center; font-size: 1.3rem; font-weight: bold; }
+    .messages-box { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; background: #f8fafc; }
     
     /* Message Row Block */
     .msg-row { display: flex; width: 100%; position: relative; margin-bottom: 10px; }
@@ -38,7 +89,6 @@
     /* Timeline lines */
     .timeline-line { position: absolute; top: 0px; bottom: -18px; width: 3px; background: #cbd5e1; z-index: 1; display: none; }
     .msg-row.has-next .timeline-line { display: block; }
-    .branch-line { display: none !important; }
 
     /* Content Area */
     .msg-content { max-width: 75%; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; margin-left: 8px; }
@@ -50,12 +100,12 @@
     .msg-row.consecutive .sender-name-bubble { display: none; }
 
     /* Message Bubble */
-    .bubble { padding: 8px 14px; border-radius: 12px; font-size: 0.95rem; color: white; display: inline-block; word-wrap: break-word; z-index: 2; margin-top: 2px; }
+    .bubble { padding: 10px 14px; border-radius: 14px; font-size: 0.95rem; color: white; display: inline-block; word-wrap: break-word; z-index: 2; margin-top: 2px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
     .msg-row.incoming .bubble { background: #6c757d; }
     .msg-row.outgoing .bubble { background: #007bff; }
     
     /* Media Display styles */
-    .chat-media { max-width: 200px; max-height: 200px; border-radius: 8px; display: block; margin-top: 5px; cursor: pointer; }
+    .chat-media { max-width: 100%; max-height: 250px; border-radius: 8px; display: block; margin-top: 5px; cursor: pointer; }
     
     /* Consecutive adjustments */
     .msg-row.consecutive .profile-area .avatar { display: none; } 
@@ -66,11 +116,41 @@
     .msg-row.outgoing .msg-time { text-align: right; }
 
     /* Input Area Actions */
-    .input-area { padding: 10px; display: flex; align-items: center; gap: 8px; background: #fff; border-top: 1px solid #ddd; }
-    .action-btn { background: #e4e6eb; border: none; width: 36px; height: 36px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; font-size: 1.1rem; transition: 0.2s; }
+    .input-area { padding: 12px; display: flex; align-items: center; gap: 8px; background: #fff; border-top: 1px solid #ddd; }
+    .action-btn { background: #e4e6eb; border: none; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; font-size: 1.2rem; transition: background 0.2s; flex-shrink: 0; }
     .action-btn:hover { background: #d8dadf; }
     .send-btn { background: #007bff; color: white; font-weight: bold; }
     .send-btn:hover { background: #0056b3; }
+
+    /* 📱 MOBILE PHONES (RESPONSIVE) - ජංගම දුරකථන සඳහා විශේෂ සැකසුම් */
+    @media (max-width: 576px) {
+        body { background: white; align-items: flex-start; } /* පසුබිම සුදු කරයි */
+        
+        .login-container { 
+            box-shadow: none; 
+            margin: 0; 
+            padding: 20px; 
+            max-width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .chat-container { 
+            width: 100vw; 
+            height: 100vh; 
+            max-height: 100vh; 
+            margin: 0; 
+            border-radius: 0; /* දාර රවුම් කිරීම ඉවත් කරයි */
+        }
+        
+        .chat-header { padding: 15px; font-size: 1.15rem; border-radius: 0; }
+        .messages-box { padding: 10px; }
+        .msg-content { max-width: 85%; } /* මොබයිල් එකේදී මැසේජ් බොක්ස් එක ටිකක් ලොකු කරයි */
+        .chat-media { max-width: 180px; max-height: 180px; }
+        .input-area { padding: 8px; }
+    }
 </style>
 </head>
 <body>
@@ -124,10 +204,9 @@
   const auth = getAuth(app); 
   const messagesRef = ref(db, 'messages');
 
-  // වැදගත්: දැනට ලොග් වෙලා ඉන්න පරිශීලකයාගේ විස්තර තබා ගැනීමට විචල්‍යයන්
   let currentUserUID = ""; 
   let myName = "";
-  let lastSenderUID = ""; // නම වෙනුවට UID එකෙන් consecutive බලන්න වෙනස් කරන ලදි
+  let lastSenderUID = ""; 
   let lastRowElement = null;
 
   function getNameColor(name) {
@@ -152,16 +231,15 @@
   const attachBtn = document.getElementById('attachBtn');
   const camBtn = document.getElementById('camBtn');
 
-  // පේජ් එක ලෝඩ් වෙද්දීම කලින් ලොග් වී ඇත්දැයි බැලීම (Auto Login)
   onAuthStateChanged(auth, (user) => {
       if (user) {
-          currentUserUID = user.uid; // දැනට ලොග් වුන කෙනාගේ ස්ථිර UID එක
+          currentUserUID = user.uid; 
           myName = user.email.split('@')[0].toLowerCase();
           loginScreen.style.display = "none";
           chatScreen.style.display = "flex";
-          loadChatMessages(); // මැසේජ් ලෝඩ් කරන function එක ක්‍රියාත්මක කිරීම
+          loadChatMessages(); 
       } else {
-          loginScreen.style.display = "none"; // මුලින්ම ලොගින් ස්ක්‍රීන් එක විතරක් පෙන්වීමට
+          loginScreen.style.display = "none"; 
           setTimeout(() => { loginScreen.style.display = "block"; }, 100);
       }
   });
@@ -220,13 +298,12 @@
      }
   });
 
-  // මැසේජ් එකක් යවද්දී UID එකත් එක්කම Database එකට දානවා
   function sendMessage() {
     const text = messageInput.value.trim();
     if (text !== "" && currentUserUID !== "") {
         push(messagesRef, {
-            senderUID: currentUserUID, // අද්විතීය UID එක
-            senderName: myName, // පෙන්වන්න ඕන නම
+            senderUID: currentUserUID, 
+            senderName: myName, 
             message: text,
             type: "text",
             timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
@@ -275,9 +352,7 @@
   sendBtn.addEventListener('click', sendMessage);
   messageInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
 
-  // මැසේජ් ඩිස්ප්ලේ කරන ලොජික් එක වෙනම function එකකට ගන්නා ලදි
   function loadChatMessages() {
-    // ඩප්ලිකේට් නොවී තියාගන්න බොක්ස් එක ක්ලියර් කරමු
     messagesBox.innerHTML = "";
     lastSenderUID = "";
     lastRowElement = null;
@@ -285,11 +360,9 @@
     onChildAdded(messagesRef, (data) => {
         const msgData = data.val();
         
-        // පරණ ඩේටාබේස් මැසේජ් වල senderUID නැතිනම්, පරණ ක්‍රමයට senderName බලයි
         const msgSenderUID = msgData.senderUID ? msgData.senderUID : msgData.sender;
         const currentSenderName = msgData.senderName ? msgData.senderName : msgData.sender;
         
-        // වැදගත් 🎯: ලොග් වෙලා ඉන්න කෙනාගේ UID එකට සමානද කියා බලයි (දකුණු පැත්ත තීරණය කරන්නේ මෙතනින්)
         const isMe = msgSenderUID === currentUserUID;
 
         const rowDiv = document.createElement('div');
