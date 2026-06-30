@@ -10,8 +10,16 @@
     /* Login Screen */
     .login-container { width: 100%; max-width: 350px; background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center; }
     .login-container h2 { color: #007bff; margin-bottom: 20px; }
-    .login-container input { width: 90%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 5px; outline: none; font-size: 1rem; }
-    .login-container button { width: 96%; background: #007bff; color: white; border: none; padding: 12px; border-radius: 5px; cursor: pointer; font-size: 1rem; font-weight: bold; }
+    .login-container input { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 5px; outline: none; font-size: 1rem; box-sizing: border-box; }
+    
+    .auth-buttons { display: flex; flex-direction: column; gap: 10px; }
+    .login-container button { width: 100%; border: none; padding: 12px; border-radius: 5px; cursor: pointer; font-size: 1rem; font-weight: bold; transition: 0.2s; }
+    
+    #startChatBtn { background: #007bff; color: white; }
+    #startChatBtn:hover { background: #0056b3; }
+    
+    #signUpBtn { background: #28a745; color: white; }
+    #signUpBtn:hover { background: #218838; }
     
     /* Chat Screen */
     .chat-container { width: 100%; max-width: 450px; height: 600px; background: white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-radius: 10px; display: none; flex-direction: column; overflow: hidden; margin: 10px; }
@@ -69,8 +77,13 @@
 
 <div class="login-container" id="loginScreen">
     <h2>යාලුවෝ Chat 💬</h2>
-    <input type="text" id="usernameInput" placeholder="ඔයාගේ නම ඇතුළත් කරන්න...">
-    <button id="startChatBtn">Chat එකට යන්න</button>
+    <input type="email" id="emailInput" placeholder="ඔයාගේ Email එක ඇතුළත් කරන්න..." required>
+    <input type="password" id="passwordInput" placeholder="මුද්‍රිත පදය (Password) ඇතුළත් කරන්න..." required>
+    
+    <div class="auth-buttons">
+        <button id="startChatBtn">Log In වෙන්න</button>
+        <button id="signUpBtn">අලුත් Account එකක් හදන්න (Sign Up)</button>
+    </div>
 </div>
 
 <div class="chat-container" id="chatScreen">
@@ -93,6 +106,7 @@
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
   import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
   import { getStorage, ref as sRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
+  import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyBdXSYW5R4zRhC2WIYvlRXjAPHftDvcB30",
@@ -107,10 +121,13 @@
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
   const storage = getStorage(app); 
+  const auth = getAuth(app); 
   const messagesRef = ref(db, 'messages');
 
+  // වැදගත්: දැනට ලොග් වෙලා ඉන්න පරිශීලකයාගේ විස්තර තබා ගැනීමට විචල්‍යයන්
+  let currentUserUID = ""; 
   let myName = "";
-  let lastSender = "";
+  let lastSenderUID = ""; // නම වෙනුවට UID එකෙන් consecutive බලන්න වෙනස් කරන ලදි
   let lastRowElement = null;
 
   function getNameColor(name) {
@@ -122,8 +139,10 @@
 
   const loginScreen = document.getElementById('loginScreen');
   const chatScreen = document.getElementById('chatScreen');
-  const usernameInput = document.getElementById('usernameInput');
+  const emailInput = document.getElementById('emailInput');
+  const passwordInput = document.getElementById('passwordInput');
   const startChatBtn = document.getElementById('startChatBtn');
+  const signUpBtn = document.getElementById('signUpBtn'); 
   const messageInput = document.getElementById('messageInput');
   const sendBtn = document.getElementById('sendBtn');
   const messagesBox = document.getElementById('messages');
@@ -133,19 +152,81 @@
   const attachBtn = document.getElementById('attachBtn');
   const camBtn = document.getElementById('camBtn');
 
+  // පේජ් එක ලෝඩ් වෙද්දීම කලින් ලොග් වී ඇත්දැයි බැලීම (Auto Login)
+  onAuthStateChanged(auth, (user) => {
+      if (user) {
+          currentUserUID = user.uid; // දැනට ලොග් වුන කෙනාගේ ස්ථිර UID එක
+          myName = user.email.split('@')[0].toLowerCase();
+          loginScreen.style.display = "none";
+          chatScreen.style.display = "flex";
+          loadChatMessages(); // මැසේජ් ලෝඩ් කරන function එක ක්‍රියාත්මක කිරීම
+      } else {
+          loginScreen.style.display = "none"; // මුලින්ම ලොගින් ස්ක්‍රීන් එක විතරක් පෙන්වීමට
+          setTimeout(() => { loginScreen.style.display = "block"; }, 100);
+      }
+  });
+
+  // SIGN IN
   startChatBtn.addEventListener('click', () => {
-     if(usernameInput.value.trim() !== "") {
-         myName = usernameInput.value.trim().toLowerCase();
-         loginScreen.style.display = "none";
-         chatScreen.style.display = "flex";
+     const email = emailInput.value.trim();
+     const password = passwordInput.value.trim();
+
+     if(email !== "" && password !== "") {
+         startChatBtn.disabled = true;
+         startChatBtn.innerText = "Loggin in... ⏳";
+
+         signInWithEmailAndPassword(auth, email, password)
+          .catch((error) => {
+              console.error(error);
+              alert("ඇතුළත් කළ Email හෝ Password වැරදියි! ❌");
+              startChatBtn.disabled = false;
+              startChatBtn.innerText = "Log In වෙන්න";
+          });
+     } else {
+         alert("කරුණාකර Email සහ Password ඇතුළත් කරන්න!");
      }
   });
 
+  // SIGN UP
+  signUpBtn.addEventListener('click', () => {
+     const email = emailInput.value.trim();
+     const password = passwordInput.value.trim();
+
+     if(email !== "" && password !== "") {
+         if(password.length < 6) {
+             alert("Password එකට අවම වශයෙන් අක්ෂර 6ක්වත් තියෙන්න ඕනේ!");
+             return;
+         }
+
+         signUpBtn.disabled = true;
+         signUpBtn.innerText = "Creating Account... ⏳";
+
+         createUserWithEmailAndPassword(auth, email, password)
+          .then(() => {
+              alert("Account එක සාර්ථකව සෑදුවා! 🎉");
+          })
+          .catch((error) => {
+              console.error(error);
+              if (error.code === 'auth/email-already-in-use') {
+                  alert("මේ Email එකෙන් දැනටමත් Account එකක් හදලයි තියෙන්නේ! ❌");
+              } else {
+                  alert("Account එක හදන්න බැරි වුණා: " + error.message);
+              }
+              signUpBtn.disabled = false;
+              signUpBtn.innerText = "අලුත් Account එකක් හදන්න (Sign Up)";
+          });
+     } else {
+         alert("Account එකක් හදන්න මුලින්ම Email සහ Password ඇතුළත් කරන්න!");
+     }
+  });
+
+  // මැසේජ් එකක් යවද්දී UID එකත් එක්කම Database එකට දානවා
   function sendMessage() {
     const text = messageInput.value.trim();
-    if (text !== "") {
+    if (text !== "" && currentUserUID !== "") {
         push(messagesRef, {
-            sender: usernameInput.value.trim(),
+            senderUID: currentUserUID, // අද්විතීය UID එක
+            senderName: myName, // පෙන්වන්න ඕන නම
             message: text,
             type: "text",
             timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
@@ -154,18 +235,13 @@
     }
   }
 
-  // File Upload වෙනස් කළ Logic එක (Alerts ඉවත් කර ඇත)
   async function handleFileUpload(file) {
-    if (!file) return;
+    if (!file || currentUserUID === "") return;
     
     const fileType = file.type.startsWith('image/') ? 'image' : file.type.startsWith('video/') ? 'video' : 'unknown';
-    if (fileType === 'unknown') {
-        return;
-    }
+    if (fileType === 'unknown') return;
 
     const loadingId = Date.now();
-    
-    // Input එක ඇතුලේ ලස්සනට Upload වෙනවා කියලා පෙන්වීම
     messageInput.value = "Uploading file... ⏳";
     messageInput.disabled = true;
 
@@ -175,7 +251,8 @@
         const downloadURL = await getDownloadURL(snapshot.ref);
 
         push(messagesRef, {
-            sender: usernameInput.value.trim(),
+            senderUID: currentUserUID,
+            senderName: myName,
             message: downloadURL, 
             type: fileType,       
             timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
@@ -183,7 +260,6 @@
     } catch (error) {
         console.error("Upload error: ", error);
     } finally {
-        // Reset input field
         messageInput.value = "";
         messageInput.disabled = false;
         messageInput.focus();
@@ -199,81 +275,93 @@
   sendBtn.addEventListener('click', sendMessage);
   messageInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
 
-  onChildAdded(messagesRef, (data) => {
-    const msgData = data.val();
-    const currentSender = msgData.sender.trim();
-    const currentSenderLower = currentSender.toLowerCase();
-    const isMe = currentSenderLower === myName;
+  // මැසේජ් ඩිස්ප්ලේ කරන ලොජික් එක වෙනම function එකකට ගන්නා ලදි
+  function loadChatMessages() {
+    // ඩප්ලිකේට් නොවී තියාගන්න බොක්ස් එක ක්ලියර් කරමු
+    messagesBox.innerHTML = "";
+    lastSenderUID = "";
+    lastRowElement = null;
 
-    const rowDiv = document.createElement('div');
-    rowDiv.className = `msg-row ${isMe ? 'outgoing' : 'incoming'}`;
-    
-    const profileDiv = document.createElement('div');
-    profileDiv.className = 'profile-area';
-    
-    const avatar = document.createElement('div');
-    avatar.className = 'avatar';
-    avatar.innerText = currentSender.charAt(0).toUpperCase();
-    if(!isMe) avatar.style.backgroundColor = getNameColor(currentSenderLower);
-    profileDiv.appendChild(avatar);
-    
-    const line = document.createElement('div');
-    line.className = 'timeline-line';
-    profileDiv.appendChild(line);
-    
-    const isConsecutive = currentSenderLower === lastSender;
-    if (isConsecutive) {
-        rowDiv.classList.add('consecutive');
-        if(lastRowElement) { lastRowElement.classList.add('has-next'); }
-    } else {
-        rowDiv.classList.add('first-msg');
-    }
-    
-    const contentDiv = document.createElement('div');
-    contentDiv.className = 'msg-content';
-    
-    const nameBubble = document.createElement('span');
-    nameBubble.className = 'sender-name-bubble';
-    nameBubble.innerText = currentSender;
-    contentDiv.appendChild(nameBubble);
-    
-    const bubbleDiv = document.createElement('div');
-    bubbleDiv.className = 'bubble';
+    onChildAdded(messagesRef, (data) => {
+        const msgData = data.val();
+        
+        // පරණ ඩේටාබේස් මැසේජ් වල senderUID නැතිනම්, පරණ ක්‍රමයට senderName බලයි
+        const msgSenderUID = msgData.senderUID ? msgData.senderUID : msgData.sender;
+        const currentSenderName = msgData.senderName ? msgData.senderName : msgData.sender;
+        
+        // වැදගත් 🎯: ලොග් වෙලා ඉන්න කෙනාගේ UID එකට සමානද කියා බලයි (දකුණු පැත්ත තීරණය කරන්නේ මෙතනින්)
+        const isMe = msgSenderUID === currentUserUID;
 
-    if (msgData.type === 'image') {
-        const img = document.createElement('img');
-        img.src = msgData.message;
-        img.className = 'chat-media';
-        img.onclick = () => window.open(msgData.message, '_blank'); 
-        bubbleDiv.appendChild(img);
-    } else if (msgData.type === 'video') {
-        const video = document.createElement('video');
-        video.src = msgData.message;
-        video.className = 'chat-media';
-        video.controls = true; 
-        bubbleDiv.appendChild(video);
-    } else {
-        bubbleDiv.innerText = msgData.message;
-    }
-    
-    contentDiv.appendChild(bubbleDiv);
+        const rowDiv = document.createElement('div');
+        rowDiv.className = `msg-row ${isMe ? 'outgoing' : 'incoming'}`;
+        
+        const profileDiv = document.createElement('div');
+        profileDiv.className = 'profile-area';
+        
+        const avatar = document.createElement('div');
+        avatar.className = 'avatar';
+        avatar.innerText = currentSenderName.charAt(0).toUpperCase();
+        if(!isMe) avatar.style.backgroundColor = getNameColor(currentSenderName.toLowerCase());
+        profileDiv.appendChild(avatar);
+        
+        const line = document.createElement('div');
+        line.className = 'timeline-line';
+        profileDiv.appendChild(line);
+        
+        const isConsecutive = msgSenderUID === lastSenderUID;
+        if (isConsecutive) {
+            rowDiv.classList.add('consecutive');
+            if(lastRowElement) { lastRowElement.classList.add('has-next'); }
+        } else {
+            rowDiv.classList.add('first-msg');
+        }
+        
+        const contentDiv = document.createElement('div');
+        contentDiv.className = 'msg-content';
+        
+        const nameBubble = document.createElement('span');
+        nameBubble.className = 'sender-name-bubble';
+        nameBubble.innerText = currentSenderName;
+        contentDiv.appendChild(nameBubble);
+        
+        const bubbleDiv = document.createElement('div');
+        bubbleDiv.className = 'bubble';
 
-    if (msgData.timestamp) {
-        const timeDiv = document.createElement('div');
-        timeDiv.className = 'msg-time';
-        timeDiv.innerText = msgData.timestamp;
-        contentDiv.appendChild(timeDiv);
-    }
-    
-    rowDiv.appendChild(profileDiv);
-    rowDiv.appendChild(contentDiv);
-    
-    messagesBox.appendChild(rowDiv);
-    messagesBox.scrollTop = messagesBox.scrollHeight;
-    
-    lastSender = currentSenderLower;
-    lastRowElement = rowDiv;
-  });
+        if (msgData.type === 'image') {
+            const img = document.createElement('img');
+            img.src = msgData.message;
+            img.className = 'chat-media';
+            img.onclick = () => window.open(msgData.message, '_blank'); 
+            bubbleDiv.appendChild(img);
+        } else if (msgData.type === 'video') {
+            const video = document.createElement('video');
+            video.src = msgData.message;
+            video.className = 'chat-media';
+            video.controls = true; 
+            bubbleDiv.appendChild(video);
+        } else {
+            bubbleDiv.innerText = msgData.message;
+        }
+        
+        contentDiv.appendChild(bubbleDiv);
+
+        if (msgData.timestamp) {
+            const timeDiv = document.createElement('div');
+            timeDiv.className = 'msg-time';
+            timeDiv.innerText = msgData.timestamp;
+            contentDiv.appendChild(timeDiv);
+        }
+        
+        rowDiv.appendChild(profileDiv);
+        rowDiv.appendChild(contentDiv);
+        
+        messagesBox.appendChild(rowDiv);
+        messagesBox.scrollTop = messagesBox.scrollHeight;
+        
+        lastSenderUID = msgSenderUID;
+        lastRowElement = rowDiv;
+    });
+  }
 </script>
 </body>
 </html>
