@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>යාලුවෝ Chat</title>
     <style>
-    /* මුළු පිටුවේම පෙනුම */
     body { 
         font-family: Arial, sans-serif; 
         background: #f0f2f5; 
@@ -18,8 +17,8 @@
         box-sizing: border-box;
     }
     
-    /* Login Screen - හැම Device එකකටම ගැලපෙන සේ */
-    .login-container { 
+    /* Login & Sign Up Screen Styles */
+    .auth-container { 
         width: 100%; 
         max-width: 380px; 
         background: white; 
@@ -30,8 +29,12 @@
         margin: 20px;
         box-sizing: border-box;
     }
-    .login-container h2 { color: #007bff; margin-bottom: 25px; font-size: 1.6rem; }
-    .login-container input { 
+    
+    /* මුලින්ම Sign Up UI එක හංගලා තියෙන්නෙ */
+    #signUpScreen { display: none; }
+
+    .auth-container h2 { color: #007bff; margin-bottom: 25px; font-size: 1.6rem; }
+    .auth-container input { 
         width: 100%; 
         padding: 12px; 
         margin-bottom: 15px; 
@@ -42,8 +45,7 @@
         box-sizing: border-box; 
     }
     
-    .auth-buttons { display: flex; flex-direction: column; gap: 12px; }
-    .login-container button { 
+    .auth-container button { 
         width: 100%; 
         border: none; 
         padding: 12px; 
@@ -51,19 +53,34 @@
         cursor: pointer; 
         font-size: 1rem; 
         font-weight: bold; 
+        color: white;
         transition: background 0.2s; 
     }
     
-    #startChatBtn { background: #007bff; color: white; }
+    #startChatBtn { background: #007bff; }
     #startChatBtn:hover { background: #0056b3; }
     
-    #signUpBtn { background: #28a745; color: white; }
-    #signUpBtn:hover { background: #218838; }
+    #submitSignUpBtn { background: #28a745; }
+    #submitSignUpBtn:hover { background: #218838; }
     
+    /* යටින් තියෙන ලින්ක්ස් */
+    .auth-toggle-text {
+        margin-top: 20px;
+        font-size: 0.9rem;
+        color: #555;
+    }
+    .auth-toggle-text a {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    .auth-toggle-text a:hover { text-decoration: underline; }
+
     /* Chat Screen - PC සහ Tablet සඳහා ප්‍රමාණය */
     .chat-container { 
         width: 100%; 
-        max-width: 600px; /* Tablet/PC වලදී Chat Box එක ටිකක් පළල් කර ලස්සන කලා */
+        max-width: 600px; 
         height: 85vh; 
         max-height: 800px;
         background: white; 
@@ -122,11 +139,11 @@
     .send-btn { background: #007bff; color: white; font-weight: bold; }
     .send-btn:hover { background: #0056b3; }
 
-    /* 📱 MOBILE PHONES (RESPONSIVE) - ජංගම දුරකථන සඳහා විශේෂ සැකසුම් */
+    /* MOBILE PHONES (RESPONSIVE) */
     @media (max-width: 576px) {
-        body { background: white; align-items: flex-start; } /* පසුබිම සුදු කරයි */
+        body { background: white; align-items: flex-start; } 
         
-        .login-container { 
+        .auth-container { 
             box-shadow: none; 
             margin: 0; 
             padding: 20px; 
@@ -142,12 +159,12 @@
             height: 100vh; 
             max-height: 100vh; 
             margin: 0; 
-            border-radius: 0; /* දාර රවුම් කිරීම ඉවත් කරයි */
+            border-radius: 0; 
         }
         
         .chat-header { padding: 15px; font-size: 1.15rem; border-radius: 0; }
         .messages-box { padding: 10px; }
-        .msg-content { max-width: 85%; } /* මොබයිල් එකේදී මැසේජ් බොක්ස් එක ටිකක් ලොකු කරයි */
+        .msg-content { max-width: 85%; } 
         .chat-media { max-width: 180px; max-height: 180px; }
         .input-area { padding: 8px; }
     }
@@ -155,14 +172,24 @@
 </head>
 <body>
 
-<div class="login-container" id="loginScreen">
-    <h2>යාලුවෝ Chat 💬</h2>
-    <input type="email" id="emailInput" placeholder="ඔයාගේ Email එක ඇතුළත් කරන්න..." required>
-    <input type="password" id="passwordInput" placeholder="මුද්‍රිත පදය (Password) ඇතුළත් කරන්න..." required>
-    
-    <div class="auth-buttons">
-        <button id="startChatBtn">Log In වෙන්න</button>
-        <button id="signUpBtn">අලුත් Account එකක් හදන්න (Sign Up)</button>
+<div class="auth-container" id="loginScreen">
+    <h2>යාලුවෝ Chat - Log In 💬</h2>
+    <input type="email" id="loginEmail" placeholder="ඔයාගේ Email එක..." required>
+    <input type="password" id="loginPassword" placeholder="මුද්‍රිත පදය (Password)..." required>
+    <button id="startChatBtn">Log In වෙන්න</button>
+    <div class="auth-toggle-text">
+        Account එකක් නැද්ද? <a id="goToSignUp">ලියාපදිංචි වෙන්න (Sign Up)</a>
+    </div>
+</div>
+
+<div class="auth-container" id="signUpScreen">
+    <h2>යාලුවෝ Chat - Sign Up ✨</h2>
+    <input type="email" id="signUpEmail" placeholder="නව Email ලිපිනයක්..." required>
+    <input type="password" id="signUpPassword" placeholder="නව මුද්‍රිත පදයක් (Password)..." required>
+    <input type="password" id="signUpConfirmPassword" placeholder="මුද්‍රිත පදය නැවත ඇතුළත් කරන්න..." required>
+    <button id="submitSignUpBtn">Account එක හදන්න</button>
+    <div class="auth-toggle-text">
+        දැනටමත් Account එකක් තියෙනවද? <a id="goToLogin">Log In වෙන්න</a>
     </div>
 </div>
 
@@ -216,38 +243,62 @@
     return colors[Math.abs(hash) % colors.length];
   }
 
+  // DOM Elements
   const loginScreen = document.getElementById('loginScreen');
+  const signUpScreen = document.getElementById('signUpScreen');
   const chatScreen = document.getElementById('chatScreen');
-  const emailInput = document.getElementById('emailInput');
-  const passwordInput = document.getElementById('passwordInput');
+  
+  const loginEmailInput = document.getElementById('loginEmail');
+  const loginPasswordInput = document.getElementById('loginPassword');
+  const signUpEmailInput = document.getElementById('signUpEmail');
+  const signUpPasswordInput = document.getElementById('signUpPassword');
+  const signUpConfirmPasswordInput = document.getElementById('signUpConfirmPassword');
+  
   const startChatBtn = document.getElementById('startChatBtn');
-  const signUpBtn = document.getElementById('signUpBtn'); 
+  const submitSignUpBtn = document.getElementById('submitSignUpBtn');
+  
+  const goToSignUp = document.getElementById('goToSignUp');
+  const goToLogin = document.getElementById('goToLogin');
+
   const messageInput = document.getElementById('messageInput');
   const sendBtn = document.getElementById('sendBtn');
   const messagesBox = document.getElementById('messages');
-  
   const mediaInput = document.getElementById('mediaInput');
   const cameraInput = document.getElementById('cameraInput');
   const attachBtn = document.getElementById('attachBtn');
   const camBtn = document.getElementById('camBtn');
 
+  // UI මාරු කරන ලොජික් (Toggle Screens)
+  goToSignUp.addEventListener('click', () => {
+      loginScreen.style.display = "none";
+      signUpScreen.style.display = "block";
+  });
+  
+  goToLogin.addEventListener('click', () => {
+      signUpScreen.style.display = "none";
+      loginScreen.style.display = "block";
+  });
+
+  // Auto Login Check
   onAuthStateChanged(auth, (user) => {
       if (user) {
           currentUserUID = user.uid; 
           myName = user.email.split('@')[0].toLowerCase();
           loginScreen.style.display = "none";
+          signUpScreen.style.display = "none";
           chatScreen.style.display = "flex";
           loadChatMessages(); 
       } else {
-          loginScreen.style.display = "none"; 
-          setTimeout(() => { loginScreen.style.display = "block"; }, 100);
+          loginScreen.style.display = "block";
+          signUpScreen.style.display = "none";
+          chatScreen.style.display = "none";
       }
   });
 
-  // SIGN IN
+  // LOG IN LOGIC
   startChatBtn.addEventListener('click', () => {
-     const email = emailInput.value.trim();
-     const password = passwordInput.value.trim();
+     const email = loginEmailInput.value.trim();
+     const password = loginPasswordInput.value.trim();
 
      if(email !== "" && password !== "") {
          startChatBtn.disabled = true;
@@ -265,19 +316,26 @@
      }
   });
 
-  // SIGN UP
-  signUpBtn.addEventListener('click', () => {
-     const email = emailInput.value.trim();
-     const password = passwordInput.value.trim();
+  // SIGN UP LOGIC (දෙපාරක් Password පරික්ෂාව සහිතව)
+  submitSignUpBtn.addEventListener('click', () => {
+     const email = signUpEmailInput.value.trim();
+     const password = signUpPasswordInput.value.trim();
+     const confirmPassword = signUpConfirmPasswordInput.value.trim();
 
-     if(email !== "" && password !== "") {
+     if(email !== "" && password !== "" && confirmPassword !== "") {
          if(password.length < 6) {
              alert("Password එකට අවම වශයෙන් අක්ෂර 6ක්වත් තියෙන්න ඕනේ!");
              return;
          }
+         
+         // 🎯 වැදගත්: Password දෙක සමානද කියා බැලීම
+         if(password !== confirmPassword) {
+             alert("ඇතුළත් කළ Password දෙක එකිනෙකට ගැලපෙන්නේ නැත! ❌");
+             return;
+         }
 
-         signUpBtn.disabled = true;
-         signUpBtn.innerText = "Creating Account... ⏳";
+         submitSignUpBtn.disabled = true;
+         submitSignUpBtn.innerText = "Creating Account... ⏳";
 
          createUserWithEmailAndPassword(auth, email, password)
           .then(() => {
@@ -290,11 +348,11 @@
               } else {
                   alert("Account එක හදන්න බැරි වුණා: " + error.message);
               }
-              signUpBtn.disabled = false;
-              signUpBtn.innerText = "අලුත් Account එකක් හදන්න (Sign Up)";
+              submitSignUpBtn.disabled = false;
+              submitSignUpBtn.innerText = "Account එක හදන්න";
           });
      } else {
-         alert("Account එකක් හදන්න මුලින්ම Email සහ Password ඇතුළත් කරන්න!");
+         alert("කරුණාකර සියලුම විස්තර නිවැරදිව පුරවන්න!");
      }
   });
 
