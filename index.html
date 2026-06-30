@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>යාලුවෝ Chat</title>
+    <style>
+    body { font-family: Arial, sans-serif; background: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+    
+    /* Login Screen */
+    .login-container { width: 100%; max-width: 350px; background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center; }
+    .login-container h2 { color: #007bff; margin-bottom: 20px; }
+    .login-container input { width: 90%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 5px; outline: none; font-size: 1rem; }
+    .login-container button { width: 96%; background: #007bff; color: white; border: none; padding: 12px; border-radius: 5px; cursor: pointer; font-size: 1rem; font-weight: bold; }
+    
+    /* Chat Screen */
+    .chat-container { width: 100%; max-width: 450px; height: 600px; background: white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-radius: 10px; display: none; flex-direction: column; overflow: hidden; margin: 10px; }
+    .chat-header { background: #007bff; color: white; padding: 15px; text-align: center; font-size: 1.2rem; font-weight: bold; }
+    .messages-box { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
+    
+    /* Message Row Block */
+    .msg-row { display: flex; width: 100%; position: relative; margin-bottom: 10px; }
+    .msg-row.incoming { justify-content: flex-start; }
+    .msg-row.outgoing { flex-direction: row-reverse; }
+
+    /* Profile Area */
+    .profile-area { width: 42px; display: flex; flex-direction: column; align-items: center; position: relative; flex-shrink: 0; }
+    .avatar { width: 36px; height: 36px; border-radius: 50%; background: #007bff; color: white; display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 0.95rem; border: 2px solid #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 3; }
+    
+    /* Timeline lines */
+    .timeline-line { position: absolute; top: 0px; bottom: -18px; width: 3px; background: #cbd5e1; z-index: 1; display: none; }
+    .msg-row.has-next .timeline-line { display: block; }
+    .branch-line { display: none !important; }
+
+    /* Content Area */
+    .msg-content { max-width: 75%; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; margin-left: 8px; }
+    .msg-row.outgoing .msg-content { align-items: flex-end; margin-left: 0; margin-right: 8px; }
+    
+    /* Name Bubble */
+    .sender-name-bubble { font-size: 0.8rem; font-weight: bold; color: white; padding: 3px 8px; border-radius: 4px; background: #475569; z-index: 2; margin-bottom: 2px; }
+    .msg-row.outgoing .sender-name-bubble { background: #334155; }
+    .msg-row.consecutive .sender-name-bubble { display: none; }
+
+    /* Message Bubble */
+    .bubble { padding: 8px 14px; border-radius: 12px; font-size: 0.95rem; color: white; display: inline-block; word-wrap: break-word; z-index: 2; margin-top: 2px; }
+    .msg-row.incoming .bubble { background: #6c757d; }
+    .msg-row.outgoing .bubble { background: #007bff; }
+    
+    /* Media Display styles */
+    .chat-media { max-width: 200px; max-height: 200px; border-radius: 8px; display: block; margin-top: 5px; cursor: pointer; }
+    
+    /* Consecutive adjustments */
+    .msg-row.consecutive .profile-area .avatar { display: none; } 
+    .msg-row.consecutive .msg-content { margin-top: -15px; }
+    
+    /* Message Time */
+    .msg-time { font-size: 0.7rem; color: #888; margin-top: 2px; margin-bottom: 5px; }
+    .msg-row.outgoing .msg-time { text-align: right; }
+
+    /* Input Area Actions */
+    .input-area { padding: 10px; display: flex; align-items: center; gap: 8px; background: #fff; border-top: 1px solid #ddd; }
+    .action-btn { background: #e4e6eb; border: none; width: 36px; height: 36px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; font-size: 1.1rem; transition: 0.2s; }
+    .action-btn:hover { background: #d8dadf; }
+    .send-btn { background: #007bff; color: white; font-weight: bold; }
+    .send-btn:hover { background: #0056b3; }
+</style>
+</head>
+<body>
+
+<div class="login-container" id="loginScreen">
+    <h2>යාලුවෝ Chat 💬</h2>
+    <input type="text" id="usernameInput" placeholder="ඔයාගේ නම ඇතුළත් කරන්න...">
+    <button id="startChatBtn">Chat එකට යන්න</button>
+</div>
+
+<div class="chat-container" id="chatScreen">
+    <div class="chat-header">යාලුවෝ Chat Box 💬</div>
+    <div class="messages-box" id="messages"></div>
+    
+    <div class="input-area">
+        <input type="file" id="mediaInput" accept="image/*,video/*" style="display: none;">
+        <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display: none;">
+        
+        <button class="action-btn" id="attachBtn" title="Media Upload">📎</button>
+        <button class="action-btn" id="camBtn" title="Open Camera">📷</button>
+        
+        <input type="text" id="messageInput" placeholder="මැසේජ් එකක් ලියන්න..." style="flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 20px; outline: none;">
+        <button class="action-btn send-btn" id="sendBtn">➤</button>
+    </div>
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+  import { getStorage, ref as sRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBdXSYW5R4zRhC2WIYvlRXjAPHftDvcB30",
+    authDomain: "testing-1-fe6c8.firebaseapp.com",
+    databaseURL: "https://testing-1-fe6c8-default-rtdb.firebaseio.com/",
+    projectId: "testing-1-fe6c8",
+    storageBucket: "testing-1-fe6c8.firebasestorage.app", 
+    messagingSenderId: "111355439434",
+    appId: "1:111355439434:web:7b2615b3b2064b6d4df9b3"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+  const storage = getStorage(app); 
+  const messagesRef = ref(db, 'messages');
+
+  let myName = "";
+  let lastSender = "";
+  let lastRowElement = null;
+
+  function getNameColor(name) {
+    let hash = 0;
+    for (let i = 0; i < name.length; i++) { hash = name.charCodeAt(i) + ((hash << 5) - hash); }
+    const colors = ['#dc3545', '#fd7e14', '#6f42c1', '#e83e8c', '#17a2b8', '#20c997', '#28a745'];
+    return colors[Math.abs(hash) % colors.length];
+  }
+
+  const loginScreen = document.getElementById('loginScreen');
+  const chatScreen = document.getElementById('chatScreen');
+  const usernameInput = document.getElementById('usernameInput');
+  const startChatBtn = document.getElementById('startChatBtn');
+  const messageInput = document.getElementById('messageInput');
+  const sendBtn = document.getElementById('sendBtn');
+  const messagesBox = document.getElementById('messages');
+  
+  const mediaInput = document.getElementById('mediaInput');
+  const cameraInput = document.getElementById('cameraInput');
+  const attachBtn = document.getElementById('attachBtn');
+  const camBtn = document.getElementById('camBtn');
+
+  startChatBtn.addEventListener('click', () => {
+     if(usernameInput.value.trim() !== "") {
+         myName = usernameInput.value.trim().toLowerCase();
+         loginScreen.style.display = "none";
+         chatScreen.style.display = "flex";
+     }
+  });
+
+  function sendMessage() {
+    const text = messageInput.value.trim();
+    if (text !== "") {
+        push(messagesRef, {
+            sender: usernameInput.value.trim(),
+            message: text,
+            type: "text",
+            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        });
+        messageInput.value = "";
+    }
+  }
+
+  // File Upload වෙනස් කළ Logic එක (Alerts ඉවත් කර ඇත)
+  async function handleFileUpload(file) {
+    if (!file) return;
+    
+    const fileType = file.type.startsWith('image/') ? 'image' : file.type.startsWith('video/') ? 'video' : 'unknown';
+    if (fileType === 'unknown') {
+        return;
+    }
+
+    const loadingId = Date.now();
+    
+    // Input එක ඇතුලේ ලස්සනට Upload වෙනවා කියලා පෙන්වීම
+    messageInput.value = "Uploading file... ⏳";
+    messageInput.disabled = true;
+
+    try {
+        const fileRef = sRef(storage, `chat_media/${loadingId}_${file.name}`);
+        const snapshot = await uploadBytes(fileRef, file);
+        const downloadURL = await getDownloadURL(snapshot.ref);
+
+        push(messagesRef, {
+            sender: usernameInput.value.trim(),
+            message: downloadURL, 
+            type: fileType,       
+            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        });
+    } catch (error) {
+        console.error("Upload error: ", error);
+    } finally {
+        // Reset input field
+        messageInput.value = "";
+        messageInput.disabled = false;
+        messageInput.focus();
+    }
+  }
+
+  attachBtn.addEventListener('click', () => mediaInput.click());
+  camBtn.addEventListener('click', () => cameraInput.click());
+
+  mediaInput.addEventListener('change', (e) => { handleFileUpload(e.target.files[0]); e.target.value = ''; });
+  cameraInput.addEventListener('change', (e) => { handleFileUpload(e.target.files[0]); e.target.value = ''; });
+
+  sendBtn.addEventListener('click', sendMessage);
+  messageInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
+
+  onChildAdded(messagesRef, (data) => {
+    const msgData = data.val();
+    const currentSender = msgData.sender.trim();
+    const currentSenderLower = currentSender.toLowerCase();
+    const isMe = currentSenderLower === myName;
+
+    const rowDiv = document.createElement('div');
+    rowDiv.className = `msg-row ${isMe ? 'outgoing' : 'incoming'}`;
+    
+    const profileDiv = document.createElement('div');
+    profileDiv.className = 'profile-area';
+    
+    const avatar = document.createElement('div');
+    avatar.className = 'avatar';
+    avatar.innerText = currentSender.charAt(0).toUpperCase();
+    if(!isMe) avatar.style.backgroundColor = getNameColor(currentSenderLower);
+    profileDiv.appendChild(avatar);
+    
+    const line = document.createElement('div');
+    line.className = 'timeline-line';
+    profileDiv.appendChild(line);
+    
+    const isConsecutive = currentSenderLower === lastSender;
+    if (isConsecutive) {
+        rowDiv.classList.add('consecutive');
+        if(lastRowElement) { lastRowElement.classList.add('has-next'); }
+    } else {
+        rowDiv.classList.add('first-msg');
+    }
+    
+    const contentDiv = document.createElement('div');
+    contentDiv.className = 'msg-content';
+    
+    const nameBubble = document.createElement('span');
+    nameBubble.className = 'sender-name-bubble';
+    nameBubble.innerText = currentSender;
+    contentDiv.appendChild(nameBubble);
+    
+    const bubbleDiv = document.createElement('div');
+    bubbleDiv.className = 'bubble';
+
+    if (msgData.type === 'image') {
+        const img = document.createElement('img');
+        img.src = msgData.message;
+        img.className = 'chat-media';
+        img.onclick = () => window.open(msgData.message, '_blank'); 
+        bubbleDiv.appendChild(img);
+    } else if (msgData.type === 'video') {
+        const video = document.createElement('video');
+        video.src = msgData.message;
+        video.className = 'chat-media';
+        video.controls = true; 
+        bubbleDiv.appendChild(video);
+    } else {
+        bubbleDiv.innerText = msgData.message;
+    }
+    
+    contentDiv.appendChild(bubbleDiv);
+
+    if (msgData.timestamp) {
+        const timeDiv = document.createElement('div');
+        timeDiv.className = 'msg-time';
+        timeDiv.innerText = msgData.timestamp;
+        contentDiv.appendChild(timeDiv);
+    }
+    
+    rowDiv.appendChild(profileDiv);
+    rowDiv.appendChild(contentDiv);
+    
+    messagesBox.appendChild(rowDiv);
+    messagesBox.scrollTop = messagesBox.scrollHeight;
+    
+    lastSender = currentSenderLower;
+    lastRowElement = rowDiv;
+  });
+</script>
+</body>
+</html>
