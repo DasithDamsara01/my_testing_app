@@ -318,7 +318,6 @@
       import { getStorage, ref as sRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
       import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, updateProfile, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-      // Firebase Configuration එක
       const firebaseConfig = {
         apiKey: "AIzaSyBdXSYW5R4zRhC2WIYvlRXjAPHftDvcB30",
         authDomain: "testing-1-fe6c8.firebaseapp.com",
@@ -333,6 +332,9 @@
       const db = getDatabase(app);
       const storage = getStorage(app); 
       const auth = getAuth(app); 
+
+      // ImgBB API Key එක මෙතනට එකතු කරන ලදි
+      const IMGBB_API_KEY = "6385befe9de130fd81ccee5f2a72ab79";
 
       let currentMode = "direct"; 
       let selectedTargetID = ""; 
@@ -351,16 +353,12 @@
           si: {
               loginTitle: "යාලුවෝ CHAT", loginEmail: "ඔයාගේ Email එක...", loginBtn: "Log In වෙන්න", noAccount: "Account එකක් නැද්ද? ", signUpLink: "Sign Up වෙන්න",
               signUpTitle: "යාලුවෝ CHAT", signNewEmail: "නව Email ලිපිනයක්...", signPass: "නව Password එකක්...", signConf: "Password නැවත ඇතුළත් කරන්න...", signBtn: "Account එක හදන්න", haveAccount: "දැනටමත් Account එකක් තියෙනවද? ", loginLink: "Log In වෙන්න",
-              stripDirect: "Direct", stripGroup: "Group", clearChat: "Chat Clear කරන්න", leaveGroup: "Group එකෙන් අයින් වෙන්න", deleteGroup: "Group එක Delete කරන්න",
+              stripDirect: "Direct", stripGroup: "Group", clearChat: "Chat Clear කරන්න", leaveGroup: "Group එකෙන් אයින් වෙන්න", deleteGroup: "Group එක Delete කරන්න",
               modeDirect: "MODE: DIRECT CHAT", modeGroup: "MODE: PRIVATE GROUP", modeGlobal: "MODE: GLOBAL HUB", modeAnnouncement: "MODE: ANNOUNCEMENT", inputPlaceholder: "පණිවිඩයක් ලියන්න...",
               role: "පර්යන්ත පාලක", dmFeedTitle: "සම්බන්ධිත පරිශීලකයින් (DMs)", groupFeedTitle: "සමූහ නාලිකා (GROUPS)", newGroupBtn: "නව සමූහයක්",
               profileHeader: "පැතිකඩ වෙනස් කිරීම", chooseImg: "ඡායාරූපයක් තෝරන්න", namePlaceholder: "ඔයාගේ නම...", saveBtn: "විස්තර සුරකින්න", logoutBtn: "Log Out වෙන්න",
               createNodeTitle: "නව සමූහයක් සෑදීම", groupNamePlaceholder: "Group එකේ නම ඇතුළත් කරන්න...", selectMembers: "සමූහ සාමාජිකයන් තෝරන්න:", createGroupBtn: "Group එක සාදන්න",
-              loginFailed: "ලොග් වීම අසාර්ථකයි! ❌", enterGroupName: "නමක් ඇතුළත් කරන්න!", selectMemberAlert: "සාමාජිකයෙක් තෝරන්න!",
-              confirmClearChat: "මෙම කතාබහේ ඇති සියලුම පණිවිඩ මකා දැමීමට ඔබට විශ්වාසද? ⚠️", chatCleared: "Chat එක සාර්ථකව Clear කලා! 🧹",
-              confirmLeaveGroup: "සමූහයෙන් ඉවත් වීමට ඔබට විශ්වාසද? 🚪", leftGroup: "ඔබ සමූහයෙන් සාර්ථකව ඉවත් වුණා!",
-              confirmDeleteGroup: "මෙම සමූහය සහ එහි ඇති සියලුම දත්ත සම්පූර්ණයෙන්ම පද්ධතියෙන් ඉවත් කිරීමට ඔබට විශ්වාසද? 🔥", groupDeleted: "සමූහය සාර්ථකව විනාශ කලා!",
-              confirmDeleteMsg: "මැසේජ් එක මකන්නද?", uploadingStream: "ගොනුව අප්ලෝඩ් වෙමින් පවතී... ⏳"
+              loginFailed: "ලොග් වීම අසාර්ථකයි! ❌", enterGroupName: "නමක් ඇතුළත් කරන්න!", selectMemberAlert: "සාමාජිකයෙක් තෝරන්න!", confirmClearChat: "මෙම කතාබහේ ඇති සියලුම පණිවිඩ මකා දැමීමට ඔබට විශ්වාසද? ⚠️", chatCleared: "Chat එක සාර්ථකව Clear කලා! 🧹", confirmLeaveGroup: "සමූහයෙන් ඉවත් වීමට ඔබට විශ්වාසද? 🚪", leftGroup: "ඔබ සමූහයෙන් සාර්ථකව ඉවත් වුණා!", confirmDeleteGroup: "මෙම සමූහය සහ එහි ඇති සියලුම දත්ත සම්පූර්ණයෙන්ම පද්ධතියෙන් ඉවත් කිරීමට ඔබට විශ්වාසද? 🔥", groupDeleted: "සමූහය සාර්ථකව විනාශ කලා!", confirmDeleteMsg: "මැසේජ් එක මකන්නද?", uploadingStream: "ගොනුව අප්ලෝඩ් වෙමින් පවතී... ⏳"
           },
           en: {
               loginTitle: "YALUWO CHAT", loginEmail: "Your Email Address...", loginBtn: "Log In Now", noAccount: "Don't have an account? ", signUpLink: "Sign Up",
@@ -370,18 +368,15 @@
               role: "Terminal Controller", dmFeedTitle: "ONLINE_TERMINALS (DMs)", groupFeedTitle: "CHANNELS (GROUPS)", newGroupBtn: "NEW GROUP",
               profileHeader: "CONSOLE_MUTATION", chooseImg: "Choose Image Source", namePlaceholder: "Your Identity Name...", saveBtn: "Save Profile Data", logoutBtn: "Disconnect Node",
               createNodeTitle: "CREATE_CUSTOM_NODE", groupNamePlaceholder: "Enter unique channel name...", selectMembers: "Select Group Members:", createGroupBtn: "Initialize Group",
-              loginFailed: "Login failed! Please check credentials. ❌", enterGroupName: "Please enter a group name!", selectMemberAlert: "Please select at least one member!",
-              confirmClearChat: "Are you sure you want to clear all message logs from this chat stream? ⚠️", chatCleared: "Chat structure cleared successfully! 🧹",
-              confirmLeaveGroup: "Are you sure you want to disconnect from this group? 🚪", leftGroup: "Successfully exited from the group node!",
-              confirmDeleteGroup: "Destroy group node and delete all stored binary packet streams? 🔥", groupDeleted: "Group terminal wiped completely!",
-              confirmDeleteMsg: "Do you want to delete this message?", uploadingStream: "Uploading binary stream... ⏳"
+              loginFailed: "Login failed! Please check credentials. ❌", enterGroupName: "Please enter a group name!", selectMemberAlert: "Please select at least one member!", confirmClearChat: "Are you sure you want to clear all message logs from this chat stream? ⚠️", chatCleared: "Chat structure cleared successfully! 🧹", confirmLeaveGroup: "Are you sure you want to disconnect from this group? 🚪", leftGroup: "Successfully exited from the group node!", confirmDeleteGroup: "Destroy group node and delete all stored binary packet streams? 🔥", groupDeleted: "Group terminal wiped completely!", confirmDeleteMsg: "Do you want to delete this message?", uploadingStream: "Uploading binary stream... ⏳"
           }
       };
 
       function getNameColor(name) {
-        let hash = 0; for (let i = 0; i < name.length; i++) { hash = name.charCodeAt(i) + ((hash << 5) - hash); }
-        const colors = ['#ff4d5e', '#fd7e14', '#a855f7', '#ec4899', '#00f0ff', '#00ff87', '#3b82f6'];
-        return colors[Math.abs(hash) % colors.length];
+          let hash = 0;
+          for (let i = 0; i < name.length; i++) { hash = name.charCodeAt(i) + ((hash << 5) - hash); }
+          const colors = ['#ff4d5e', '#fd7e14', '#a855f7', '#ec4899', '#00f0ff', '#00ff87', '#3b82f6'];
+          return colors[Math.abs(hash) % colors.length];
       }
 
       const loginWrapper = document.getElementById('loginScreenWrapper');
@@ -390,569 +385,905 @@
       const profileModalOverlay = document.getElementById('profileModalOverlay');
       const createGroupModalOverlay = document.getElementById('createGroupModalOverlay');
       const groupInfoModalOverlay = document.getElementById('groupInfoModalOverlay');
-      
       const chatHeaderTitleBox = document.getElementById('chatHeaderTitleBox');
       const infoModalGroupName = document.getElementById('infoModalGroupName');
       const infoAboutDisplay = document.getElementById('infoAboutDisplay');
-      const editAboutTextarea = document.getElementById('editAboutTextarea');
-      const btnSaveAbout = document.getElementById('btnSaveAbout');
-      const infoMemberCount = document.getElementById('infoMemberCount');
-      const infoMembersContainer = document.getElementById('infoMembersContainer');
 
-      const headerName = document.getElementById('headerName');
-      const headerAvatarContainer = document.getElementById('headerAvatarContainer');
-      const modalAvatarPreview = document.getElementById('modalAvatarPreview');
-      const modalAvatarPlaceholder = document.getElementById('modalAvatarPlaceholder');
-      const profileNameInput = document.getElementById('profileNameInput');
-      const profilePicInput = document.getElementById('profilePicInput');
-      const loginEmailInput = document.getElementById('loginEmail');
-      const loginPasswordInput = document.getElementById('loginPassword');
-      const signUpEmailInput = document.getElementById('signUpEmail');
-      const signUpPasswordInput = document.getElementById('signUpPassword');
-      const signUpConfirmPasswordInput = document.getElementById('signUpConfirmPassword');
-      const startChatBtn = document.getElementById('startChatBtn');
-      const submitSignUpBtn = document.getElementById('submitSignUpBtn');
+      const messagesBox = document.getElementById('messages');
       const messageInput = document.getElementById('messageInput');
       const sendBtn = document.getElementById('sendBtn');
-      const messagesBox = document.getElementById('messages');
-      const mediaInput = document.getElementById('mediaInput');
-      const cameraInput = document.getElementById('cameraInput');
-      const attachBtn = document.getElementById('attachBtn');
-      const camBtn = document.getElementById('camBtn');
-      const btnGroupMode = document.getElementById('btnGroupMode');
-      const btnDirectMode = document.getElementById('btnDirectMode');
       const usersListContainer = document.getElementById('usersListContainer');
-      const titleFeedText = document.getElementById('titleFeedText');
-      const openGroupModalBtn = document.getElementById('openGroupModalBtn');
+      const btnDirectMode = document.getElementById('btnDirectMode');
+      const btnGroupMode = document.getElementById('btnGroupMode');
+      const activeChatBadge = document.getElementById('activeChatBadge');
       const chatMainTitle = document.getElementById('chatMainTitle');
       const chatSubTitle = document.getElementById('chatSubTitle');
-      const activeChatBadge = document.getElementById('activeChatBadge');
-      const chatTheaterFrame = document.getElementById('chatTheaterFrame');
-      const newGroupNameInput = document.getElementById('newGroupNameInput');
-      const newGroupAboutInput = document.getElementById('newGroupAboutInput');
-      const memberSelectListContainer = document.getElementById('memberSelectListContainer');
-      const submitCreateGroupBtn = document.getElementById('submitCreateGroupBtn');
-
+      
       const clearChatBtn = document.getElementById('clearChatBtn');
       const leaveGroupBtn = document.getElementById('leaveGroupBtn');
       const deleteGroupBtn = document.getElementById('deleteGroupBtn');
+      const openGroupModalBtn = document.getElementById('openGroupModalBtn');
       
       const groupRulesBanner = document.getElementById('groupRulesBanner');
       const rulesTextDisplay = document.getElementById('rulesTextDisplay');
       const editRulesBtn = document.getElementById('editRulesBtn');
 
+      // --- ImgBB Image Upload Core ---
+      async function uploadToImgBB(file) {
+          const formData = new FormData();
+          formData.append("image", file);
+          try {
+              const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+                  method: "POST",
+                  body: formData
+              });
+              const data = await res.json();
+              if (data.success) {
+                  return data.data.url;
+              } else {
+                  throw new Error(data.error.message);
+              }
+          } catch (e) {
+              console.error("ImgBB Upload Exception:", e);
+              return null;
+          }
+      }
+
+      function getActiveDatabaseRefPath() {
+          if(currentMode === 'direct') {
+              const pairID = currentUserUID < selectedTargetID ? `${currentUserUID}_${selectedTargetID}` : `${selectedTargetID}_${currentUserUID}`;
+              return `direct_messages/${pairID}`;
+          } else {
+              return `group_messages/${selectedTargetID}`;
+          }
+      }
+
+      function applyLanguagePack() {
+          const pack = dictionary[currentLanguage];
+          
+          document.getElementById('langLoginTitle').innerText = pack.loginTitle;
+          document.getElementById('loginEmail').placeholder = pack.loginEmail;
+          document.getElementById('startChatBtn').innerText = pack.loginBtn;
+          document.getElementById('langNoAccountText').innerHTML = `${pack.noAccount} <a id="goToSignUp">${pack.signUpLink}</a>`;
+          
+          document.getElementById('langSignUpTitle').innerText = pack.signUpTitle;
+          document.getElementById('signUpEmail').placeholder = pack.signNewEmail;
+          document.getElementById('signUpPassword').placeholder = pack.signPass;
+          document.getElementById('signUpConfirmPassword').placeholder = pack.signConf;
+          document.getElementById('submitSignUpBtn').innerText = pack.signBtn;
+          document.getElementById('langHaveAccountText').innerHTML = `${pack.haveAccount} <a id="goToLogin">${pack.loginLink}</a>`;
+          
+          document.getElementById('langStripDirect').innerText = pack.stripDirect;
+          document.getElementById('langStripGroup').innerText = pack.stripGroup;
+          document.getElementById('langBtnClear').innerText = pack.clearChat;
+          document.getElementById('langBtnLeave').innerText = pack.leaveGroup;
+          document.getElementById('langBtnDelete').innerText = pack.deleteGroup;
+          messageInput.placeholder = pack.inputPlaceholder;
+          document.getElementById('langTerminalRole').innerText = pack.role;
+          document.getElementById('langNewGroupBtn').innerText = pack.newGroupBtn;
+          
+          document.getElementById('langChooseImg').innerText = pack.chooseImg;
+          document.getElementById('profileNameInput').placeholder = pack.namePlaceholder;
+          document.getElementById('saveProfileBtn').innerText = pack.saveBtn;
+          document.getElementById('logoutBtn').innerText = pack.logoutBtn;
+          
+          document.getElementById('newGroupNameInput').placeholder = pack.groupNamePlaceholder;
+          document.getElementById('langSelectMembersText').innerText = pack.selectMembers;
+          document.getElementById('submitCreateGroupBtn').innerText = pack.createGroupBtn;
+
+          bindAuthToggleDOMs();
+          refreshDynamicUIHeadings();
+      }
+
+      function bindAuthToggleDOMs() {
+          const gsu = document.getElementById('goToSignUp');
+          if(gsu) gsu.onclick = () => { loginWrapper.style.display = 'none'; signUpWrapper.style.display = 'block'; };
+          const gtl = document.getElementById('goToLogin');
+          if(gtl) gtl.onclick = () => { signUpWrapper.style.display = 'none'; loginWrapper.style.display = 'block'; };
+      }
+
+      function refreshDynamicUIHeadings() {
+          const pack = dictionary[currentLanguage];
+          const feedTitleText = document.getElementById('titleFeedText');
+          
+          if(currentMode === 'direct') {
+              activeChatBadge.innerText = pack.modeDirect;
+              if(feedTitleText) feedTitleText.innerText = pack.dmFeedTitle;
+          } else {
+              if(selectedTargetID === 'global_hub') activeChatBadge.innerText = pack.modeGlobal;
+              else if(selectedTargetID === 'system_announcements') activeChatBadge.innerText = pack.modeAnnouncement;
+              else activeChatBadge.innerText = pack.modeGroup;
+              
+              if(feedTitleText) feedTitleText.innerText = pack.groupFeedTitle;
+          }
+      }
+
+      document.getElementById('languageToggleBtn').onclick = () => {
+          currentLanguage = currentLanguage === 'si' ? 'en' : 'si';
+          applyLanguagePack();
+          loadUsersAndChannelsList();
+      };
+
+      onAuthStateChanged(auth, (user) => {
+          if (user) {
+              currentUserUID = user.uid;
+              myName = user.displayName || user.email.split('@')[0];
+              myPhotoURL = user.photoURL || "";
+              
+              document.getElementById('headerName').innerText = myName;
+              const hAvatarContainer = document.getElementById('headerAvatarContainer');
+              if(myPhotoURL) {
+                  hAvatarContainer.innerHTML = `<img src="${myPhotoURL}" alt="Avatar">`;
+              } else {
+                  hAvatarContainer.innerHTML = `<div class="alt-header-avatar" style="background:${getNameColor(myName)}; display:flex; justify-content:center; align-items:center; font-weight:bold; height:100%; width:100%; border-radius:18px;">${myName.charAt(0).toUpperCase()}</div>`;
+              }
+
+              loginWrapper.style.display = 'none';
+              signUpWrapper.style.display = 'none';
+              chatWrapper.style.display = 'grid';
+              
+              update(ref(db, `users/${user.uid}`), {
+                  uid: user.uid,
+                  name: myName,
+                  email: user.email,
+                  photoURL: myPhotoURL,
+                  lastSeen: Date.now()
+              });
+
+              onValue(ref(db, 'users'), (snapshot) => {
+                  if(snapshot.exists()) { cachedAllUsers = snapshot.val(); }
+                  loadUsersAndChannelsList();
+              });
+              
+          } else {
+              loginWrapper.style.display = 'block';
+              chatWrapper.style.display = 'none';
+          }
+      });
+
+      document.getElementById('startChatBtn').onclick = () => {
+          const email = document.getElementById('loginEmail').value.trim();
+          const pass = document.getElementById('loginPassword').value.trim();
+          if(email && pass) {
+              signInWithEmailAndPassword(auth, email, pass).catch(err => {
+                  alert(dictionary[currentLanguage].loginFailed + "\n" + err.message);
+              });
+          }
+      };
+
+      document.getElementById('submitSignUpBtn').onclick = () => {
+          const email = document.getElementById('signUpEmail').value.trim();
+          const pass = document.getElementById('signUpPassword').value.trim();
+          const conf = document.getElementById('signUpConfirmPassword').value.trim();
+          if(pass !== conf) { alert("Passwords do not match!"); return; }
+          if(email && pass) {
+              createUserWithEmailAndPassword(auth, email, pass).then((cred) => {
+                  updateProfile(cred.user, { displayName: email.split('@')[0] });
+              }).catch(err => alert(err.message));
+          }
+      };
+
+      btnDirectMode.onclick = () => {
+          currentMode = "direct";
+          btnDirectMode.classList.add('active');
+          btnGroupMode.classList.remove('active');
+          openGroupModalBtn.style.display = 'none';
+          
+          document.getElementById('chatTheaterFrame').className = "chat-theater theme-direct";
+          
+          const list = document.getElementById('usersListContainer');
+          list.className = "user-list theme-direct-list";
+          
+          selectedTargetID = "";
+          messagesBox.innerHTML = "";
+          chatMainTitle.innerText = "SECURE_LINK_STREAM";
+          chatSubTitle.innerText = "// P2P TERMINAL";
+          
+          clearChatBtn.style.display = 'none';
+          leaveGroupBtn.style.display = 'none';
+          deleteGroupBtn.style.display = 'none';
+          groupRulesBanner.style.display = 'none';
+          chatHeaderTitleBox.classList.remove('clickable-group');
+          
+          applyLanguagePack();
+          loadUsersAndChannelsList();
+      };
+
+      btnGroupMode.onclick = () => {
+          currentMode = "group";
+          btnGroupMode.classList.add('active');
+          btnDirectMode.classList.remove('active');
+          openGroupModalBtn.style.display = 'block';
+          
+          document.getElementById('chatTheaterFrame').className = "chat-theater theme-group";
+          
+          const list = document.getElementById('usersListContainer');
+          list.className = "user-list theme-group-list";
+          
+          selectedTargetID = "global_hub";
+          selectedTargetName = "GLOBAL HUB";
+          chatMainTitle.innerText = "GLOBAL HUB";
+          chatSubTitle.innerText = "// PUBLIC STREAM";
+          
+          clearChatBtn.style.display = 'none';
+          leaveGroupBtn.style.display = 'none';
+          deleteGroupBtn.style.display = 'none';
+          groupRulesBanner.style.display = 'none';
+          chatHeaderTitleBox.classList.remove('clickable-group');
+          
+          applyLanguagePack();
+          loadUsersAndChannelsList();
+          listenToMessages();
+      };
+
+      function loadUsersAndChannelsList() {
+          usersListContainer.innerHTML = "";
+          
+          if(currentMode === "direct") {
+              Object.keys(cachedAllUsers).forEach(uid => {
+                  if(uid === currentUserUID) return;
+                  const u = cachedAllUsers[uid];
+                  const item = document.createElement('div');
+                  item.className = `user-item ${selectedTargetID === uid ? 'active' : ''}`;
+                  
+                  let avatarMark = "";
+                  if(u.photoURL) avatarMark = `<img src="${u.photoURL}" alt="U">`;
+                  else avatarMark = `<div class="user-alt-avatar" style="background:${getNameColor(u.name)}; color:white;">${u.name.charAt(0).toUpperCase()}</div>`;
+                  
+                  item.innerHTML = `${avatarMark}<div class="user-info"><h4>${u.name}</h4><p>// SECURE NODE</p></div>`;
+                  item.onclick = () => {
+                      selectedTargetID = uid;
+                      selectedTargetName = u.name;
+                      chatMainTitle.innerText = u.name.toUpperCase();
+                      chatSubTitle.innerText = "// PRIVACY LINK STABLE";
+                      
+                      clearChatBtn.style.display = 'inline-block';
+                      
+                      loadUsersAndChannelsList();
+                      listenToMessages();
+                  };
+                  usersListContainer.appendChild(item);
+              });
+          } else {
+              // Channels (Groups) 
+              const preChannels = [
+                  { id: 'global_hub', name: 'GLOBAL HUB', subtitle: '// PUBLIC CHAT ROOM', isPre: true },
+                  { id: 'system_announcements', name: 'ANNOUNCEMENTS', subtitle: '// READ ONLY CONSOLE', isPre: true }
+              ];
+              
+              preChannels.forEach(ch => {
+                  const item = document.createElement('div');
+                  item.className = `user-item ${selectedTargetID === ch.id ? 'active' : ''}`;
+                  item.innerHTML = `<div class="user-alt-avatar" style="background:#4b5563; color:white;"><i class="fa-solid fa-server"></i></div>
+                                    <div class="user-info"><h4>${ch.name}</h4><p>${ch.subtitle}</p></div>`;
+                  item.onclick = () => {
+                      selectedTargetID = ch.id;
+                      selectedTargetName = ch.name;
+                      chatMainTitle.innerText = ch.name;
+                      chatSubTitle.innerText = ch.subtitle;
+                      
+                      clearChatBtn.style.display = 'none';
+                      leaveGroupBtn.style.display = 'none';
+                      deleteGroupBtn.style.display = 'none';
+                      groupRulesBanner.style.display = 'none';
+                      chatHeaderTitleBox.classList.remove('clickable-group');
+                      
+                      loadUsersAndChannelsList();
+                      listenToMessages();
+                  };
+                  usersListContainer.appendChild(item);
+              });
+
+              onValue(ref(db, 'custom_groups'), (snapshot) => {
+                  if(currentMode !== 'group') return;
+                  
+                  const targetSubDOMs = usersListContainer.querySelectorAll('.custom-group-dom-item');
+                  targetSubDOMs.forEach(el => el.remove());
+                  
+                  if(snapshot.exists()) {
+                      const data = snapshot.val();
+                      Object.keys(data).forEach(gKey => {
+                          const g = data[gKey];
+                          if(g.members && g.members[currentUserUID]) {
+                              const item = document.createElement('div');
+                              item.className = `user-item custom-group-dom-item ${selectedTargetID === gKey ? 'active' : ''}`;
+                              item.innerHTML = `<div class="user-alt-avatar" style="background:${getNameColor(g.groupName)}; color:white;"><i class="fa-solid fa-users-rectangle"></i></div>
+                                                <div class="user-info"><h4>${g.groupName}</h4><p>// CUSTOM GROUP NODE</p></div>`;
+                              
+                              item.onclick = () => {
+                                  selectedTargetID = gKey;
+                                  selectedTargetName = g.groupName;
+                                  activeGroupMeta = g;
+                                  
+                                  chatMainTitle.innerText = g.groupName.toUpperCase();
+                                  chatSubTitle.innerText = "// CONNECTED NODE";
+                                  
+                                  clearChatBtn.style.display = 'inline-block';
+                                  chatHeaderTitleBox.classList.add('clickable-group');
+                                  
+                                  if(g.owner === currentUserUID) {
+                                      deleteGroupBtn.style.display = 'inline-block';
+                                      leaveGroupBtn.style.display = 'none';
+                                      editRulesBtn.style.display = 'inline-block';
+                                  } else {
+                                      deleteGroupBtn.style.display = 'none';
+                                      leaveGroupBtn.style.display = 'inline-block';
+                                      editRulesBtn.style.display = (g.admins && g.admins[currentUserUID]) ? 'inline-block' : 'none';
+                                  }
+
+                                  if(g.rules) {
+                                      groupRulesBanner.style.display = 'flex';
+                                      rulesTextDisplay.innerText = g.rules;
+                                  } else {
+                                      groupRulesBanner.style.display = 'flex';
+                                      rulesTextDisplay.innerText = "No rules set yet.";
+                                  }
+
+                                  loadUsersAndChannelsList();
+                                  listenToMessages();
+                              };
+                              usersListContainer.appendChild(item);
+                          }
+                      });
+                  }
+              });
+          }
+      }
+
+      let activeMessagesRef = null;
+      function listenToMessages() {
+          if(!selectedTargetID) return;
+          messagesBox.innerHTML = "";
+          
+          if(activeMessagesRef) { activeMessagesRef = null; }
+          const path = getActiveDatabaseRefPath();
+          
+          onValue(ref(db, path), (snapshot) => {
+              if(currentMode === 'group' && selectedTargetID !== 'global_hub' && selectedTargetID !== 'system_announcements') {
+                  if(!activeGroupMeta || selectedTargetID !== activeGroupMeta.groupID) return;
+              }
+              
+              messagesBox.innerHTML = "";
+              if(snapshot.exists()) {
+                  const data = snapshot.val();
+                  Object.keys(data).forEach(key => {
+                      const msgData = data[key];
+                      const isMe = msgData.senderID === currentUserUID;
+                      
+                      const rowDiv = document.createElement('div');
+                      rowDiv.className = `msg-row ${isMe ? 'outgoing' : 'incoming'}`;
+                      
+                      const profileDiv = document.createElement('div');
+                      profileDiv.className = 'profile-area';
+                      
+                      let senderPic = msgData.senderPhoto || "";
+                      let senderInitial = (msgData.senderName || "U").charAt(0).toUpperCase();
+                      
+                      if(senderPic) {
+                          profileDiv.innerHTML = `<img src="${senderPic}" class="avatar-img" alt="P">`;
+                      } else {
+                          profileDiv.innerHTML = `<div class="avatar-txt" style="background:${getNameColor(msgData.senderName || 'U')}">${senderInitial}</div>`;
+                      }
+                      
+                      const contentDiv = document.createElement('div');
+                      contentDiv.className = 'msg-content';
+                      
+                      if(!isMe) {
+                          const nameBubble = document.createElement('div');
+                          nameBubble.className = 'sender-name-bubble';
+                          nameBubble.innerText = msgData.senderName || "Unknown";
+                          contentDiv.appendChild(nameBubble);
+                      }
+                      
+                      const bubble = document.createElement('div');
+                      bubble.className = 'bubble';
+                      
+                      if(msgData.type === 'text') {
+                          bubble.innerText = msgData.message;
+                      } else if(msgData.type === 'image') {
+                          bubble.innerHTML = `<img src="${msgData.mediaURL}" class="chat-media" alt="Media Asset">`;
+                          bubble.querySelector('img').onclick = () => window.open(msgData.mediaURL, '_blank');
+                      } else if(msgData.type === 'video') {
+                          bubble.innerHTML = `<video src="${msgData.mediaURL}" controls class="chat-media"></video>`;
+                      }
+                      
+                      contentDiv.appendChild(bubble);
+                      
+                      const meta = document.createElement('div');
+                      meta.className = 'msg-meta-container';
+                      
+                      const timeSpan = document.createElement('span');
+                      timeSpan.className = 'msg-time';
+                      const d = new Date(msgData.timestamp);
+                      timeSpan.innerText = `${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')} ${msgData.isEdited ? '(Edited)' : ''}`;
+                      meta.appendChild(timeSpan);
+                      
+                      const actions = document.createElement('span');
+                      actions.className = 'msg-actions';
+                      let hasActions = false;
+                      
+                      if(isMe) {
+                          actions.innerHTML = ` | ${msgData.type === 'text' ? `<span class="e-btn">Edit</span> | ` : ''}<span class="d-btn">Delete</span>`;
+                          if(msgData.type === 'text') {
+                              actions.querySelector('.e-btn').onclick = () => {
+                                  messageInput.value = msgData.message;
+                                  isEditMode = true;
+                                  editMessageKey = key;
+                                  sendBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
+                                  messageInput.focus();
+                              };
+                          }
+                          actions.querySelector('.d-btn').onclick = () => {
+                              if(confirm(dictionary[currentLanguage].confirmDeleteMsg)) {
+                                  remove(ref(db, `${getActiveDatabaseRefPath()}/${key}`));
+                              }
+                          };
+                          hasActions = true;
+                      } else {
+                          if(currentMode === 'group' && activeGroupMeta) {
+                              const isOwner = activeGroupMeta.owner === currentUserUID;
+                              const isAdmin = activeGroupMeta.admins && activeGroupMeta.admins[currentUserUID];
+                              if(isOwner || isAdmin) {
+                                  actions.innerHTML = ` | <span class="d-btn">Delete (Admin)</span>`;
+                                  actions.querySelector('.d-btn').onclick = () => {
+                                      if(confirm("Delete this user's message as administrator?")) {
+                                          remove(ref(db, `${getActiveDatabaseRefPath()}/${key}`));
+                                      }
+                                  };
+                                  hasActions = true;
+                              }
+                          }
+                      }
+                      
+                      if(hasActions) meta.appendChild(actions);
+                      contentDiv.appendChild(meta);
+                      rowDiv.appendChild(profileDiv);
+                      rowDiv.appendChild(contentDiv);
+                      messagesBox.appendChild(rowDiv);
+                  });
+                  messagesBox.scrollTop = messagesBox.scrollHeight;
+              } else {
+                  messagesBox.innerHTML = `<div style="text-align:center; color:rgba(255,255,255,0.2); font-size:0.85rem; margin-top:20px;">// NO TERMINAL LOGS FOUND</div>`;
+              }
+          });
+      }
+
+      function handlePacketTransmission() {
+          const txt = messageInput.value.trim();
+          if(!txt || !selectedTargetID) return;
+          
+          if(selectedTargetID === 'system_announcements') {
+              alert("This is a read-only announcement module.");
+              return;
+          }
+          
+          const path = getActiveDatabaseRefPath();
+          
+          if(isEditMode) {
+              update(ref(db, `${path}/${editMessageKey}`), {
+                  message: txt,
+                  isEdited: true
+              }).then(() => {
+                  isEditMode = false;
+                  editMessageKey = "";
+                  sendBtn.innerHTML = '<i class="fa-solid fa-arrow-up-long"></i>';
+                  messageInput.value = "";
+              });
+          } else {
+              const pack = {
+                  senderID: currentUserUID,
+                  senderName: myName,
+                  senderPhoto: myPhotoURL,
+                  message: txt,
+                  type: 'text',
+                  timestamp: Date.now()
+              };
+              push(ref(db, path), pack);
+              messageInput.value = "";
+          }
+      }
+
+      sendBtn.onclick = handlePacketTransmission;
+      messageInput.onkeydown = (e) => { if(e.key === 'Enter') handlePacketTransmission(); };
+
+      // --- Binary File Attachment Module via ImgBB ---
+      const mediaInput = document.getElementById('mediaInput');
+      const cameraInput = document.getElementById('cameraInput');
+
+      document.getElementById('attachBtn').onclick = () => mediaInput.click();
+      document.getElementById('camBtn').onclick = () => cameraInput.click();
+
+      mediaInput.onchange = (e) => processBinaryMediaFile(e.target.files[0]);
+      cameraInput.onchange = (e) => processBinaryMediaFile(e.target.files[0]);
+
+      async function processBinaryMediaFile(file) {
+          if(!file || !selectedTargetID) return;
+          
+          // Image / Video Filtering
+          const isImg = file.type.startsWith('image/');
+          const isVid = file.type.startsWith('video/');
+          
+          if (!isImg && !isVid) {
+              alert("Unsupported media element format.");
+              return;
+          }
+
+          const placeholderKey = push(ref(db, getActiveDatabaseRefPath())).key;
+          update(ref(db, `${getActiveDatabaseRefPath()}/${placeholderKey}`), {
+              senderID: currentUserUID, senderName: myName, senderPhoto: myPhotoURL,
+              message: dictionary[currentLanguage].uploadingStream, type: 'text', timestamp: Date.now()
+          });
+
+          if (isImg) {
+              // ImgBB හරහා Upload කිරීම සිදු කරයි
+              const remoteURL = await uploadToImgBB(file);
+              if (remoteURL) {
+                  update(ref(db, `${getActiveDatabaseRefPath()}/${placeholderKey}`), {
+                      message: "", type: 'image', mediaURL: remoteURL
+                  });
+              } else {
+                  remove(ref(db, `${getActiveDatabaseRefPath()}/${placeholderKey}`));
+              }
+          } else if (isVid) {
+              // Video සදහා පැරණි Firebase Storage එකම ක්‍රියාත්මක වේ
+              const storagePath = `chat_media/${Date.now()}_${file.name}`;
+              const fileRef = sRef(storage, storagePath);
+              uploadBytes(fileRef, file).then(() => {
+                  getDownloadURL(fileRef).then(remoteURL => {
+                      update(ref(db, `${getActiveDatabaseRefPath()}/${placeholderKey}`), {
+                          message: "", type: 'video', mediaURL: remoteURL
+                      });
+                  });
+              }).catch(() => remove(ref(db, `${getActiveDatabaseRefPath()}/${placeholderKey}`)));
+          }
+      }
+
+      // --- Emoji Panel Sub-Console Engine ---
       const emojiTriggerBtn = document.getElementById('emojiTriggerBtn');
       const emojiPanelContainer = document.getElementById('emojiPanelContainer');
       const emojiPanelTabs = document.getElementById('emojiPanelTabs');
       const emojiGridContent = document.getElementById('emojiGridContent');
-      const languageToggleBtn = document.getElementById('languageToggleBtn');
 
-      const emojiDataPack = {
-          "😊": ["😀","😃","😄","😁","😆","😅","😂","🤣","🥲","😊","😇","🙂","🙃","😉","😌","😍","🥰","😘","😗","😙","😚","😋","😛","😝","😜","🤪","🤨","🧐","🤓","😎","🥸","🤩","🥳","😏","😒","😞","😔","😟","😕","🙁","☹️","😣","😖","😫","😩","🥺","😢","😭","😮‍💨","😤","😠","😡","🤬","🤯","😳","🥵","🥶","😱","😨","😰","😥","😓","🤗","🤔","🫣","🤭","🫢","🫡","🤫","🫠","🤥","😶","😐","😑","😬","🫨","😮","😯","😲","🥱","😴","🤤","😪","😵","😵‍💫","🫥","🤐","🥴","🤢","🤮","🤧","😷","🤒","🤕","🤑","🤠","😈","👿","👹","👹","🤡","💩","👻","💀","☠️","👽","👾","🤖"],
-          "👋": ["👋","🤚","🖐️","✋","🖖","👌","🤌","🤏","✌️","🤞","🫰","🤟","🤘","🤙","👈","👉","👆","🖕","👇","☝️","👍","👎","✊","👊","🤛","🤜","👏","🙌","👐","🤲","🤝","🙏","✍️","💅","🤳","💪","🦾","🦿","🦵","🦶","👂","🦻","👃","🧠","🫀","🫁","🦷","🦴","👀","👁️","👅","👄","💋","🩸"],
-          "❤️": ["❤️","🩷","🧡","💛","💚","💙","🩵","💜","🖤","🩶","🤍","🤎","💔","❤️‍🔥","❤️‍🩹","❣️","💕","💞","💓","💗","💖","💘","💝","💟","☮️","✝️","☪️","🕉️","☸️","✡️","🔯","🕎","☯️","☦️","🛐","⛎","♈","♉","♊","♋","♌","♍","♎","♏","♐","♑","♒","♓","🆔","⚛️","🫧"],
-          "🐱": ["🐶","🐱","🐭","🐹","🐰","🦊","🐻","🐼","🐻‍❄️","🐨","🐯","🦁","🐮","🐷","🐽","🐸","🐵","🙈","🙉","🙊","🐒","🐔","🐧","🐦","🐤","🐣","🐥","🦆"," eagles","🦉","🦤","🪶","🦩","🦚","🦜","🐊","🐢","🦎","🐍","🐲","🐉","🦕","🦖","🐳","🐋","🐬","🦭","🐟","🐠","🐡","🦈","🐙","🐚","🪼","🦀","🦞","🦐","🦑","🦋","🐌","🐛","🐜","🐝","🪲","🐞","👑","🕷️","🕸️","🦂","🦟","🪰","🪱","🦠"]
+      const emojiVault = {
+          faces: ["😀","😃","😄","😁","😆","😅","😂","🤣","😊","😇","🙂","🙃","😉","😌","😍","🥰","😘","😗","😙","😚","😋","😛","😝","😜","🤪","🤨","🧐","🤓","😎","🤩","🥳","😏","😒","😞","😔","😟","😕","🙁","☹️","😣","😖","😫","😩","🥺","😢","😭","😤","😠","😡","🤬","🤯","😳","🥵","🥶","😱","😨","😰","😥","😓","🤗","🤔","🤭","🤫","🤥","😶","😐","😑","😬","🙄","😯","😦","😧","😮","😲","🥱","😴","🤤","😪","😵","🤐","🥴","🤢","🤮","🤧","😷","🤒","🤕"],
+          hands: ["👋","🤚","🖐️","✋","🖖","👌","🤏","✌️","🤞","🤟","🤘","🤙","👈","👉","👆","🖕","👇","☝️","👍","👎","✊","👊","🤛","🤜","👏","🙌","👐","🤲","🤝","🙏","✍️","💅","🤳","💪"],
+          hearts: ["❤️","🧡","💛","💚","💙","💜","🖤","🤍","🤎","💔","❤️‍🔥","❤️‍🩹","❣️","💕","💞","💓","💗","💖","💘","💝","💟"]
       };
 
-      function applyLanguageTranslations(lang) {
-          currentLanguage = lang;
-          const t = dictionary[lang];
-          
-          if(document.getElementById('langLoginTitle')) document.getElementById('langLoginTitle').innerText = t.loginTitle;
-          loginEmailInput.placeholder = t.loginEmail;
-          startChatBtn.innerText = t.loginBtn;
-          if(document.getElementById('langNoAccountText')) document.getElementById('langNoAccountText').innerHTML = `${t.noAccount} <a id="goToSignUp">${t.signUpLink}</a>`;
-          if(document.getElementById('langSignUpTitle')) document.getElementById('langSignUpTitle').innerText = t.signUpTitle;
-          signUpEmailInput.placeholder = t.signNewEmail;
-          signUpPasswordInput.placeholder = t.signPass;
-          signUpConfirmPasswordInput.placeholder = t.signConf;
-          submitSignUpBtn.innerText = t.signBtn;
-          if(document.getElementById('langHaveAccountText')) document.getElementById('langHaveAccountText').innerHTML = `${t.haveAccount} <a id="goToLogin">${t.loginLink}</a>`;
-          
-          if(document.getElementById('goToSignUp')) document.getElementById('goToSignUp').onclick = () => { loginWrapper.style.display = "none"; signUpWrapper.style.display = "block"; };
-          if(document.getElementById('goToLogin')) document.getElementById('goToLogin').onclick = () => { signUpWrapper.style.display = "none"; loginWrapper.style.display = "block"; };
+      emojiTriggerBtn.onclick = (e) => {
+          e.stopPropagation();
+          const isHidden = window.getComputedStyle(emojiPanelContainer).display === 'none';
+          emojiPanelContainer.style.display = isHidden ? 'flex' : 'none';
+          if(isHidden) renderEmojiTab('faces');
+      };
 
-          document.getElementById('langStripDirect').innerText = t.stripDirect;
-          document.getElementById('langStripGroup').innerText = t.stripGroup;
-          document.getElementById('langBtnClear').innerText = t.clearChat;
-          document.getElementById('langBtnLeave').innerText = t.leaveGroup;
-          document.getElementById('langBtnDelete').innerText = t.deleteGroup;
-          document.getElementById('langTerminalRole').innerText = t.role;
-          document.getElementById('langNewGroupBtn').innerText = t.newGroupBtn;
-          
-          document.getElementById('langChooseImg').innerText = t.chooseImg;
-          profileNameInput.placeholder = t.namePlaceholder;
-          document.getElementById('saveProfileBtn').innerText = t.saveBtn;
-          document.getElementById('logoutBtn').innerText = t.logoutBtn;
-          newGroupNameInput.placeholder = t.groupNamePlaceholder;
-          document.getElementById('langSelectMembersText').innerText = t.selectMembers;
-          submitCreateGroupBtn.innerText = t.createGroupBtn;
-
-          if (currentMode === "direct") {
-              titleFeedText.innerText = t.dmFeedTitle;
-              activeChatBadge.innerText = t.modeDirect;
-          } else {
-              titleFeedText.innerText = t.groupFeedTitle;
-              if (selectedTargetID === "global") activeChatBadge.innerText = t.modeGlobal;
-              else if (selectedTargetID === "announcement") activeChatBadge.innerText = t.modeAnnouncement;
-              else activeChatBadge.innerText = t.modeGroup;
-          }
-          if(!isEditMode) messageInput.placeholder = t.inputPlaceholder;
-      }
-
-      languageToggleBtn.addEventListener('click', () => {
-          let nextLang = (currentLanguage === "si") ? "en" : "si";
-          applyLanguageTranslations(nextLang);
-      });
-
-      function setupEmojiPickerEngine() {
+      function renderEmojiTab(tabKey) {
           emojiPanelTabs.innerHTML = "";
-          let firstTab = true;
-          Object.keys(emojiDataPack).forEach(categoryIcon => {
-              const tabBtn = document.createElement('button');
-              tabBtn.className = `emoji-tab-btn ${firstTab ? 'active' : ''}`;
-              tabBtn.innerText = categoryIcon;
-              tabBtn.addEventListener('click', (e) => {
-                  e.preventDefault(); e.stopPropagation();
-                  document.querySelectorAll('.emoji-tab-btn').forEach(btn => btn.classList.remove('active'));
-                  tabBtn.classList.add('active');
-                  renderEmojiGrid(emojiDataPack[categoryIcon]);
-              });
-              emojiPanelTabs.appendChild(tabBtn);
-              if (firstTab) { renderEmojiGrid(emojiDataPack[categoryIcon]); firstTab = false; }
-          });
-      }
-
-      function renderEmojiGrid(emojisList) {
           emojiGridContent.innerHTML = "";
-          emojisList.forEach(emoji => {
-              const span = document.createElement('span');
-              span.className = "emoji-item";
-              span.innerText = emoji;
-              span.addEventListener('click', (e) => {
-                  e.preventDefault(); e.stopPropagation();
-                  messageInput.value += emoji;
+          
+          Object.keys(emojiVault).forEach(k => {
+              const tab = document.createElement('button');
+              tab.className = `emoji-tab-btn ${k === tabKey ? 'active' : ''}`;
+              tab.innerText = k.toUpperCase();
+              tab.onclick = (e) => { e.stopPropagation(); renderEmojiTab(k); };
+              emojiPanelTabs.appendChild(tab);
+          });
+          
+          emojiVault[tabKey].forEach(emo => {
+              const item = document.createElement('span');
+              item.className = 'emoji-item';
+              item.innerText = emo;
+              item.onclick = (e) => {
+                  e.stopPropagation();
+                  messageInput.value += emo;
+                  emojiPanelContainer.style.display = 'none';
                   messageInput.focus();
-              });
-              emojiGridContent.appendChild(span);
-          });
-      }
-
-      emojiTriggerBtn.addEventListener('click', (e) => {
-          e.preventDefault(); e.stopPropagation();
-          const disp = emojiPanelContainer.style.display;
-          emojiPanelContainer.style.display = (disp === "flex") ? "none" : "flex";
-      });
-
-      document.addEventListener('click', (e) => {
-          if(!emojiPanelContainer.contains(e.target) && e.target !== emojiTriggerBtn && !emojiTriggerBtn.contains(e.target)) {
-              emojiPanelContainer.style.display = "none";
-          }
-      });
-
-      setupEmojiPickerEngine();
-      applyLanguageTranslations("si");
-
-      function updateHeaderUI(name, photo) {
-          headerName.innerText = name;
-          if(photo) headerAvatarContainer.innerHTML = `<img src="${photo}" style="width:100%; height:100%; border-radius:18px; object-fit:cover;">`;
-          else headerAvatarContainer.innerHTML = `<div class="alt-header-avatar" style="background-color: ${getNameColor(name.toLowerCase())}; border-radius:18px; width:100%; height:100%; display:flex; justify-content:center; align-items:center; color:#fff; font-weight:bold;">${name.charAt(0).toUpperCase()}</div>`;
-      }
-
-      document.getElementById('headerProfileBtn').addEventListener('click', () => {
-          profileNameInput.value = myName;
-          if (myPhotoURL) { modalAvatarPreview.src = myPhotoURL; modalAvatarPreview.style.display = "block"; modalAvatarPlaceholder.style.display = "none"; }
-          else { modalAvatarPreview.style.display = "none"; modalAvatarPlaceholder.style.display = "flex"; modalAvatarPlaceholder.innerText = myName.charAt(0).toUpperCase(); modalAvatarPlaceholder.style.backgroundColor = getNameColor(myName.toLowerCase()); }
-          profileModalOverlay.style.display = "flex";
-      });
-      document.getElementById('closeModalBtn').addEventListener('click', () => { profileModalOverlay.style.display = "none"; });
-      openGroupModalBtn.addEventListener('click', () => { newGroupNameInput.value = ""; newGroupAboutInput.value = ""; renderMemberCheckboxes(); createGroupModalOverlay.style.display = "flex"; });
-      document.getElementById('closeGroupModalBtn').addEventListener('click', () => { createGroupModalOverlay.style.display = "none"; });
-      document.getElementById('closeGroupInfoModalBtn').addEventListener('click', () => { groupInfoModalOverlay.style.display = "none"; });
-
-      // [UPDATE] අලුතෙන් කෙනෙක් Sign Up වුණු සැනින් Auto Global groups වලට එකතු කිරීමේ නව Logic කොටස
-      onAuthStateChanged(auth, async (user) => {
-          if (user) {
-              currentUserUID = user.uid; myName = user.displayName ? user.displayName : user.email.split('@')[0]; myPhotoURL = user.photoURL ? user.photoURL : "";
-              updateHeaderUI(myName, myPhotoURL); 
-              
-              // 1. පරිශීලකයාගේ තොරතුරු සාමාන්‍ය පරිදි Realtime DB එකේ Update කිරීම
-              await update(ref(db, `users/${user.uid}`), { uid: user.uid, name: myName, photo: myPhotoURL, email: user.email, lastSeen: Date.now() });
-              
-              // 2. [AUTO ADD LOGIC] නව ගිණුමක් සෑදූ සැනින් 'global' සහ 'announcement' ගෲප් වල සාමාජික ලැයිස්තුවට එකතු කිරීම
-              await update(ref(db, `custom_groups/global/members`), { [user.uid]: true });
-              await update(ref(db, `custom_groups/announcement/members`), { [user.uid]: true });
-
-              loginWrapper.style.display = "none"; signUpWrapper.style.display = "none"; chatWrapper.style.display = "grid"; 
-              onValue(ref(db, 'users'), (snapshot) => { if(snapshot.exists()) cachedAllUsers = snapshot.val(); if(currentMode === "direct") loadRegisteredUsers(); else loadGroupChannelsList(); if(groupInfoModalOverlay.style.display === "flex") openGroupInfoPanel(); });
-          } else { loginWrapper.style.display = "block"; signUpWrapper.style.display = "none"; chatWrapper.style.display = "none"; }
-      });
-
-      startChatBtn.addEventListener('click', () => {
-         const email = loginEmailInput.value.trim(); const password = loginPasswordInput.value.trim();
-         if(email && password) { signInWithEmailAndPassword(auth, email, password).catch(() => alert(dictionary[currentLanguage].loginFailed)); }
-      });
-      submitSignUpBtn.addEventListener('click', () => {
-         const email = signUpEmailInput.value.trim(); const password = signUpPasswordInput.value.trim();
-         if(email && password) { createUserWithEmailAndPassword(auth, email, password).catch((e) => alert("Error: " + e.message)); }
-      });
-      document.getElementById('logoutBtn').addEventListener('click', () => signOut(auth));
-      document.getElementById('stripLogoutBtn').addEventListener('click', () => signOut(auth));
-
-      profilePicInput.addEventListener('change', (e) => { const file = e.target.files[0]; if(file) { modalAvatarPreview.src = URL.createObjectURL(file); modalAvatarPreview.style.display = "block"; modalAvatarPlaceholder.style.display = "none"; } });
-      document.getElementById('saveProfileBtn').addEventListener('click', async () => {
-          const newName = profileNameInput.value.trim(); if(!newName) return;
-          let finalPhotoURL = myPhotoURL; const file = profilePicInput.files[0];
-          if(file) { const fileRef = sRef(storage, `profile_pics/${currentUserUID}.jpg`); await uploadBytes(fileRef, file); finalPhotoURL = await getDownloadURL(fileRef); }
-          updateProfile(auth.currentUser, { displayName: newName, photoURL: finalPhotoURL }).then(() => { location.reload(); });
-      });
-
-      function getActiveDatabaseRefPath() {
-          if (selectedTargetID === "global") return 'messages/global';
-          if (selectedTargetID === "announcement") return 'messages/announcement';
-          else if (currentMode === "group") return `messages/custom_groups/${selectedTargetID}`;
-          else { const pathID = currentUserUID < selectedTargetID ? `${currentUserUID}_${selectedTargetID}` : `${selectedTargetID}_${currentUserUID}`; return `messages/direct/${pathID}`; }
-      }
-
-      function checkGroupPermissionsAndMuteState() {
-          if (currentMode !== "group") {
-              groupRulesBanner.style.display = "none";
-              messageInput.disabled = false;
-              chatHeaderTitleBox.classList.remove('clickable-group');
-              return;
-          }
-
-          chatHeaderTitleBox.classList.add('clickable-group');
-          groupRulesBanner.style.display = "flex";
-          const currentRules = (activeGroupMeta && activeGroupMeta.rules) ? activeGroupMeta.rules : "No rules set yet.";
-          rulesTextDisplay.innerText = currentRules;
-
-          const isOwner = activeGroupMeta && activeGroupMeta.creator === currentUserUID;
-          const isAdmin = activeGroupMeta && activeGroupMeta.admins && activeGroupMeta.admins[currentUserUID];
-          const isMuted = activeGroupMeta && activeGroupMeta.mutedUsers && activeGroupMeta.mutedUsers[currentUserUID];
-
-          if (isOwner || isAdmin) { editRulesBtn.style.display = "inline-block"; } 
-          else { editRulesBtn.style.display = "none"; }
-
-          if (selectedTargetID === "announcement" && !isOwner && !isAdmin) {
-              messageInput.disabled = true; messageInput.placeholder = "Only admins can post announcements here.";
-          } else if (isMuted) {
-              messageInput.disabled = true; messageInput.placeholder = "You have been MUTED in this group console.";
-          } else {
-              messageInput.disabled = false; messageInput.placeholder = dictionary[currentLanguage].inputPlaceholder;
-          }
-      }
-
-      editRulesBtn.addEventListener('click', () => {
-          const newRules = prompt("Enter new Group Rules packet:", rulesTextDisplay.innerText);
-          if (newRules !== null) { update(ref(db, `custom_groups/${selectedTargetID}`), { rules: newRules }); }
-      });
-
-      chatHeaderTitleBox.addEventListener('click', () => {
-          if (currentMode === "group" && selectedTargetID) { openGroupInfoPanel(); }
-      });
-
-      function openGroupInfoPanel() {
-          if (!activeGroupMeta) return;
-          infoModalGroupName.innerText = activeGroupMeta.groupName.toUpperCase();
-          const aboutTxt = activeGroupMeta.about ? activeGroupMeta.about : "No description provided stream.";
-          infoAboutDisplay.innerText = aboutTxt;
-
-          const isOwner = activeGroupMeta.creator === currentUserUID;
-          const isAdmin = activeGroupMeta.admins && activeGroupMeta.admins[currentUserUID];
-
-          if (isOwner || isAdmin) {
-              infoAboutDisplay.style.cursor = "pointer";
-              infoAboutDisplay.title = "Click to edit description";
-              infoAboutDisplay.onclick = () => {
-                  infoAboutDisplay.style.display = "none";
-                  editAboutTextarea.style.display = "block";
-                  editAboutTextarea.value = infoAboutDisplay.innerText;
-                  btnSaveAbout.style.display = "inline-block";
               };
+              emojiGridContent.appendChild(item);
+          });
+      }
+
+      document.addEventListener('click', () => { emojiPanelContainer.style.display = 'none'; });
+      emojiPanelContainer.onclick = (e) => e.stopPropagation();
+
+      // --- Profile Modal DOM ---
+      const headerProfileBtn = document.getElementById('headerProfileBtn');
+      const closeModalBtn = document.getElementById('closeModalBtn');
+      const saveProfileBtn = document.getElementById('saveProfileBtn');
+      const profilePicInput = document.getElementById('profilePicInput');
+      const modalAvatarPreview = document.getElementById('modalAvatarPreview');
+      const modalAvatarPlaceholder = document.getElementById('modalAvatarPlaceholder');
+      const profileNameInput = document.getElementById('profileNameInput');
+      let targetProfileImgBlob = null;
+
+      headerProfileBtn.onclick = () => {
+          profileModalOverlay.style.display = 'flex';
+          profileNameInput.value = myName;
+          if(myPhotoURL) {
+              modalAvatarPreview.src = myPhotoURL;
+              modalAvatarPreview.style.display = 'block';
+              modalAvatarPlaceholder.style.display = 'none';
           } else {
-              infoAboutDisplay.style.cursor = "default";
-              infoAboutDisplay.onclick = null;
+              modalAvatarPreview.style.display = 'none';
+              modalAvatarPlaceholder.style.display = 'flex';
+              modalAvatarPlaceholder.className = "alt-header-avatar";
+              modalAvatarPlaceholder.style.background = getNameColor(myName);
+              modalAvatarPlaceholder.style.height = "100%";
+              modalAvatarPlaceholder.style.width = "100%";
+              modalAvatarPlaceholder.style.borderRadius = "18px";
+              modalAvatarPlaceholder.style.alignItems = "center";
+              modalAvatarPlaceholder.style.justifyContent = "center";
+              modalAvatarPlaceholder.style.fontWeight = "bold";
+              modalAvatarPlaceholder.style.fontSize = "1.5rem";
+              modalAvatarPlaceholder.innerText = myName.charAt(0).toUpperCase();
           }
+      };
 
-          btnSaveAbout.onclick = () => {
-              const updatedAbout = editAboutTextarea.value.trim();
-              update(ref(db, `custom_groups/${selectedTargetID}`), { about: updatedAbout }).then(() => {
-                  editAboutTextarea.style.display = "none";
-                  btnSaveAbout.style.display = "none";
-                  infoAboutDisplay.style.display = "block";
-              });
-          };
+      closeModalBtn.onclick = () => { profileModalOverlay.style.display = 'none'; targetProfileImgBlob = null; };
 
-          infoMembersContainer.innerHTML = "";
-          const membersList = activeGroupMeta.members ? Object.keys(activeGroupMeta.members) : [];
-          infoMemberCount.innerText = membersList.length;
+      profilePicInput.onchange = (e) => {
+          const file = e.target.files[0];
+          if(file) {
+              targetProfileImgBlob = file;
+              modalAvatarPreview.src = URL.createObjectURL(file);
+              modalAvatarPreview.style.display = 'block';
+              modalAvatarPlaceholder.style.display = 'none';
+          }
+      };
 
-          membersList.forEach(mUID => {
-              const uData = cachedAllUsers[mUID];
-              if (!uData) return;
-
-              const isTargetOwner = activeGroupMeta.creator === mUID;
-              const isTargetAdmin = activeGroupMeta.admins && activeGroupMeta.admins[mUID];
-              const isTargetMuted = activeGroupMeta.mutedUsers && activeGroupMeta.mutedUsers[mUID];
-
-              let roleBadge = "";
-              if (isTargetOwner) roleBadge = `<span class="member-badge badge-owner">Owner</span>`;
-              else if (isTargetAdmin) roleBadge = `<span class="member-badge badge-admin">Admin</span>`;
-
-              const mDiv = document.createElement('div');
-              mDiv.className = "member-select-item";
-              
-              let actionButtonsHTML = "";
-              if ((isOwner || isAdmin) && mUID !== currentUserUID && !isTargetOwner) {
-                  let adminToggleText = isTargetAdmin ? "Demote" : "Promote";
-                  let muteToggleText = isTargetMuted ? "Unmute" : "Mute";
+      saveProfileBtn.onclick = async () => {
+          const typedName = profileNameInput.value.trim();
+          if(!typedName) return;
+          
+          saveProfileBtn.innerText = "UPDATING CONSOLE...";
+          saveProfileBtn.disabled = true;
+          
+          let finalPhotoURL = myPhotoURL;
+          
+          if(targetProfileImgBlob) {
+              // Profile පින්තූර අප්ලෝඩ් කිරීම සදහාද ImgBB භාවිතා කරයි
+              const imgbbUrl = await uploadToImgBB(targetProfileImgBlob);
+              if(imgbbUrl) finalPhotoURL = imgbbUrl;
+          }
+          
+          updateProfile(auth.currentUser, {
+              displayName: typedName,
+              photoURL: finalPhotoURL
+          }).then(() => {
+              update(ref(db, `users/${currentUserUID}`), { name: typedName, photoURL: finalPhotoURL }).then(() => {
+                  myName = typedName;
+                  myPhotoURL = finalPhotoURL;
+                  document.getElementById('headerName').innerText = myName;
                   
-                  actionButtonsHTML = `
-                      <div class="member-actions-mini">
-                          ${isOwner ? `<button class="mini-btn promote-act">${adminToggleText}</button>` : ''}
-                          <button class="mini-btn mute-act">${muteToggleText}</button>
-                          <button class="mini-btn kick kick-act">Kick</button>
-                      </div>
-                  `;
-              }
-
-              mDiv.innerHTML = `
-                  <div style="display:flex; align-items:center; gap:10px;">
-                      <div style="width:30px; height:30px; border-radius:5px; background:${getNameColor(uData.name.toLowerCase())}; display:flex; justify-content:center; align-items:center; font-size:0.8rem; font-weight:bold;">${uData.name.charAt(0).toUpperCase()}</div>
-                      <span style="font-size:0.85rem; font-weight:600;">${uData.name} ${roleBadge}</span>
-                  </div>
-                  ${actionButtonsHTML}
-              `;
-
-              if (actionButtonsHTML !== "") {
-                  const pBtn = mDiv.querySelector('.promote-act');
-                  const mBtn = mDiv.querySelector('.mute-act');
-                  const kBtn = mDiv.querySelector('.kick-act');
-
-                  if(pBtn) pBtn.onclick = () => update(ref(db, `custom_groups/${selectedTargetID}/admins`), { [mUID]: isTargetAdmin ? null : true });
-                  if(mBtn) mBtn.onclick = () => update(ref(db, `custom_groups/${selectedTargetID}/mutedUsers`), { [mUID]: isTargetMuted ? null : true });
-                  if(kBtn) kBtn.onclick = () => { if(confirm(`Remove ${uData.name} from group console Node?`)) remove(ref(db, `custom_groups/${selectedTargetID}/members/${mUID}`)); };
-              }
-
-              infoMembersContainer.appendChild(mDiv);
+                  const hAvatarContainer = document.getElementById('headerAvatarContainer');
+                  if(myPhotoURL) hAvatarContainer.innerHTML = `<img src="${myPhotoURL}" alt="Avatar">`;
+                  else hAvatarContainer.innerHTML = `<div class="alt-header-avatar" style="background:${getNameColor(myName)}">${myName.charAt(0).toUpperCase()}</div>`;
+                  
+                  saveProfileBtn.innerText = dictionary[currentLanguage].saveBtn;
+                  saveProfileBtn.disabled = false;
+                  profileModalOverlay.style.display = 'none';
+                  targetProfileImgBlob = null;
+              });
+          }).catch(err => {
+              alert(err.message);
+              saveProfileBtn.innerText = dictionary[currentLanguage].saveBtn;
+              saveProfileBtn.disabled = false;
           });
+      };
 
-          groupInfoModalOverlay.style.display = "flex";
-      }
+      // --- Group Logic Subsystem ---
+      const closeGroupModalBtn = document.getElementById('closeGroupModalBtn');
+      const submitCreateGroupBtn = document.getElementById('submitCreateGroupBtn');
+      const memberSelectListContainer = document.getElementById('memberSelectListContainer');
 
-      function switchChatMode(mode, targetID = "", targetName = "") {
-          currentMode = mode; selectedTargetID = targetID; selectedTargetName = targetName; activeGroupMeta = null;
-          document.querySelectorAll('.strip-item').forEach(el => el.classList.remove('active'));
-          
-          clearChatBtn.style.display = "none"; leaveGroupBtn.style.display = "none"; deleteGroupBtn.style.display = "none";
-          const t = dictionary[currentLanguage];
-
-          if(mode === "group") {
-              btnGroupMode.classList.add('active'); openGroupModalBtn.style.display = "inline-block"; titleFeedText.innerText = t.groupFeedTitle;
-              chatMainTitle.innerText = targetName ? targetName.toUpperCase() : "CHOOSE_A_GROUP";
-              chatTheaterFrame.className = "chat-theater theme-group"; 
-              
-              if (targetID === "global") activeChatBadge.innerText = t.modeGlobal;
-              else if (targetID === "announcement") activeChatBadge.innerText = t.modeAnnouncement;
-              else activeChatBadge.innerText = t.modeGroup;
-              
-              if(targetID) {
-                  clearChatBtn.style.display = "inline-block";
-                  onValue(ref(db, `custom_groups/${targetID}`), (snapshot) => {
-                      if(snapshot.exists() && selectedTargetID === targetID) {
-                          activeGroupMeta = snapshot.val();
-                          if(activeGroupMeta.creator === currentUserUID) deleteGroupBtn.style.display = "inline-block";
-                          else if(targetID !== "global" && targetID !== "announcement") leaveGroupBtn.style.display = "inline-block";
-                          checkGroupPermissionsAndMuteState();
-                      }
-                  });
-              }
-              loadGroupChannelsList();
-          } else {
-              btnDirectMode.classList.add('active'); openGroupModalBtn.style.display = "none"; titleFeedText.innerText = t.dmFeedTitle;
-              chatMainTitle.innerText = targetName ? `DM // ${targetName.toUpperCase()}` : "DIRECT_CONSOLE";
-              chatTheaterFrame.className = "chat-theater theme-direct"; activeChatBadge.innerText = t.modeDirect;
-              if(targetID) clearChatBtn.style.display = "inline-block";
-              checkGroupPermissionsAndMuteState();
-              loadRegisteredUsers();
-          }
-          if(targetID) loadChatMessages();
-          else messagesBox.innerHTML = `<div style="text-align:center; color:rgba(255,255,255,0.2); font-size:0.85rem; margin-top:20px;">// SELECT AN ACTIVE STREAM LINK</div>`;
-      }
-
-      btnGroupMode.addEventListener('click', () => switchChatMode("group", "global", "Global Chat Room"));
-      btnDirectMode.addEventListener('click', () => switchChatMode("direct"));
-
-      function loadRegisteredUsers() {
-          usersListContainer.innerHTML = ""; let firstUserElement = null;
-          Object.keys(cachedAllUsers).forEach(uid => {
-              const user = cachedAllUsers[uid]; if(user.uid === currentUserUID) return;
-              const item = document.createElement('div'); item.className = `user-item ${selectedTargetID === user.uid ? 'active' : ''}`;
-              let avatarHTML = user.photo ? `<img src="${user.photo}">` : `<div class="user-alt-avatar" style="background:${getNameColor(user.name.toLowerCase())}">${user.name.charAt(0).toUpperCase()}</div>`;
-              item.innerHTML = `${avatarHTML}<div class="user-info"><h4>${user.name}</h4><p>// ONLINE LINKED</p></div>`;
-              item.addEventListener('click', () => { document.querySelectorAll('.user-item').forEach(i => i.classList.remove('active')); item.classList.add('active'); switchChatMode("direct", user.uid, user.name); });
-              usersListContainer.appendChild(item); if(!firstUserElement) firstUserElement = item;
-          });
-          if(!selectedTargetID && firstUserElement && currentMode === "direct") firstUserElement.click();
-      }
-
-      function loadGroupChannelsList() {
-          usersListContainer.innerHTML = "";
-          
-          const globalItem = document.createElement('div'); globalItem.className = `user-item ${selectedTargetID === "global" ? "active" : ""}`;
-          globalItem.innerHTML = `<div class="user-alt-avatar" style="background: var(--purple-accent);"><i class="fa-solid fa-users"></i></div><div class="user-info"><h4>Global Chat Room</h4><p>// PUBLIC RADAR HUB</p></div>`;
-          globalItem.addEventListener('click', () => { document.querySelectorAll('.user-item').forEach(i => i.classList.remove('active')); globalItem.classList.add('active'); switchChatMode("group", "global", "Global Chat Room"); });
-          usersListContainer.appendChild(globalItem);
-
-          const announceItem = document.createElement('div'); announceItem.className = `user-item ${selectedTargetID === "announcement" ? "active" : ""}`;
-          announceItem.innerHTML = `<div class="user-alt-avatar" style="background: #e11d48;"><i class="fa-solid fa-bullhorn"></i></div><div class="user-info"><h4>Global Announcements</h4><p>// ADMIN BROADCAST</p></div>`;
-          announceItem.addEventListener('click', () => { document.querySelectorAll('.user-item').forEach(i => i.classList.remove('active')); announceItem.classList.add('active'); switchChatMode("group", "announcement", "Global Announcements"); });
-          usersListContainer.appendChild(announceItem);
-
-          onValue(ref(db, 'custom_groups'), (snapshot) => {
-              if (currentMode !== "group") return; document.querySelectorAll('.custom-group-item').forEach(el => el.remove());
-              if(snapshot.exists()) {
-                  snapshot.forEach(child => {
-                      const groupData = child.val();
-                      if(child.key !== "global" && child.key !== "announcement" && groupData.members && groupData.members[currentUserUID]) {
-                          const gItem = document.createElement('div'); gItem.className = `user-item custom-group-item ${selectedTargetID === child.key ? 'active' : ''}`;
-                          gItem.innerHTML = `<div class="user-alt-avatar" style="background: ${getNameColor(groupData.groupName.toLowerCase())};"><i class="fa-solid fa-hashtag"></i></div><div class="user-info"><h4>${groupData.groupName}</h4><p>// PRIVATE ROOM</p></div>`;
-                          gItem.addEventListener('click', () => { document.querySelectorAll('.user-item').forEach(i => i.classList.remove('active')); gItem.classList.add('active'); switchChatMode("group", child.key, groupData.groupName); });
-                          usersListContainer.appendChild(gItem);
-                      }
-                  });
-              }
-          });
-      }
-
-      function renderMemberCheckboxes() {
+      openGroupModalBtn.onclick = () => {
+          createGroupModalOverlay.style.display = 'flex';
           memberSelectListContainer.innerHTML = "";
-          Object.keys(cachedAllUsers).forEach(uid => {
-              const user = cachedAllUsers[uid]; if(user.uid === currentUserUID) return;
-              const div = document.createElement('div'); div.className = "member-select-item";
-              div.innerHTML = `<input type="checkbox" id="chk-${user.uid}" value="${user.uid}"><label for="chk-${user.uid}" style="margin-left:8px; font-size:0.85rem; cursor:pointer;">${user.name}</label>`;
-              memberSelectListContainer.appendChild(div);
-          });
-      }
-
-      async function setupGlobalGroupNodes() {
-          await update(ref(db, 'custom_groups/global'), { groupId: "global", groupName: "Global Chat Room", creator: "SYSTEM_CONSOLE", rules: "Welcome to Global Chat Node! Keep it clean.", about: "Public worldwide terminal synchronization hub room." });
-          await update(ref(db, 'custom_groups/announcement'), { groupId: "announcement", groupName: "Global Announcements", creator: "SYSTEM_CONSOLE", rules: "Official announcements broadcast hub stream.", about: "Critical database firmware core broadcast news." });
-      }
-      setupGlobalGroupNodes();
-
-      submitCreateGroupBtn.addEventListener('click', () => {
-          const gName = newGroupNameInput.value.trim(); if(!gName) return alert(dictionary[currentLanguage].enterGroupName);
-          const gAbout = newGroupAboutInput.value.trim() || "No custom description setup.";
-          const checkedBoxes = memberSelectListContainer.querySelectorAll('input[type="checkbox"]:checked');
-          if(checkedBoxes.length === 0) return alert(dictionary[currentLanguage].selectMemberAlert);
-          const groupMembers = {}; groupMembers[currentUserUID] = true; checkedBoxes.forEach(box => { groupMembers[box.value] = true; });
-          const groupRef = push(ref(db, 'custom_groups'));
           
-          update(groupRef, { groupId: groupRef.key, groupName: gName, about: gAbout, creator: currentUserUID, members: groupMembers, admins: {}, mutedUsers: {}, rules: "Welcome to our new group console node stream!", timestamp: Date.now() }).then(() => {
-              createGroupModalOverlay.style.display = "none"; switchChatMode("group", groupRef.key, gName);
+          Object.keys(cachedAllUsers).forEach(uid => {
+              if(uid === currentUserUID) return;
+              const u = cachedAllUsers[uid];
+              const row = document.createElement('div');
+              row.className = 'member-select-item';
+              row.innerHTML = `<span>${u.name}</span><input type="checkbox" class="group-member-checkbox" value="${uid}">`;
+              memberSelectListContainer.appendChild(row);
           });
-      });
+      };
 
-      clearChatBtn.addEventListener('click', () => {
+      closeGroupModalBtn.onclick = () => { createGroupModalOverlay.style.display = 'none'; };
+
+      submitCreateGroupBtn.onclick = () => {
+          const gName = document.getElementById('newGroupNameInput').value.trim();
+          const gAbout = document.getElementById('newGroupAboutInput').value.trim();
+          if(!gName) { alert(dictionary[currentLanguage].enterGroupName); return; }
+          
+          const checkboxes = memberSelectListContainer.querySelectorAll('.group-member-checkbox:checked');
+          if(checkboxes.length === 0) { alert(dictionary[currentLanguage].selectMemberAlert); return; }
+          
+          const membersMap = {};
+          membersMap[currentUserUID] = true; 
+          checkboxes.forEach(cb => { membersMap[cb.value] = true; });
+          
+          const newGroupKey = push(ref(db, 'custom_groups')).key;
+          const newGroupObj = {
+              groupID: newGroupKey,
+              groupName: gName,
+              about: gAbout || "No description provided.",
+              owner: currentUserUID,
+              members: membersMap,
+              admins: {},
+              rules: "1. Be respectful\n2. No spamming"
+          };
+          
+          update(ref(db, `custom_groups/${newGroupKey}`), newGroupObj).then(() => {
+              createGroupModalOverlay.style.display = 'none';
+              document.getElementById('newGroupNameInput').value = "";
+              document.getElementById('newGroupAboutInput').value = "";
+          });
+      };
+
+      // --- Chat Actions Trigger System ---
+      clearChatBtn.onclick = () => {
           if(confirm(dictionary[currentLanguage].confirmClearChat)) {
-              remove(ref(db, getActiveDatabaseRefPath())).then(() => { alert(dictionary[currentLanguage].chatCleared); });
+              remove(ref(db, getActiveDatabaseRefPath())).then(() => {
+                  alert(dictionary[currentLanguage].chatCleared);
+              });
           }
-      });
+      };
 
-      leaveGroupBtn.addEventListener('click', () => {
+      leaveGroupBtn.onclick = () => {
+          if(!selectedTargetID || currentMode !== 'group') return;
           if(confirm(dictionary[currentLanguage].confirmLeaveGroup)) {
               remove(ref(db, `custom_groups/${selectedTargetID}/members/${currentUserUID}`)).then(() => {
-                  alert(dictionary[currentLanguage].leftGroup); switchChatMode("group", "global", "Global Chat Room");
+                  alert(dictionary[currentLanguage].leftGroup);
+                  btnGroupMode.click(); 
               });
           }
-      });
+      };
 
-      deleteGroupBtn.addEventListener('click', () => {
+      deleteGroupBtn.onclick = () => {
+          if(!selectedTargetID || currentMode !== 'group') return;
           if(confirm(dictionary[currentLanguage].confirmDeleteGroup)) {
-              remove(ref(db, `messages/custom_groups/${selectedTargetID}`));
               remove(ref(db, `custom_groups/${selectedTargetID}`)).then(() => {
-                  alert(dictionary[currentLanguage].groupDeleted); switchChatMode("group", "global", "Global Chat Room");
+                  remove(ref(db, `group_messages/${selectedTargetID}`)).then(() => {
+                      alert(dictionary[currentLanguage].groupDeleted);
+                      btnGroupMode.click();
+                  });
               });
           }
-      });
+      };
 
-      function sendMessage() {
-        const text = messageInput.value.trim(); if(!selectedTargetID) return;
-        if (text !== "") {
-            const activePath = getActiveDatabaseRefPath();
-            if (isEditMode) {
-                update(ref(db, `${activePath}/${editMessageKey}`), { message: text, isEdited: true }).then(() => {
-                    isEditMode = false; sendBtn.innerHTML = '<i class="fa-solid fa-arrow-up-long"></i>'; 
-                    messageInput.placeholder = dictionary[currentLanguage].inputPlaceholder;
-                });
-            } else {
-                push(ref(db, activePath), { senderUID: currentUserUID, senderName: myName, senderPhoto: myPhotoURL, message: text, type: "text", timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) });
-            }
-            messageInput.value = "";
-        }
+      editRulesBtn.onclick = (e) => {
+          e.stopPropagation();
+          const currentRules = activeGroupMeta ? activeGroupMeta.rules || "" : "";
+          const newRules = prompt("Edit Group Rules Console:", currentRules);
+          if(newRules !== null && selectedTargetID) {
+              update(ref(db, `custom_groups/${selectedTargetID}`), { rules: newRules });
+          }
+      };
+
+      // --- Group Info Modal Logic ---
+      const closeGroupInfoModalBtn = document.getElementById('closeGroupInfoModalBtn');
+      const infoMembersContainer = document.getElementById('infoMembersContainer');
+      const editAboutTextarea = document.getElementById('editAboutTextarea');
+      const btnSaveAbout = document.getElementById('btnSaveAbout');
+
+      chatHeaderTitleBox.onclick = () => {
+          if(currentMode !== 'group' || selectedTargetID === 'global_hub' || selectedTargetID === 'system_announcements') return;
+          if(!activeGroupMeta) return;
+          
+          const g = activeGroupMeta;
+          groupInfoModalOverlay.style.display = 'flex';
+          infoModalGroupName.innerText = g.groupName.toUpperCase();
+          infoAboutDisplay.innerText = g.about || "No description set yet.";
+          
+          const isOwner = g.owner === currentUserUID;
+          if(isOwner) {
+              infoAboutDisplay.style.display = 'none';
+              editAboutTextarea.style.display = 'block';
+              editAboutTextarea.value = g.about || "";
+              btnSaveAbout.style.display = 'block';
+          } else {
+              infoAboutDisplay.style.display = 'block';
+              editAboutTextarea.style.display = 'none';
+              btnSaveAbout.style.display = 'none';
+          }
+          
+          renderInfoMembersList(g);
+      };
+
+      closeGroupInfoModalBtn.onclick = () => { groupInfoModalOverlay.style.display = 'none'; };
+
+      btnSaveAbout.onclick = () => {
+          const updatedAbout = editAboutTextarea.value.trim();
+          if(selectedTargetID && updatedAbout) {
+              update(ref(db, `custom_groups/${selectedTargetID}`), { about: updatedAbout }).then(() => {
+                  infoAboutDisplay.innerText = updatedAbout;
+                  activeGroupMeta.about = updatedAbout;
+                  alert("Group info updated!");
+              });
+          }
+      };
+
+      function renderInfoMembersList(groupObj) {
+          infoMembersContainer.innerHTML = "";
+          const membersList = groupObj.members ? Object.keys(groupObj.members) : [];
+          document.getElementById('infoMemberCount').innerText = membersList.length;
+          
+          membersList.forEach(mUID => {
+              const uName = cachedAllUsers[mUID] ? cachedAllUsers[mUID].name : "Unknown User";
+              const row = document.createElement('div');
+              row.className = "member-select-item";
+              
+              let badges = "";
+              if(mUID === groupObj.owner) badges += `<span class="member-badge badge-owner">Owner</span>`;
+              else if(groupObj.admins && groupObj.admins[mUID]) badges += `<span class="member-badge badge-admin">Admin</span>`;
+              
+              let actionButtons = "";
+              const iAmOwner = groupObj.owner === currentUserUID;
+              const iAmAdmin = groupObj.admins && groupObj.admins[currentUserUID];
+              
+              if(mUID !== currentUserUID && mUID !== groupObj.owner) {
+                  actionButtons += `<div class="member-actions-mini">`;
+                  if(iAmOwner) {
+                      const isTargetAdmin = groupObj.admins && groupObj.admins[mUID];
+                      actionButtons += `<button class="mini-btn admin-toggle-btn" data-uid="${mUID}">${isTargetAdmin ? 'Demote' : 'Promote'}</button>`;
+                  }
+                  if(iAmOwner || iAmAdmin) {
+                      actionButtons += `<button class="mini-btn kick" data-uid="${mUID}">Kick</button>`;
+                  }
+                  actionButtons += `</div>`;
+              }
+              
+              row.innerHTML = `<div><strong>${uName}</strong> ${badges}</div> ${actionButtons}`;
+              
+              const pBtn = row.querySelector('.admin-toggle-btn');
+              if(pBtn) {
+                  pBtn.onclick = () => {
+                      const isTargetAdmin = groupObj.admins && groupObj.admins[mUID];
+                      const adminPath = `custom_groups/${groupObj.groupID}/admins/${mUID}`;
+                      if(isTargetAdmin) {
+                          remove(ref(db, adminPath)).then(() => refreshActiveGroupMetaAndModal());
+                      } else {
+                          update(ref(db, `custom_groups/${groupObj.groupID}/admins`), { [mUID]: true }).then(() => refreshActiveGroupMetaAndModal());
+                      }
+                  };
+              }
+              
+              const kBtn = row.querySelector('.kick');
+              if(kBtn) {
+                  kBtn.onclick = () => {
+                      if(confirm(`Are you sure you want to kick ${uName} from this group node?`)) {
+                          remove(ref(db, `custom_groups/${groupObj.groupID}/members/${mUID}`)).then(() => {
+                              const adminPath = `custom_groups/${groupObj.groupID}/admins/${mUID}`;
+                              remove(ref(db, adminPath)).then(() => refreshActiveGroupMetaAndModal());
+                          });
+                      }
+                  };
+              }
+              
+              infoMembersContainer.appendChild(row);
+          });
       }
 
-      async function handleFileUpload(file) {
-        if (!file || !selectedTargetID) return; const fileType = file.type.startsWith('image/') ? 'image' : file.type.startsWith('video/') ? 'video' : 'unknown'; if (fileType === 'unknown') return;
-        messageInput.value = dictionary[currentLanguage].uploadingStream; messageInput.disabled = true;
-        try {
-            const fileRef = sRef(storage, `chat_media/${Date.now()}_${file.name}`); await uploadBytes(fileRef, file); const downloadURL = await getDownloadURL(fileRef);
-            push(ref(db, getActiveDatabaseRefPath()), { senderUID: currentUserUID, senderName: myName, senderPhoto: myPhotoURL, message: downloadURL, type: fileType, timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) });
-        } catch (e) { console.error(e); } finally { messageInput.value = ""; messageInput.disabled = false; messageInput.focus(); }
+      function refreshActiveGroupMetaAndModal() {
+          if(!selectedTargetID) return;
+          onValue(ref(db, `custom_groups/${selectedTargetID}`), (snapshot) => {
+              if(snapshot.exists()) {
+                  activeGroupMeta = snapshot.val();
+                  renderInfoMembersList(activeGroupMeta);
+              }
+          }, { onlyOnce: true });
       }
 
-      attachBtn.addEventListener('click', () => mediaInput.click());
-      camBtn.addEventListener('click', () => cameraInput.click());
-      mediaInput.addEventListener('change', (e) => handleFileUpload(e.target.files[0]));
-      cameraInput.addEventListener('change', (e) => handleFileUpload(e.target.files[0]));
-      sendBtn.addEventListener('click', sendMessage);
-      messageInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
+      const stripLogoutBtn = document.getElementById('stripLogoutBtn');
+      const logoutBtn = document.getElementById('logoutBtn');
+      const triggerLogoutSequence = () => { if(confirm("Disconnect from network stream?")) signOut(auth); };
+      if(stripLogoutBtn) stripLogoutBtn.onclick = triggerLogoutSequence;
+      if(logoutBtn) logoutBtn.onclick = triggerLogoutSequence;
 
-      function loadChatMessages() {
-        onValue(ref(db, getActiveDatabaseRefPath()), (snapshot) => {
-            messagesBox.innerHTML = "";
-            if(snapshot.exists()) {
-                snapshot.forEach((childSnapshot) => {
-                    const msgData = childSnapshot.val(); const key = childSnapshot.key;
-                    const isMe = msgData.senderUID === currentUserUID;
-                    const rowDiv = document.createElement('div'); rowDiv.className = `msg-row ${isMe ? 'outgoing' : 'incoming'}`;
-                    
-                    const profileDiv = document.createElement('div'); profileDiv.className = 'profile-area';
-                    if(msgData.senderPhoto) profileDiv.innerHTML = `<img src="${msgData.senderPhoto}" class="avatar-img">`;
-                    else profileDiv.innerHTML = `<div class="avatar-txt" style="background:${getNameColor(msgData.senderName.toLowerCase())}">${msgData.senderName.charAt(0).toUpperCase()}</div>`;
-                    
-                    const contentDiv = document.createElement('div'); contentDiv.className = 'msg-content';
-                    contentDiv.innerHTML = `<span class="sender-name-bubble">${msgData.senderName}</span>`;
-                    const bubbleDiv = document.createElement('div'); bubbleDiv.className = 'bubble';
-                    
-                    if (msgData.type === 'image') bubbleDiv.innerHTML = `<img src="${msgData.message}" class="chat-media" onclick="window.open('${msgData.message}', '_blank')">`;
-                    else if (msgData.type === 'video') bubbleDiv.innerHTML = `<video src="${msgData.message}" class="chat-media" controls></video>`;
-                    else bubbleDiv.innerText = msgData.message;
-                    
-                    contentDiv.appendChild(bubbleDiv);
-                    
-                    const meta = document.createElement('div'); meta.className = 'msg-meta-container';
-                    meta.innerHTML = `<div class="msg-time">${msgData.timestamp || ''} ${msgData.isEdited ? '(Edited)' : ''}</div>`;
-                    
-                    const actions = document.createElement('span'); actions.className = 'msg-actions';
-                    let hasActions = false;
-
-                    if(isMe) {
-                        actions.innerHTML = `${msgData.type === 'text' ? `<span class="e-btn">Edit</span> | ` : ''}<span class="d-btn">Delete</span>`;
-                        if(msgData.type === 'text') actions.querySelector('.e-btn').addEventListener('click', () => { messageInput.value = msgData.message; isEditMode = true; editMessageKey = key; sendBtn.innerHTML = '<i class="fa-solid fa-check"></i>'; messageInput.focus(); });
-                        actions.querySelector('.d-btn').addEventListener('click', () => { if(confirm(dictionary[currentLanguage].confirmDeleteMsg)) remove(ref(db, `${getActiveDatabaseRefPath()}/${key}`)); });
-                        hasActions = true;
-                    }
-
-                    if (hasActions) meta.appendChild(actions);
-                    contentDiv.appendChild(meta); rowDiv.appendChild(profileDiv); rowDiv.appendChild(contentDiv); messagesBox.appendChild(rowDiv);
-                });
-                messagesBox.scrollTop = messagesBox.scrollHeight;
-            } else { messagesBox.innerHTML = `<div style="text-align:center; color:rgba(255,255,255,0.2); font-size:0.85rem; margin-top:20px;">// NO TERMINAL LOGS FOUND</div>`; }
-        });
-      }
+      // INITIAL CONSOLE EXECUTION
+      applyLanguagePack();
     </script>
 </body>
 </html>
