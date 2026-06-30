@@ -29,8 +29,6 @@
         margin: 20px;
         box-sizing: border-box;
     }
-    
-    /* මුලින්ම Sign Up UI එක හංගලා තියෙන්නෙ */
     #signUpScreen { display: none; }
 
     .auth-container h2 { color: #007bff; margin-bottom: 25px; font-size: 1.6rem; }
@@ -59,25 +57,14 @@
     
     #startChatBtn { background: #007bff; }
     #startChatBtn:hover { background: #0056b3; }
-    
     #submitSignUpBtn { background: #28a745; }
     #submitSignUpBtn:hover { background: #218838; }
     
-    /* යටින් තියෙන ලින්ක්ස් */
-    .auth-toggle-text {
-        margin-top: 20px;
-        font-size: 0.9rem;
-        color: #555;
-    }
-    .auth-toggle-text a {
-        color: #007bff;
-        text-decoration: none;
-        font-weight: bold;
-        cursor: pointer;
-    }
+    .auth-toggle-text { margin-top: 20px; font-size: 0.9rem; color: #555; }
+    .auth-toggle-text a { color: #007bff; text-decoration: none; font-weight: bold; cursor: pointer; }
     .auth-toggle-text a:hover { text-decoration: underline; }
 
-    /* Chat Screen - PC සහ Tablet සඳහා ප්‍රමාණය */
+    /* Chat Screen */
     .chat-container { 
         width: 100%; 
         max-width: 600px; 
@@ -91,78 +78,115 @@
         overflow: hidden; 
         margin: 20px; 
     }
-    .chat-header { background: #007bff; color: white; padding: 18px; text-align: center; font-size: 1.3rem; font-weight: bold; }
+    
+    /* 🛠️ වෙනස් කරන ලද Header එක (Profile බටන් එක සහිතව) */
+    .chat-header { 
+        background: #007bff; 
+        color: white; 
+        padding: 12px 18px; 
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 1.2rem; 
+        font-weight: bold; 
+    }
+    
+    .header-profile {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        background: rgba(255, 255, 255, 0.18);
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        transition: 0.2s;
+    }
+    .header-profile:hover { background: rgba(255, 255, 255, 0.3); }
+    
+    .header-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        object-fit: cover;
+        background: #fff;
+        color: #007bff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+    }
+
     .messages-box { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; background: #f8fafc; }
     
-    /* Message Row Block */
+    /* Message Rows */
     .msg-row { display: flex; width: 100%; position: relative; margin-bottom: 10px; }
     .msg-row.incoming { justify-content: flex-start; }
     .msg-row.outgoing { flex-direction: row-reverse; }
 
-    /* Profile Area */
     .profile-area { width: 42px; display: flex; flex-direction: column; align-items: center; position: relative; flex-shrink: 0; }
-    .avatar { width: 36px; height: 36px; border-radius: 50%; background: #007bff; color: white; display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 0.95rem; border: 2px solid #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 3; }
     
-    /* Timeline lines */
+    /* 🖼️ Chat එක ඇතුලෙ පෙනෙන පින්තූර/මුල් අකුරු වල Styles */
+    .avatar-img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 3; }
+    .avatar-txt { width: 36px; height: 36px; border-radius: 50%; background: #007bff; color: white; display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 0.95rem; border: 2px solid #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 3; }
+    
     .timeline-line { position: absolute; top: 0px; bottom: -18px; width: 3px; background: #cbd5e1; z-index: 1; display: none; }
     .msg-row.has-next .timeline-line { display: block; }
 
-    /* Content Area */
     .msg-content { max-width: 75%; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; margin-left: 8px; }
     .msg-row.outgoing .msg-content { align-items: flex-end; margin-left: 0; margin-right: 8px; }
     
-    /* Name Bubble */
     .sender-name-bubble { font-size: 0.8rem; font-weight: bold; color: white; padding: 3px 8px; border-radius: 4px; background: #475569; z-index: 2; margin-bottom: 2px; }
     .msg-row.outgoing .sender-name-bubble { background: #334155; }
     .msg-row.consecutive .sender-name-bubble { display: none; }
 
-    /* Message Bubble */
     .bubble { padding: 10px 14px; border-radius: 14px; font-size: 0.95rem; color: white; display: inline-block; word-wrap: break-word; z-index: 2; margin-top: 2px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
     .msg-row.incoming .bubble { background: #6c757d; }
     .msg-row.outgoing .bubble { background: #007bff; }
     
-    /* Media Display styles */
     .chat-media { max-width: 100%; max-height: 250px; border-radius: 8px; display: block; margin-top: 5px; cursor: pointer; }
     
-    /* Consecutive adjustments */
-    .msg-row.consecutive .profile-area .avatar { display: none; } 
+    .msg-row.consecutive .profile-area .avatar-img, .msg-row.consecutive .profile-area .avatar-txt { display: none; } 
     .msg-row.consecutive .msg-content { margin-top: -15px; }
     
-    /* Message Time */
     .msg-time { font-size: 0.7rem; color: #888; margin-top: 2px; margin-bottom: 5px; }
     .msg-row.outgoing .msg-time { text-align: right; }
 
-    /* Input Area Actions */
     .input-area { padding: 12px; display: flex; align-items: center; gap: 8px; background: #fff; border-top: 1px solid #ddd; }
     .action-btn { background: #e4e6eb; border: none; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; font-size: 1.2rem; transition: background 0.2s; flex-shrink: 0; }
     .action-btn:hover { background: #d8dadf; }
     .send-btn { background: #007bff; color: white; font-weight: bold; }
     .send-btn:hover { background: #0056b3; }
 
+    /* 📌 PROFILE EDIT MODAL STYLES (POP-UP BOX) */
+    .modal-overlay {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.5); display: none; justify-content: center; align-items: center; z-index: 100;
+    }
+    .profile-modal {
+        background: white; padding: 25px; border-radius: 12px; width: 90%; max-width: 360px;
+        text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.2); position: relative;
+    }
+    .modal-close { position: absolute; top: 12px; right: 15px; font-size: 1.4rem; cursor: pointer; color: #888; }
+    .modal-avatar-view {
+        width: 90px; height: 90px; border-radius: 50%; object-fit: cover;
+        margin: 10px auto; border: 3px solid #007bff; display: block; background: #eee;
+    }
+    .modal-btn { width: 100%; padding: 10px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+    .save-profile-btn { background: #007bff; color: white; }
+    .logout-btn { background: #dc3545; color: white; margin-top: 15px; }
+
     /* MOBILE PHONES (RESPONSIVE) */
     @media (max-width: 576px) {
         body { background: white; align-items: flex-start; } 
         
         .auth-container { 
-            box-shadow: none; 
-            margin: 0; 
-            padding: 20px; 
-            max-width: 100%;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            box-shadow: none; margin: 0; padding: 20px; max-width: 100%; height: 100vh;
+            display: flex; flex-direction: column; justify-content: center;
         }
         
-        .chat-container { 
-            width: 100vw; 
-            height: 100vh; 
-            max-height: 100vh; 
-            margin: 0; 
-            border-radius: 0; 
-        }
-        
-        .chat-header { padding: 15px; font-size: 1.15rem; border-radius: 0; }
+        .chat-container { width: 100vw; height: 100vh; max-height: 100vh; margin: 0; border-radius: 0; }
+        .chat-header { padding: 10px 15px; font-size: 1.1rem; border-radius: 0; }
         .messages-box { padding: 10px; }
         .msg-content { max-width: 85%; } 
         .chat-media { max-width: 180px; max-height: 180px; }
@@ -194,7 +218,13 @@
 </div>
 
 <div class="chat-container" id="chatScreen">
-    <div class="chat-header">යාලුවෝ Chat Box 💬</div>
+    <div class="chat-header">
+        <span>යාලුවෝ Chat Box 💬</span>
+        <div class="header-profile" id="headerProfileBtn">
+            <span id="headerName">User</span>
+            <div id="headerAvatarContainer"></div>
+        </div>
+    </div>
     <div class="messages-box" id="messages"></div>
     
     <div class="input-area">
@@ -209,11 +239,28 @@
     </div>
 </div>
 
+<div class="modal-overlay" id="profileModalOverlay">
+    <div class="profile-modal">
+        <span class="modal-close" id="closeModalBtn">&times;</span>
+        <h3>මගේ Profile විස්තර ⚙️</h3>
+        <img src="" id="modalAvatarPreview" class="modal-avatar-view" alt="Profile Picture">
+        
+        <input type="file" id="profilePicInput" accept="image/*" style="display: none;">
+        <button class="modal-btn" style="background: #e4e6eb; color: #333;" onclick="document.getElementById('profilePicInput').click()">ඡායාරූපයක් තෝරන්න 📷</button>
+        
+        <input type="text" id="profileNameInput" placeholder="ඔයාගේ නම..." style="margin-top:15px; padding:10px; width:100%; box-sizing:border-box; border:1px solid #ddd; border-radius:6px;">
+        <button class="modal-btn save-profile-btn" id="saveProfileBtn">විස්තර සුරකින්න (Save)</button>
+        
+        <hr style="margin-top: 20px; border: 0; border-top: 1px solid #eee;">
+        <button class="modal-btn logout-btn" id="logoutBtn">Log Out වෙන්න 🚪</button>
+    </div>
+</div>
+
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
   import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
   import { getStorage, ref as sRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
-  import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+  import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, updateProfile, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyBdXSYW5R4zRhC2WIYvlRXjAPHftDvcB30",
@@ -233,6 +280,7 @@
 
   let currentUserUID = ""; 
   let myName = "";
+  let myPhotoURL = "";
   let lastSenderUID = ""; 
   let lastRowElement = null;
 
@@ -247,6 +295,13 @@
   const loginScreen = document.getElementById('loginScreen');
   const signUpScreen = document.getElementById('signUpScreen');
   const chatScreen = document.getElementById('chatScreen');
+  const profileModalOverlay = document.getElementById('profileModalOverlay');
+  
+  const headerName = document.getElementById('headerName');
+  const headerAvatarContainer = document.getElementById('headerAvatarContainer');
+  const modalAvatarPreview = document.getElementById('modalAvatarPreview');
+  const profileNameInput = document.getElementById('profileNameInput');
+  const profilePicInput = document.getElementById('profilePicInput');
   
   const loginEmailInput = document.getElementById('loginEmail');
   const loginPasswordInput = document.getElementById('loginPassword');
@@ -269,21 +324,31 @@
   const camBtn = document.getElementById('camBtn');
 
   // UI මාරු කරන ලොජික් (Toggle Screens)
-  goToSignUp.addEventListener('click', () => {
-      loginScreen.style.display = "none";
-      signUpScreen.style.display = "block";
-  });
+  goToSignUp.addEventListener('click', () => { loginScreen.style.display = "none"; signUpScreen.style.display = "block"; });
+  goToLogin.addEventListener('click', () => { signUpScreen.style.display = "none"; loginScreen.style.display = "block"; });
   
-  goToLogin.addEventListener('click', () => {
-      signUpScreen.style.display = "none";
-      loginScreen.style.display = "block";
+  // Modal Open/Close ලොජික්
+  document.getElementById('headerProfileBtn').addEventListener('click', () => {
+      profileNameInput.value = myName;
+      modalAvatarPreview.src = myPhotoURL ? myPhotoURL : "https://via.placeholder.com/90?text=" + myName.charAt(0).toUpperCase();
+      profileModalOverlay.style.display = "flex";
   });
+  document.getElementById('closeModalBtn').addEventListener('click', () => { profileModalOverlay.style.display = "none"; });
 
   // Auto Login Check
   onAuthStateChanged(auth, (user) => {
       if (user) {
           currentUserUID = user.uid; 
-          myName = user.email.split('@')[0].toLowerCase();
+          myName = user.displayName ? user.displayName : user.email.split('@')[0];
+          myPhotoURL = user.photoURL ? user.photoURL : "";
+
+          headerName.innerText = myName;
+          if(myPhotoURL) {
+              headerAvatarContainer.innerHTML = `<img src="${myPhotoURL}" class="header-avatar">`;
+          } else {
+              headerAvatarContainer.innerHTML = `<div class="header-avatar">${myName.charAt(0).toUpperCase()}</div>`;
+          }
+
           loginScreen.style.display = "none";
           signUpScreen.style.display = "none";
           chatScreen.style.display = "flex";
@@ -292,6 +357,7 @@
           loginScreen.style.display = "block";
           signUpScreen.style.display = "none";
           chatScreen.style.display = "none";
+          profileModalOverlay.style.display = "none";
       }
   });
 
@@ -299,69 +365,84 @@
   startChatBtn.addEventListener('click', () => {
      const email = loginEmailInput.value.trim();
      const password = loginPasswordInput.value.trim();
-
      if(email !== "" && password !== "") {
-         startChatBtn.disabled = true;
-         startChatBtn.innerText = "Loggin in... ⏳";
-
-         signInWithEmailAndPassword(auth, email, password)
-          .catch((error) => {
-              console.error(error);
+         startChatBtn.disabled = true; startChatBtn.innerText = "Loggin in... ⏳";
+         signInWithEmailAndPassword(auth, email, password).catch((error) => {
               alert("ඇතුළත් කළ Email හෝ Password වැරදියි! ❌");
-              startChatBtn.disabled = false;
-              startChatBtn.innerText = "Log In වෙන්න";
-          });
-     } else {
-         alert("කරුණාකර Email සහ Password ඇතුළත් කරන්න!");
-     }
+              startChatBtn.disabled = false; startChatBtn.innerText = "Log In වෙන්න";
+         });
+     } else { alert("කරුණාකර Email සහ Password ඇතුළත් කරන්න!"); }
   });
 
-  // SIGN UP LOGIC (දෙපාරක් Password පරික්ෂාව සහිතව)
+  // SIGN UP LOGIC
   submitSignUpBtn.addEventListener('click', () => {
      const email = signUpEmailInput.value.trim();
      const password = signUpPasswordInput.value.trim();
      const confirmPassword = signUpConfirmPasswordInput.value.trim();
 
      if(email !== "" && password !== "" && confirmPassword !== "") {
-         if(password.length < 6) {
-             alert("Password එකට අවම වශයෙන් අක්ෂර 6ක්වත් තියෙන්න ඕනේ!");
-             return;
-         }
-         
-         // 🎯 වැදගත්: Password දෙක සමානද කියා බැලීම
-         if(password !== confirmPassword) {
-             alert("ඇතුළත් කළ Password දෙක එකිනෙකට ගැලපෙන්නේ නැත! ❌");
-             return;
-         }
+         if(password.length < 6) { alert("Password එකට අවම වශයෙන් අක්ෂර 6ක්වත් තියෙන්න ඕනේ!"); return; }
+         if(password !== confirmPassword) { alert("ඇතුළත් කළ Password දෙක එකිනෙකට ගැලපෙන්නේ නැත! ❌"); return; }
 
-         submitSignUpBtn.disabled = true;
-         submitSignUpBtn.innerText = "Creating Account... ⏳";
-
-         createUserWithEmailAndPassword(auth, email, password)
-          .then(() => {
-              alert("Account එක සාර්ථකව සෑදුවා! 🎉");
-          })
+         submitSignUpBtn.disabled = true; submitSignUpBtn.innerText = "Creating Account... ⏳";
+         createUserWithEmailAndPassword(auth, email, password).then(() => { alert("Account එක සාර්ථකව සෑදුවා! 🎉"); })
           .catch((error) => {
-              console.error(error);
-              if (error.code === 'auth/email-already-in-use') {
-                  alert("මේ Email එකෙන් දැනටමත් Account එකක් හදලයි තියෙන්නේ! ❌");
-              } else {
-                  alert("Account එක හදන්න බැරි වුණා: " + error.message);
-              }
-              submitSignUpBtn.disabled = false;
-              submitSignUpBtn.innerText = "Account එක හදන්න";
+              if (error.code === 'auth/email-already-in-use') { alert("මේ Email එකෙන් දැනටමත් Account එකක් හදලයි තියෙන්නේ! ❌"); } 
+              else { alert("Account එක හදන්න බැරි වුණා: " + error.message); }
+              submitSignUpBtn.disabled = false; submitSignUpBtn.innerText = "Account එක හදන්න";
           });
-     } else {
-         alert("කරුණාකර සියලුම විස්තර නිවැරදිව පුරවන්න!");
-     }
+     } else { alert("කරුණාකර සියලුම විස්තර නිවැරදිව පුරවන්න!"); }
   });
 
+  // 🚪 LOG OUT LOGIC
+  document.getElementById('logoutBtn').addEventListener('click', () => {
+      if(confirm("ඔයාට ඇත්තටම Log Out වෙන්න ඕනෙද?")) {
+          signOut(auth).then(() => { location.reload(); });
+      }
+  });
+
+  // 🎯 PROFILE UPDATE LOGIC (ඡායාරූප සහ නම සුරැකීම)
+  document.getElementById('saveProfileBtn').addEventListener('click', async () => {
+      const newName = profileNameInput.value.trim();
+      if(!newName) return alert("නම හිස්ව තැබිය නොහැක!");
+      
+      const saveBtn = document.getElementById('saveProfileBtn');
+      saveBtn.disabled = true; saveBtn.innerText = "Saving... ⏳";
+
+      let finalPhotoURL = myPhotoURL;
+      const file = profilePicInput.files[0];
+
+      if(file) {
+          try {
+              const fileRef = sRef(storage, `profile_pics/${currentUserUID}`);
+              const snapshot = await uploadBytes(fileRef, file);
+              finalPhotoURL = await getDownloadURL(snapshot.ref);
+          } catch(e) { console.error("Image upload failed", e); }
+      }
+
+      updateProfile(auth.currentUser, {
+          displayName: newName,
+          photoURL: finalPhotoURL
+      }).then(() => {
+          alert("Profile එක සාර්ථකව වෙනස් කලා! 🎉");
+          profileModalOverlay.style.display = "none";
+          location.reload(); 
+      }).catch((e) => { alert(e.message); saveBtn.disabled = false; saveBtn.innerText = "Save"; });
+  });
+
+  profilePicInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if(file) { modalAvatarPreview.src = URL.createObjectURL(file); }
+  });
+
+  // CHAT MESSAGES LOGIC
   function sendMessage() {
     const text = messageInput.value.trim();
     if (text !== "" && currentUserUID !== "") {
         push(messagesRef, {
             senderUID: currentUserUID, 
             senderName: myName, 
+            senderPhoto: myPhotoURL, // ඩේටාබේස් එකට Profile Pic එකත් යවයි
             message: text,
             type: "text",
             timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
@@ -372,13 +453,11 @@
 
   async function handleFileUpload(file) {
     if (!file || currentUserUID === "") return;
-    
     const fileType = file.type.startsWith('image/') ? 'image' : file.type.startsWith('video/') ? 'video' : 'unknown';
     if (fileType === 'unknown') return;
 
     const loadingId = Date.now();
-    messageInput.value = "Uploading file... ⏳";
-    messageInput.disabled = true;
+    messageInput.value = "Uploading file... ⏳"; messageInput.disabled = true;
 
     try {
         const fileRef = sRef(storage, `chat_media/${loadingId}_${file.name}`);
@@ -388,39 +467,30 @@
         push(messagesRef, {
             senderUID: currentUserUID,
             senderName: myName,
+            senderPhoto: myPhotoURL,
             message: downloadURL, 
             type: fileType,       
             timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         });
-    } catch (error) {
-        console.error("Upload error: ", error);
-    } finally {
-        messageInput.value = "";
-        messageInput.disabled = false;
-        messageInput.focus();
-    }
+    } catch (error) { console.error("Upload error: ", error); } 
+    finally { messageInput.value = ""; messageInput.disabled = false; messageInput.focus(); }
   }
 
   attachBtn.addEventListener('click', () => mediaInput.click());
   camBtn.addEventListener('click', () => cameraInput.click());
-
   mediaInput.addEventListener('change', (e) => { handleFileUpload(e.target.files[0]); e.target.value = ''; });
   cameraInput.addEventListener('change', (e) => { handleFileUpload(e.target.files[0]); e.target.value = ''; });
-
   sendBtn.addEventListener('click', sendMessage);
   messageInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
 
   function loadChatMessages() {
-    messagesBox.innerHTML = "";
-    lastSenderUID = "";
-    lastRowElement = null;
+    messagesBox.innerHTML = ""; lastSenderUID = ""; lastRowElement = null;
 
     onChildAdded(messagesRef, (data) => {
         const msgData = data.val();
-        
         const msgSenderUID = msgData.senderUID ? msgData.senderUID : msgData.sender;
         const currentSenderName = msgData.senderName ? msgData.senderName : msgData.sender;
-        
+        const currentSenderPhoto = msgData.senderPhoto ? msgData.senderPhoto : "";
         const isMe = msgSenderUID === currentUserUID;
 
         const rowDiv = document.createElement('div');
@@ -429,68 +499,40 @@
         const profileDiv = document.createElement('div');
         profileDiv.className = 'profile-area';
         
-        const avatar = document.createElement('div');
-        avatar.className = 'avatar';
-        avatar.innerText = currentSenderName.charAt(0).toUpperCase();
-        if(!isMe) avatar.style.backgroundColor = getNameColor(currentSenderName.toLowerCase());
-        profileDiv.appendChild(avatar);
+        // 🖼️ මැසේජ් එක ළඟ පින්තූරය හෝ අකුර පෙන්වීම
+        if(currentSenderPhoto) {
+            profileDiv.innerHTML = `<img src="${currentSenderPhoto}" class="avatar-img">`;
+        } else {
+            const avatar = document.createElement('div');
+            avatar.className = 'avatar-txt';
+            avatar.innerText = currentSenderName.charAt(0).toUpperCase();
+            if(!isMe) avatar.style.backgroundColor = getNameColor(currentSenderName.toLowerCase());
+            profileDiv.appendChild(avatar);
+        }
         
-        const line = document.createElement('div');
-        line.className = 'timeline-line';
-        profileDiv.appendChild(line);
-        
+        const line = document.createElement('div'); line.className = 'timeline-line'; profileDiv.appendChild(line);
         const isConsecutive = msgSenderUID === lastSenderUID;
-        if (isConsecutive) {
-            rowDiv.classList.add('consecutive');
-            if(lastRowElement) { lastRowElement.classList.add('has-next'); }
-        } else {
-            rowDiv.classList.add('first-msg');
-        }
+        if (isConsecutive) { rowDiv.classList.add('consecutive'); if(lastRowElement) { lastRowElement.classList.add('has-next'); } }
         
-        const contentDiv = document.createElement('div');
-        contentDiv.className = 'msg-content';
+        const contentDiv = document.createElement('div'); contentDiv.className = 'msg-content';
+        const nameBubble = document.createElement('span'); nameBubble.className = 'sender-name-bubble'; nameBubble.innerText = currentSenderName; contentDiv.appendChild(nameBubble);
         
-        const nameBubble = document.createElement('span');
-        nameBubble.className = 'sender-name-bubble';
-        nameBubble.innerText = currentSenderName;
-        contentDiv.appendChild(nameBubble);
-        
-        const bubbleDiv = document.createElement('div');
-        bubbleDiv.className = 'bubble';
-
+        const bubbleDiv = document.createElement('div'); bubbleDiv.className = 'bubble';
         if (msgData.type === 'image') {
-            const img = document.createElement('img');
-            img.src = msgData.message;
-            img.className = 'chat-media';
-            img.onclick = () => window.open(msgData.message, '_blank'); 
-            bubbleDiv.appendChild(img);
+            const img = document.createElement('img'); img.src = msgData.message; img.className = 'chat-media'; img.onclick = () => window.open(msgData.message, '_blank'); bubbleDiv.appendChild(img);
         } else if (msgData.type === 'video') {
-            const video = document.createElement('video');
-            video.src = msgData.message;
-            video.className = 'chat-media';
-            video.controls = true; 
-            bubbleDiv.appendChild(video);
-        } else {
-            bubbleDiv.innerText = msgData.message;
-        }
+            const video = document.createElement('video'); video.src = msgData.message; video.className = 'chat-media'; video.controls = true; bubbleDiv.appendChild(video);
+        } else { bubbleDiv.innerText = msgData.message; }
         
         contentDiv.appendChild(bubbleDiv);
-
         if (msgData.timestamp) {
-            const timeDiv = document.createElement('div');
-            timeDiv.className = 'msg-time';
-            timeDiv.innerText = msgData.timestamp;
-            contentDiv.appendChild(timeDiv);
+            const timeDiv = document.createElement('div'); timeDiv.className = 'msg-time'; timeDiv.innerText = msgData.timestamp; contentDiv.appendChild(timeDiv);
         }
         
-        rowDiv.appendChild(profileDiv);
-        rowDiv.appendChild(contentDiv);
+        rowDiv.appendChild(profileDiv); rowDiv.appendChild(contentDiv);
+        messagesBox.appendChild(rowDiv); messagesBox.scrollTop = messagesBox.scrollHeight;
         
-        messagesBox.appendChild(rowDiv);
-        messagesBox.scrollTop = messagesBox.scrollHeight;
-        
-        lastSenderUID = msgSenderUID;
-        lastRowElement = rowDiv;
+        lastSenderUID = msgSenderUID; lastRowElement = rowDiv;
     });
   }
 </script>
