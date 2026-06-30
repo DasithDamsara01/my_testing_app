@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AERO_CHAT // Multi-Terminal Console</title>
-    <!-- Google Fonts & FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -47,9 +46,23 @@
         .strip-item.group-btn.active, .strip-item.group-btn:hover { color: var(--purple-accent); background: rgba(168, 85, 247, 0.05); box-shadow: 0 0 15px rgba(168, 85, 247, 0.15); }
 
         .chat-theater { background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%); backdrop-filter: blur(40px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 24px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.4); }
-        .theater-header { padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--glass-border); }
+        .theater-header { padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--glass-border); }
+        
+        /* --- GROUP NAME BOX STYLING --- */
+        .theater-title { padding: 8px 16px; border-radius: 12px; transition: all 0.3s ease; }
+        .theme-group .theater-title.clickable-group {
+            background: rgba(168, 85, 247, 0.03);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            cursor: pointer;
+        }
+        .theme-group .theater-title.clickable-group:hover {
+            background: rgba(168, 85, 247, 0.08);
+            border-color: var(--purple-accent);
+            box-shadow: 0 0 15px var(--purple-glow);
+        }
         .theater-title h2 { font-family: 'Syncopate', sans-serif; font-size: 1.1rem; letter-spacing: 2px; }
         .theater-title p { font-size: 0.75rem; text-transform: uppercase; color: var(--neon-accent); margin-top: 5px; }
+        .theme-group .theater-title p { color: var(--purple-accent); }
         
         .header-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
         .action-trigger-btn { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.6); padding: 6px 12px; border-radius: 8px; font-size: 0.7rem; font-weight: bold; cursor: pointer; transition: 0.3s; }
@@ -57,9 +70,12 @@
         .action-trigger-btn.danger-btn { border-color: rgba(220, 53, 69, 0.4); color: #ff4d5e; }
         .action-trigger-btn.danger-btn:hover { background: rgba(220, 53, 69, 0.1); box-shadow: 0 0 10px rgba(220, 53, 69, 0.2); }
         
-        /* Language Button CSS */
         .lang-toggle-btn { background: linear-gradient(45deg, #1f2937, #111827); border: 1px solid var(--neon-accent); color: var(--neon-accent); font-weight: bold; padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; cursor: pointer; transition: 0.3s; }
         .lang-toggle-btn:hover { box-shadow: 0 0 10px var(--neon-glow); background: var(--neon-accent); color: #000; }
+
+        /* Rules Banner UI */
+        .rules-banner { background: rgba(168, 85, 247, 0.05); border-bottom: 1px solid rgba(168, 85, 247, 0.15); padding: 8px 40px; font-size: 0.75rem; display: flex; justify-content: space-between; align-items: center; color: #d8b4fe; }
+        .edit-rules-btn { background: transparent; border: none; color: var(--neon-accent); cursor: pointer; font-size: 0.7rem; text-decoration: underline; }
 
         .messages-box { flex: 1; padding: 30px 40px; overflow-y: auto; display: flex; flex-direction: column; gap: 20px; }
         .msg-row { display: flex; width: 100%; position: relative; }
@@ -80,8 +96,8 @@
         
         .msg-meta-container { display: flex; align-items: center; gap: 8px; margin-top: 5px; }
         .msg-time { font-size: 0.65rem; color: rgba(255, 255, 255, 0.3); }
-        .msg-actions { font-size: 0.7rem; display: none; cursor: pointer; }
-        .msg-row.outgoing:hover .msg-actions { display: inline; }
+        .msg-actions { font-size: 0.7rem; display: none; cursor: pointer; color: rgba(255,255,255,0.4); }
+        .msg-row:hover .msg-actions { display: inline; }
         .msg-actions span:hover { text-decoration: underline; color: #fff; }
 
         .input-dock { padding: 25px 40px; background: rgba(0,0,0,0.15); border-top: 1px solid var(--glass-border); position: relative; }
@@ -93,7 +109,7 @@
         .theme-direct .send-btn:hover { background: var(--neon-accent); box-shadow: 0 0 15px var(--neon-glow); }
         .theme-group .send-btn:hover { background: var(--purple-accent); box-shadow: 0 0 15px var(--purple-glow); }
 
-        /* Custom Emoji Container Popup Styling */
+        /* Emoji Container */
         .emoji-panel-container { position: absolute; bottom: 85px; right: 90px; width: 280px; height: 220px; background: rgba(10, 15, 30, 0.95); border: 1px solid var(--glass-border); backdrop-filter: blur(20px); border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); display: none; flex-direction: column; overflow: hidden; z-index: 10; }
         .emoji-panel-tabs { display: flex; background: rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.05); overflow-x: auto; padding: 5px; gap: 5px; }
         .emoji-tab-btn { background: transparent; border: none; color: rgba(255,255,255,0.5); font-size: 0.9rem; cursor: pointer; padding: 3px 6px; border-radius: 5px; }
@@ -126,19 +142,24 @@
 
         /* MODALS */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); display: none; justify-content: center; align-items: center; z-index: 100; backdrop-filter: blur(15px); }
-        .profile-modal { background: rgba(10, 15, 30, 0.9); border: 1px solid rgba(0, 240, 255, 0.2); padding: 35px 30px; border-radius: 24px; width: 90%; max-width: 380px; text-align: center; position: relative; }
+        .profile-modal { background: rgba(10, 15, 30, 0.9); border: 1px solid rgba(0, 240, 255, 0.2); padding: 35px 30px; border-radius: 24px; width: 90%; max-width: 440px; text-align: center; position: relative; max-height: 85vh; overflow-y: auto; }
         .modal-close { position: absolute; top: 20px; right: 20px; font-size: 1.2rem; cursor: pointer; color: rgba(255,255,255,0.4); }
-        .modal-avatar-wrapper { width: 90px; height: 90px; margin: 15px auto; border: 1px solid var(--neon-accent); border-radius: 20px; overflow: hidden; display: flex; justify-content: center; align-items: center; }
-        .modal-avatar-view { width: 100%; height: 100%; object-fit: cover; display: none; }
-        .modal-avatar-placeholder { font-size: 2rem; font-weight: bold; color: var(--neon-accent); display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; text-transform: uppercase; }
-        .profile-modal input[type="text"] { width: 100%; padding: 14px 20px; margin: 15px 0; border: 1px solid var(--glass-border); background: rgba(255, 255, 255, 0.03); border-radius: 12px; outline: none; color: #fff; }
+        .profile-modal input[type="text"], .profile-modal textarea { width: 100%; padding: 14px 20px; margin: 10px 0; border: 1px solid var(--glass-border); background: rgba(255, 255, 255, 0.03); border-radius: 12px; outline: none; color: #fff; font-size: 0.9rem; }
+        .profile-modal textarea { height: 70px; resize: none; }
         .modal-btn { width: 100%; padding: 14px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 12px; text-transform: uppercase; font-size: 0.85rem; }
         .save-profile-btn { background: #fff; color: #000; }
-        .logout-btn { background: rgba(220, 53, 69, 0.1); color: #ff4d5e; border: 1px solid rgba(220, 53, 69, 0.2); margin-top: 15px; }
 
         .member-select-list { max-height: 180px; overflow-y: auto; text-align: left; margin: 15px 0; padding: 5px; border: 1px solid var(--glass-border); border-radius: 10px; background: rgba(0,0,0,0.2); }
-        .member-select-item { display: flex; align-items: center; gap: 10px; padding: 8px; border-bottom: 1px solid rgba(255,255,255,0.02); }
-        .member-select-item input { width: 16px; height: 16px; accent-color: var(--purple-accent); }
+        .member-select-item { display: flex; align-items: center; justify-content: space-between; padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.03); }
+        
+        /* Mini management tools */
+        .member-badge { font-size: 0.65rem; padding: 3px 6px; border-radius: 4px; font-weight: bold; text-transform: uppercase; margin-left: 5px; }
+        .badge-owner { background: rgba(168, 85, 247, 0.2); color: var(--purple-accent); border: 1px solid var(--purple-accent); }
+        .badge-admin { background: rgba(0, 240, 255, 0.2); color: var(--neon-accent); border: 1px solid var(--neon-accent); }
+        .member-actions-mini { display: flex; gap: 5px; }
+        .mini-btn { padding: 4px 8px; font-size: 0.65rem; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.02); color: #fff; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        .mini-btn.kick { border-color: rgba(220,53,69,0.4); color: #ff4d5e; }
+        .mini-btn:hover { background: rgba(255,255,255,0.1); }
         
         ::-webkit-scrollbar { width: 3px; }
         ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.05); border-radius: 10px; }
@@ -149,7 +170,6 @@
     <div class="bg-glow-1"></div>
     <div class="bg-glow-2"></div>
 
-    <!-- LOG IN SCREEN -->
     <div class="auth-wrapper" id="loginScreenWrapper">
         <h2 id="langLoginTitle">යාලුවෝ CHAT</h2>
         <p>// TERMINAL LOGIN</p>
@@ -159,7 +179,6 @@
         <div class="auth-toggle-text" id="langNoAccountText">Account එකක් නැද්ද? <a id="goToSignUp">Sign Up වෙන්න</a></div>
     </div>
 
-    <!-- SIGN UP SCREEN -->
     <div class="auth-wrapper" id="signUpScreenWrapper" style="display: none;">
         <h2 id="langSignUpTitle">යාලුවෝ CHAT</h2>
         <p>// REGISTER CONSOLE</p>
@@ -170,7 +189,6 @@
         <div class="auth-toggle-text" id="langHaveAccountText">දැනටමත් Account එකක් තියෙනවද? <a id="goToLogin">Log In වෙන්න</a></div>
     </div>
 
-    <!-- MAIN GRID INTERFACE -->
     <div class="interface-grid" id="chatScreenWrapper" style="display: none;">
         <nav class="control-strip">
             <div class="logo-box"><i class="fa-solid fa-bolt-lightning"></i></div>
@@ -187,12 +205,11 @@
 
         <main class="chat-theater theme-direct" id="chatTheaterFrame">
             <header class="theater-header">
-                <div class="theater-title">
+                <div class="theater-title" id="chatHeaderTitleBox">
                     <h2 id="chatMainTitle">SECURE_LINK_STREAM</h2>
                     <p id="chatSubTitle">// P2P TERMINAL</p>
                 </div>
                 
-                <!-- HEADER ACTION OPTIONS (Clear, Leave, Delete, Language) -->
                 <div class="header-actions">
                     <button class="lang-toggle-btn" id="languageToggleBtn">EN / සිං</button>
                     <button class="action-trigger-btn danger-btn" id="clearChatBtn" style="display:none;"><i class="fa-solid fa-trash-can"></i> <span id="langBtnClear">Clear Chat</span></button>
@@ -204,10 +221,14 @@
                 </div>
             </header>
 
+            <div class="rules-banner" id="groupRulesBanner" style="display: none;">
+                <div><i class="fa-solid fa-gavel"></i> <strong>RULES:</strong> <span id="rulesTextDisplay">No rules set yet.</span></div>
+                <button class="edit-rules-btn" id="editRulesBtn" style="display: none;">Edit Rules</button>
+            </div>
+
             <div class="messages-box" id="messages"></div>
 
             <footer class="input-dock">
-                <!-- Emoji Selection Panel Popup Container -->
                 <div class="emoji-panel-container" id="emojiPanelContainer">
                     <div class="emoji-panel-tabs" id="emojiPanelTabs"></div>
                     <div class="emoji-grid-content" id="emojiGridContent"></div>
@@ -244,42 +265,60 @@
         </aside>
     </div>
 
-    <!-- PROFILE MODAL -->
     <div class="modal-overlay" id="profileModalOverlay">
         <div class="profile-modal">
             <span class="modal-close" id="closeModalBtn"><i class="fa-solid fa-xmark"></i></span>
             <h3>CONSOLE_MUTATION</h3>
-            <div class="modal-avatar-wrapper">
-                <img src="" id="modalAvatarPreview" class="modal-avatar-view">
+            <div class="modal-avatar-wrapper" style="width:90px; height:90px; margin:15px auto; border:1px solid var(--neon-accent); border-radius:20px; overflow:hidden;">
+                <img src="" id="modalAvatarPreview" class="modal-avatar-view" style="width:100%; height:100%; object-fit:cover;">
                 <div id="modalAvatarPlaceholder" class="modal-avatar-placeholder"></div>
             </div>
             <input type="file" id="profilePicInput" accept="image/*" style="display: none;">
             <button class="modal-btn" style="background: rgba(255,255,255,0.03); color:#fff; border:1px solid var(--glass-border);" onclick="document.getElementById('profilePicInput').click()" id="langChooseImg">ඡායාරූපයක් තෝරන්න</button>
             <input type="text" id="profileNameInput" placeholder="ඔයාගේ නම...">
             <button class="modal-btn save-profile-btn" id="saveProfileBtn">විස්තර සුරකින්න</button>
-            <button class="modal-btn logout-btn" id="logoutBtn">Log Out වෙන්න</button>
+            <button class="modal-btn logout-btn" id="logoutBtn" style="background: rgba(220, 53, 69, 0.1); color: #ff4d5e; border: 1px solid rgba(220, 53, 69, 0.2); margin-top: 15px;">Log Out වෙන්න</button>
         </div>
     </div>
 
-    <!-- NEW CUSTOM GROUP MODAL -->
     <div class="modal-overlay" id="createGroupModalOverlay">
         <div class="profile-modal" style="border-color: var(--purple-accent);">
             <span class="modal-close" id="closeGroupModalBtn"><i class="fa-solid fa-xmark"></i></span>
             <h3>CREATE_CUSTOM_NODE</h3>
             <input type="text" id="newGroupNameInput" placeholder="Group එකේ නම ඇතුළත් කරන්න..." style="text-align: left;">
+            <textarea id="newGroupAboutInput" placeholder="Group එක ගැන විස්තරයක් (About)..." style="text-align: left;"></textarea>
             <div style="font-size:0.7rem; text-align:left; color:rgba(255,255,255,0.4); font-weight:bold; margin-top:10px;" id="langSelectMembersText">Select Group Members:</div>
             <div class="member-select-list" id="memberSelectListContainer"></div>
             <button class="modal-btn save-profile-btn" id="submitCreateGroupBtn" style="background: var(--purple-accent); color: #000;">Group එක සාදන්න</button>
         </div>
     </div>
 
-    <!-- FIREBASE MODULE -->
+    <div class="modal-overlay" id="groupInfoModalOverlay">
+        <div class="profile-modal" style="border-color: var(--purple-accent); text-align: left;">
+            <span class="modal-close" id="closeGroupInfoModalBtn"><i class="fa-solid fa-xmark"></i></span>
+            <h3 style="font-family:'Syncopate'; font-size:1.1rem; letter-spacing:1px; border-bottom:1px solid var(--glass-border); padding-bottom:10px;" id="infoModalGroupName">GROUP INFO</h3>
+            
+            <div style="margin-top: 15px;">
+                <label style="font-size: 0.7rem; font-weight: bold; color: var(--purple-accent);">ABOUT / DESCRIPTION</label>
+                <p id="infoAboutDisplay" style="font-size: 0.9rem; color: rgba(255,255,255,0.7); margin-top: 5px; min-height:20px; line-height: 1.4;"></p>
+                <textarea id="editAboutTextarea" style="display: none; margin-top: 5px;"></textarea>
+                <button class="mini-btn" id="btnSaveAbout" style="display: none; margin-top: 5px; background: var(--purple-accent); color:#000;">Save About</button>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <label style="font-size: 0.7rem; font-weight: bold; color: var(--purple-accent);">MEMBERS CONSOLE (<span id="infoMemberCount">0</span>)</label>
+                <div class="member-select-list" id="infoMembersContainer" style="max-height: 250px;"></div>
+            </div>
+        </div>
+    </div>
+
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-      import { getDatabase, ref, push, onChildAdded, onValue, update, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+      import { getDatabase, ref, push, onValue, update, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
       import { getStorage, ref as sRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
       import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, updateProfile, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
+      // Firebase Configuration එක
       const firebaseConfig = {
         apiKey: "AIzaSyBdXSYW5R4zRhC2WIYvlRXjAPHftDvcB30",
         authDomain: "testing-1-fe6c8.firebaseapp.com",
@@ -304,22 +343,19 @@
       let currentUserUID = ""; 
       let myName = "";
       let myPhotoURL = "";
-      let lastSenderUID = ""; 
       let isEditMode = false;
       let editMessageKey = "";
-      let currentLanguage = "si"; // default language is Sinhala ('si' or 'en')
+      let currentLanguage = "si";
 
-      // Language Dictionary Object Database (Includes Alert/Pop-up Messages)
       const dictionary = {
           si: {
               loginTitle: "යාලුවෝ CHAT", loginEmail: "ඔයාගේ Email එක...", loginBtn: "Log In වෙන්න", noAccount: "Account එකක් නැද්ද? ", signUpLink: "Sign Up වෙන්න",
               signUpTitle: "යාලුවෝ CHAT", signNewEmail: "නව Email ලිපිනයක්...", signPass: "නව Password එකක්...", signConf: "Password නැවත ඇතුළත් කරන්න...", signBtn: "Account එක හදන්න", haveAccount: "දැනටමත් Account එකක් තියෙනවද? ", loginLink: "Log In වෙන්න",
               stripDirect: "Direct", stripGroup: "Group", clearChat: "Chat Clear කරන්න", leaveGroup: "Group එකෙන් අයින් වෙන්න", deleteGroup: "Group එක Delete කරන්න",
-              modeDirect: "MODE: DIRECT CHAT", modeGroup: "MODE: PRIVATE GROUP", modeGlobal: "MODE: GLOBAL HUB", inputPlaceholder: "පණිවිඩයක් ලියන්න...",
+              modeDirect: "MODE: DIRECT CHAT", modeGroup: "MODE: PRIVATE GROUP", modeGlobal: "MODE: GLOBAL HUB", modeAnnouncement: "MODE: ANNOUNCEMENT", inputPlaceholder: "පණිවිඩයක් ලියන්න...",
               role: "පර්යන්ත පාලක", dmFeedTitle: "සම්බන්ධිත පරිශීලකයින් (DMs)", groupFeedTitle: "සමූහ නාලිකා (GROUPS)", newGroupBtn: "නව සමූහයක්",
               profileHeader: "පැතිකඩ වෙනස් කිරීම", chooseImg: "ඡායාරූපයක් තෝරන්න", namePlaceholder: "ඔයාගේ නම...", saveBtn: "විස්තර සුරකින්න", logoutBtn: "Log Out වෙන්න",
               createNodeTitle: "නව සමූහයක් සෑදීම", groupNamePlaceholder: "Group එකේ නම ඇතුළත් කරන්න...", selectMembers: "සමූහ සාමාජිකයන් තෝරන්න:", createGroupBtn: "Group එක සාදන්න",
-              // Alerts & Confirms
               loginFailed: "ලොග් වීම අසාර්ථකයි! ❌", enterGroupName: "නමක් ඇතුළත් කරන්න!", selectMemberAlert: "සාමාජිකයෙක් තෝරන්න!",
               confirmClearChat: "මෙම කතාබහේ ඇති සියලුම පණිවිඩ මකා දැමීමට ඔබට විශ්වාසද? ⚠️", chatCleared: "Chat එක සාර්ථකව Clear කලා! 🧹",
               confirmLeaveGroup: "සමූහයෙන් ඉවත් වීමට ඔබට විශ්වාසද? 🚪", leftGroup: "ඔබ සමූහයෙන් සාර්ථකව ඉවත් වුණා!",
@@ -330,11 +366,10 @@
               loginTitle: "YALUWO CHAT", loginEmail: "Your Email Address...", loginBtn: "Log In Now", noAccount: "Don't have an account? ", signUpLink: "Sign Up",
               signUpTitle: "YALUWO CHAT", signNewEmail: "New Email Address...", signPass: "Create Password...", signConf: "Confirm Password...", signBtn: "Register Account", haveAccount: "Already have an account? ", loginLink: "Log In",
               stripDirect: "Direct", stripGroup: "Group", clearChat: "Clear Chat", leaveGroup: "Leave Group", deleteGroup: "Delete Group",
-              modeDirect: "MODE: SECURE DM", modeGroup: "MODE: PRIVATE GROUP", modeGlobal: "MODE: GLOBAL HUB", inputPlaceholder: "Transmit data stream...",
+              modeDirect: "MODE: SECURE DM", modeGroup: "MODE: PRIVATE GROUP", modeGlobal: "MODE: GLOBAL HUB", modeAnnouncement: "MODE: ANNOUNCEMENT", inputPlaceholder: "Transmit data stream...",
               role: "Terminal Controller", dmFeedTitle: "ONLINE_TERMINALS (DMs)", groupFeedTitle: "CHANNELS (GROUPS)", newGroupBtn: "NEW GROUP",
               profileHeader: "CONSOLE_MUTATION", chooseImg: "Choose Image Source", namePlaceholder: "Your Identity Name...", saveBtn: "Save Profile Data", logoutBtn: "Disconnect Node",
               createNodeTitle: "CREATE_CUSTOM_NODE", groupNamePlaceholder: "Enter unique channel name...", selectMembers: "Select Group Members:", createGroupBtn: "Initialize Group",
-              // Alerts & Confirms
               loginFailed: "Login failed! Please check credentials. ❌", enterGroupName: "Please enter a group name!", selectMemberAlert: "Please select at least one member!",
               confirmClearChat: "Are you sure you want to clear all message logs from this chat stream? ⚠️", chatCleared: "Chat structure cleared successfully! 🧹",
               confirmLeaveGroup: "Are you sure you want to disconnect from this group? 🚪", leftGroup: "Successfully exited from the group node!",
@@ -349,12 +384,21 @@
         return colors[Math.abs(hash) % colors.length];
       }
 
-      // DOM Elements Mapping Core
       const loginWrapper = document.getElementById('loginScreenWrapper');
       const signUpWrapper = document.getElementById('signUpScreenWrapper');
       const chatWrapper = document.getElementById('chatScreenWrapper');
       const profileModalOverlay = document.getElementById('profileModalOverlay');
       const createGroupModalOverlay = document.getElementById('createGroupModalOverlay');
+      const groupInfoModalOverlay = document.getElementById('groupInfoModalOverlay');
+      
+      const chatHeaderTitleBox = document.getElementById('chatHeaderTitleBox');
+      const infoModalGroupName = document.getElementById('infoModalGroupName');
+      const infoAboutDisplay = document.getElementById('infoAboutDisplay');
+      const editAboutTextarea = document.getElementById('editAboutTextarea');
+      const btnSaveAbout = document.getElementById('btnSaveAbout');
+      const infoMemberCount = document.getElementById('infoMemberCount');
+      const infoMembersContainer = document.getElementById('infoMembersContainer');
+
       const headerName = document.getElementById('headerName');
       const headerAvatarContainer = document.getElementById('headerAvatarContainer');
       const modalAvatarPreview = document.getElementById('modalAvatarPreview');
@@ -368,8 +412,6 @@
       const signUpConfirmPasswordInput = document.getElementById('signUpConfirmPassword');
       const startChatBtn = document.getElementById('startChatBtn');
       const submitSignUpBtn = document.getElementById('submitSignUpBtn');
-      const goToSignUp = document.getElementById('goToSignUp');
-      const goToLogin = document.getElementById('goToLogin');
       const messageInput = document.getElementById('messageInput');
       const sendBtn = document.getElementById('sendBtn');
       const messagesBox = document.getElementById('messages');
@@ -387,6 +429,7 @@
       const activeChatBadge = document.getElementById('activeChatBadge');
       const chatTheaterFrame = document.getElementById('chatTheaterFrame');
       const newGroupNameInput = document.getElementById('newGroupNameInput');
+      const newGroupAboutInput = document.getElementById('newGroupAboutInput');
       const memberSelectListContainer = document.getElementById('memberSelectListContainer');
       const submitCreateGroupBtn = document.getElementById('submitCreateGroupBtn');
 
@@ -394,44 +437,41 @@
       const leaveGroupBtn = document.getElementById('leaveGroupBtn');
       const deleteGroupBtn = document.getElementById('deleteGroupBtn');
       
-      // Emoji Selection System Hook Elements
+      const groupRulesBanner = document.getElementById('groupRulesBanner');
+      const rulesTextDisplay = document.getElementById('rulesTextDisplay');
+      const editRulesBtn = document.getElementById('editRulesBtn');
+
       const emojiTriggerBtn = document.getElementById('emojiTriggerBtn');
       const emojiPanelContainer = document.getElementById('emojiPanelContainer');
       const emojiPanelTabs = document.getElementById('emojiPanelTabs');
       const emojiGridContent = document.getElementById('emojiGridContent');
       const languageToggleBtn = document.getElementById('languageToggleBtn');
 
-      // COMPLETE SYSTEM EMOJI PACK DICTIONARY DATABASE (Categorized)
       const emojiDataPack = {
           "😊": ["😀","😃","😄","😁","😆","😅","😂","🤣","🥲","😊","😇","🙂","🙃","😉","😌","😍","🥰","😘","😗","😙","😚","😋","😛","😝","😜","🤪","🤨","🧐","🤓","😎","🥸","🤩","🥳","😏","😒","😞","😔","😟","😕","🙁","☹️","😣","😖","😫","😩","🥺","😢","😭","😮‍💨","😤","😠","😡","🤬","🤯","😳","🥵","🥶","😱","😨","😰","😥","😓","🤗","🤔","🫣","🤭","🫢","🫡","🤫","🫠","🤥","😶","😐","😑","😬","🫨","😮","😯","😲","🥱","😴","🤤","😪","😵","😵‍💫","🫥","🤐","🥴","🤢","🤮","🤧","😷","🤒","🤕","🤑","🤠","😈","👿","👹","👹","🤡","💩","👻","💀","☠️","👽","👾","🤖"],
           "👋": ["👋","🤚","🖐️","✋","🖖","👌","🤌","🤏","✌️","🤞","🫰","🤟","🤘","🤙","👈","👉","👆","🖕","👇","☝️","👍","👎","✊","👊","🤛","🤜","👏","🙌","👐","🤲","🤝","🙏","✍️","💅","🤳","💪","🦾","🦿","🦵","🦶","👂","🦻","👃","🧠","🫀","🫁","🦷","🦴","👀","👁️","👅","👄","💋","🩸"],
           "❤️": ["❤️","🩷","🧡","💛","💚","💙","🩵","💜","🖤","🩶","🤍","🤎","💔","❤️‍🔥","❤️‍🩹","❣️","💕","💞","💓","💗","💖","💘","💝","💟","☮️","✝️","☪️","🕉️","☸️","✡️","🔯","🕎","☯️","☦️","🛐","⛎","♈","♉","♊","♋","♌","♍","♎","♏","♐","♑","♒","♓","🆔","⚛️","🫧"],
-          "🐱": ["🐶","🐱","🐭","🐹","🐰","🦊","🐻","🐼","🐻‍❄️","🐨","🐯","🦁","🐮","🐷","🐽","🐸","🐵","🙈","🙉","🙊","🐒","🐔","🐧","🐦","🐤","🐣","🐥","🦆","🦅","🦉","🦤","🪶","🦩","🦚","🦜","🐊","🐢","🦎","🐍","🐲","🐉","🦕","🦖","🐳","🐋","🐬","🦭","🐟","🐠","🐡","🦈","🐙","🐚","🪼","🦀","🦞","🦐","🦑","🦋","🐌","🐛","🐜","🐝","🪲","🐞","👑","🕷️","🕸️","🦂","🦟","🪰","🪱","🦠"],
-          "🍏": ["🍏","🍎","🍐","🍊","🍋","🍌","🍉","🍇","🍓","🫐","멜","🍒","🍑","🥭","🍍","🥥","🥝","🍅","🍆","🥑","🥦","🥬","🥒","🌶️","🫑","🌽","🥕","🫒"," garlic"," onion","🥔","🍠","🥐","🥯","🍞","🥖","🥨","🧀","🥞","🧇","🥓","🥩","🍗","🍖","🌭","🍔","🍟","🍕","🥪","🥙","🌮","🌯","🫔","🥗","🍿","🍿","🍳","🥘","🍲","🥣","🥗","🥫","🍱","🍘","🍙","🍚","🍛","🍜","🍝","🍠","🍢","🍣","🍤","🍥","🥮","🍡","🥟","🥠","🥡","🦪","🍦","🍧","🍨","🍩","🍪","🎂","🍰","🧁","🥧","🍫","🍬","🍭","🍮","🍯","🍼","🥛","☕","🫖","🍵","🍶","🍾","🍷","🍸","🍹","🍺","🍻","🥂","🥃","🥤","🧋","🧃","🧉","🧊"]
+          "🐱": ["🐶","🐱","🐭","🐹","🐰","🦊","🐻","🐼","🐻‍❄️","🐨","🐯","🦁","🐮","🐷","🐽","🐸","🐵","🙈","🙉","🙊","🐒","🐔","🐧","🐦","🐤","🐣","🐥","🦆"," eagles","🦉","🦤","🪶","🦩","🦚","🦜","🐊","🐢","🦎","🐍","🐲","🐉","🦕","🦖","🐳","🐋","🐬","🦭","🐟","🐠","🐡","🦈","🐙","🐚","🪼","🦀","🦞","🦐","🦑","🦋","🐌","🐛","🐜","🐝","🪲","🐞","👑","🕷️","🕸️","🦂","🦟","🪰","🪱","🦠"]
       };
 
-      // LANGUAGE ENGINE FUNCTION
       function applyLanguageTranslations(lang) {
           currentLanguage = lang;
           const t = dictionary[lang];
           
-          // Auth UI Elements mapping
-          document.getElementById('langLoginTitle').innerText = t.loginTitle;
+          if(document.getElementById('langLoginTitle')) document.getElementById('langLoginTitle').innerText = t.loginTitle;
           loginEmailInput.placeholder = t.loginEmail;
           startChatBtn.innerText = t.loginBtn;
-          document.getElementById('langNoAccountText').innerHTML = `${t.noAccount} <a id="goToSignUp">${t.signUpLink}</a>`;
-          document.getElementById('langSignUpTitle').innerText = t.signUpTitle;
+          if(document.getElementById('langNoAccountText')) document.getElementById('langNoAccountText').innerHTML = `${t.noAccount} <a id="goToSignUp">${t.signUpLink}</a>`;
+          if(document.getElementById('langSignUpTitle')) document.getElementById('langSignUpTitle').innerText = t.signUpTitle;
           signUpEmailInput.placeholder = t.signNewEmail;
           signUpPasswordInput.placeholder = t.signPass;
           signUpConfirmPasswordInput.placeholder = t.signConf;
           submitSignUpBtn.innerText = t.signBtn;
-          document.getElementById('langHaveAccountText').innerHTML = `${t.haveAccount} <a id="goToLogin">${t.loginLink}</a>`;
+          if(document.getElementById('langHaveAccountText')) document.getElementById('langHaveAccountText').innerHTML = `${t.haveAccount} <a id="goToLogin">${t.loginLink}</a>`;
           
-          // Re-hook navigation pointers dynamically after innerHTML rewrite
-          document.getElementById('goToSignUp').onclick = () => { loginWrapper.style.display = "none"; signUpWrapper.style.display = "block"; };
-          document.getElementById('goToLogin').onclick = () => { signUpWrapper.style.display = "none"; loginWrapper.style.display = "block"; };
+          if(document.getElementById('goToSignUp')) document.getElementById('goToSignUp').onclick = () => { loginWrapper.style.display = "none"; signUpWrapper.style.display = "block"; };
+          if(document.getElementById('goToLogin')) document.getElementById('goToLogin').onclick = () => { signUpWrapper.style.display = "none"; loginWrapper.style.display = "block"; };
 
-          // Core Interface Buttons Text
           document.getElementById('langStripDirect').innerText = t.stripDirect;
           document.getElementById('langStripGroup').innerText = t.stripGroup;
           document.getElementById('langBtnClear').innerText = t.clearChat;
@@ -440,7 +480,6 @@
           document.getElementById('langTerminalRole').innerText = t.role;
           document.getElementById('langNewGroupBtn').innerText = t.newGroupBtn;
           
-          // Modals Text Elements Mapping
           document.getElementById('langChooseImg').innerText = t.chooseImg;
           profileNameInput.placeholder = t.namePlaceholder;
           document.getElementById('saveProfileBtn').innerText = t.saveBtn;
@@ -449,13 +488,14 @@
           document.getElementById('langSelectMembersText').innerText = t.selectMembers;
           submitCreateGroupBtn.innerText = t.createGroupBtn;
 
-          // Contextual elements update
           if (currentMode === "direct") {
               titleFeedText.innerText = t.dmFeedTitle;
               activeChatBadge.innerText = t.modeDirect;
           } else {
               titleFeedText.innerText = t.groupFeedTitle;
-              activeChatBadge.innerText = (selectedTargetID === "global") ? t.modeGlobal : t.modeGroup;
+              if (selectedTargetID === "global") activeChatBadge.innerText = t.modeGlobal;
+              else if (selectedTargetID === "announcement") activeChatBadge.innerText = t.modeAnnouncement;
+              else activeChatBadge.innerText = t.modeGroup;
           }
           if(!isEditMode) messageInput.placeholder = t.inputPlaceholder;
       }
@@ -465,11 +505,9 @@
           applyLanguageTranslations(nextLang);
       });
 
-      // EMOJI CONTROLLER INITIALIZER
       function setupEmojiPickerEngine() {
           emojiPanelTabs.innerHTML = "";
           let firstTab = true;
-          
           Object.keys(emojiDataPack).forEach(categoryIcon => {
               const tabBtn = document.createElement('button');
               tabBtn.className = `emoji-tab-btn ${firstTab ? 'active' : ''}`;
@@ -506,14 +544,12 @@
           emojiPanelContainer.style.display = (disp === "flex") ? "none" : "flex";
       });
 
-      // Close emoji panel when user clicks anywhere outside input dock
       document.addEventListener('click', (e) => {
           if(!emojiPanelContainer.contains(e.target) && e.target !== emojiTriggerBtn && !emojiTriggerBtn.contains(e.target)) {
               emojiPanelContainer.style.display = "none";
           }
       });
 
-      // Start Hook Execution
       setupEmojiPickerEngine();
       applyLanguageTranslations("si");
 
@@ -530,15 +566,25 @@
           profileModalOverlay.style.display = "flex";
       });
       document.getElementById('closeModalBtn').addEventListener('click', () => { profileModalOverlay.style.display = "none"; });
-      openGroupModalBtn.addEventListener('click', () => { newGroupNameInput.value = ""; renderMemberCheckboxes(); createGroupModalOverlay.style.display = "flex"; });
+      openGroupModalBtn.addEventListener('click', () => { newGroupNameInput.value = ""; newGroupAboutInput.value = ""; renderMemberCheckboxes(); createGroupModalOverlay.style.display = "flex"; });
       document.getElementById('closeGroupModalBtn').addEventListener('click', () => { createGroupModalOverlay.style.display = "none"; });
+      document.getElementById('closeGroupInfoModalBtn').addEventListener('click', () => { groupInfoModalOverlay.style.display = "none"; });
 
-      onAuthStateChanged(auth, (user) => {
+      // [UPDATE] අලුතෙන් කෙනෙක් Sign Up වුණු සැනින් Auto Global groups වලට එකතු කිරීමේ නව Logic කොටස
+      onAuthStateChanged(auth, async (user) => {
           if (user) {
               currentUserUID = user.uid; myName = user.displayName ? user.displayName : user.email.split('@')[0]; myPhotoURL = user.photoURL ? user.photoURL : "";
-              updateHeaderUI(myName, myPhotoURL); update(ref(db, `users/${user.uid}`), { uid: user.uid, name: myName, photo: myPhotoURL, email: user.email, lastSeen: Date.now() });
+              updateHeaderUI(myName, myPhotoURL); 
+              
+              // 1. පරිශීලකයාගේ තොරතුරු සාමාන්‍ය පරිදි Realtime DB එකේ Update කිරීම
+              await update(ref(db, `users/${user.uid}`), { uid: user.uid, name: myName, photo: myPhotoURL, email: user.email, lastSeen: Date.now() });
+              
+              // 2. [AUTO ADD LOGIC] නව ගිණුමක් සෑදූ සැනින් 'global' සහ 'announcement' ගෲප් වල සාමාජික ලැයිස්තුවට එකතු කිරීම
+              await update(ref(db, `custom_groups/global/members`), { [user.uid]: true });
+              await update(ref(db, `custom_groups/announcement/members`), { [user.uid]: true });
+
               loginWrapper.style.display = "none"; signUpWrapper.style.display = "none"; chatWrapper.style.display = "grid"; 
-              onValue(ref(db, 'users'), (snapshot) => { if(snapshot.exists()) cachedAllUsers = snapshot.val(); if(currentMode === "direct") loadRegisteredUsers(); else loadGroupChannelsList(); });
+              onValue(ref(db, 'users'), (snapshot) => { if(snapshot.exists()) cachedAllUsers = snapshot.val(); if(currentMode === "direct") loadRegisteredUsers(); else loadGroupChannelsList(); if(groupInfoModalOverlay.style.display === "flex") openGroupInfoPanel(); });
           } else { loginWrapper.style.display = "block"; signUpWrapper.style.display = "none"; chatWrapper.style.display = "none"; }
       });
 
@@ -563,8 +609,136 @@
 
       function getActiveDatabaseRefPath() {
           if (selectedTargetID === "global") return 'messages/global';
+          if (selectedTargetID === "announcement") return 'messages/announcement';
           else if (currentMode === "group") return `messages/custom_groups/${selectedTargetID}`;
           else { const pathID = currentUserUID < selectedTargetID ? `${currentUserUID}_${selectedTargetID}` : `${selectedTargetID}_${currentUserUID}`; return `messages/direct/${pathID}`; }
+      }
+
+      function checkGroupPermissionsAndMuteState() {
+          if (currentMode !== "group") {
+              groupRulesBanner.style.display = "none";
+              messageInput.disabled = false;
+              chatHeaderTitleBox.classList.remove('clickable-group');
+              return;
+          }
+
+          chatHeaderTitleBox.classList.add('clickable-group');
+          groupRulesBanner.style.display = "flex";
+          const currentRules = (activeGroupMeta && activeGroupMeta.rules) ? activeGroupMeta.rules : "No rules set yet.";
+          rulesTextDisplay.innerText = currentRules;
+
+          const isOwner = activeGroupMeta && activeGroupMeta.creator === currentUserUID;
+          const isAdmin = activeGroupMeta && activeGroupMeta.admins && activeGroupMeta.admins[currentUserUID];
+          const isMuted = activeGroupMeta && activeGroupMeta.mutedUsers && activeGroupMeta.mutedUsers[currentUserUID];
+
+          if (isOwner || isAdmin) { editRulesBtn.style.display = "inline-block"; } 
+          else { editRulesBtn.style.display = "none"; }
+
+          if (selectedTargetID === "announcement" && !isOwner && !isAdmin) {
+              messageInput.disabled = true; messageInput.placeholder = "Only admins can post announcements here.";
+          } else if (isMuted) {
+              messageInput.disabled = true; messageInput.placeholder = "You have been MUTED in this group console.";
+          } else {
+              messageInput.disabled = false; messageInput.placeholder = dictionary[currentLanguage].inputPlaceholder;
+          }
+      }
+
+      editRulesBtn.addEventListener('click', () => {
+          const newRules = prompt("Enter new Group Rules packet:", rulesTextDisplay.innerText);
+          if (newRules !== null) { update(ref(db, `custom_groups/${selectedTargetID}`), { rules: newRules }); }
+      });
+
+      chatHeaderTitleBox.addEventListener('click', () => {
+          if (currentMode === "group" && selectedTargetID) { openGroupInfoPanel(); }
+      });
+
+      function openGroupInfoPanel() {
+          if (!activeGroupMeta) return;
+          infoModalGroupName.innerText = activeGroupMeta.groupName.toUpperCase();
+          const aboutTxt = activeGroupMeta.about ? activeGroupMeta.about : "No description provided stream.";
+          infoAboutDisplay.innerText = aboutTxt;
+
+          const isOwner = activeGroupMeta.creator === currentUserUID;
+          const isAdmin = activeGroupMeta.admins && activeGroupMeta.admins[currentUserUID];
+
+          if (isOwner || isAdmin) {
+              infoAboutDisplay.style.cursor = "pointer";
+              infoAboutDisplay.title = "Click to edit description";
+              infoAboutDisplay.onclick = () => {
+                  infoAboutDisplay.style.display = "none";
+                  editAboutTextarea.style.display = "block";
+                  editAboutTextarea.value = infoAboutDisplay.innerText;
+                  btnSaveAbout.style.display = "inline-block";
+              };
+          } else {
+              infoAboutDisplay.style.cursor = "default";
+              infoAboutDisplay.onclick = null;
+          }
+
+          btnSaveAbout.onclick = () => {
+              const updatedAbout = editAboutTextarea.value.trim();
+              update(ref(db, `custom_groups/${selectedTargetID}`), { about: updatedAbout }).then(() => {
+                  editAboutTextarea.style.display = "none";
+                  btnSaveAbout.style.display = "none";
+                  infoAboutDisplay.style.display = "block";
+              });
+          };
+
+          infoMembersContainer.innerHTML = "";
+          const membersList = activeGroupMeta.members ? Object.keys(activeGroupMeta.members) : [];
+          infoMemberCount.innerText = membersList.length;
+
+          membersList.forEach(mUID => {
+              const uData = cachedAllUsers[mUID];
+              if (!uData) return;
+
+              const isTargetOwner = activeGroupMeta.creator === mUID;
+              const isTargetAdmin = activeGroupMeta.admins && activeGroupMeta.admins[mUID];
+              const isTargetMuted = activeGroupMeta.mutedUsers && activeGroupMeta.mutedUsers[mUID];
+
+              let roleBadge = "";
+              if (isTargetOwner) roleBadge = `<span class="member-badge badge-owner">Owner</span>`;
+              else if (isTargetAdmin) roleBadge = `<span class="member-badge badge-admin">Admin</span>`;
+
+              const mDiv = document.createElement('div');
+              mDiv.className = "member-select-item";
+              
+              let actionButtonsHTML = "";
+              if ((isOwner || isAdmin) && mUID !== currentUserUID && !isTargetOwner) {
+                  let adminToggleText = isTargetAdmin ? "Demote" : "Promote";
+                  let muteToggleText = isTargetMuted ? "Unmute" : "Mute";
+                  
+                  actionButtonsHTML = `
+                      <div class="member-actions-mini">
+                          ${isOwner ? `<button class="mini-btn promote-act">${adminToggleText}</button>` : ''}
+                          <button class="mini-btn mute-act">${muteToggleText}</button>
+                          <button class="mini-btn kick kick-act">Kick</button>
+                      </div>
+                  `;
+              }
+
+              mDiv.innerHTML = `
+                  <div style="display:flex; align-items:center; gap:10px;">
+                      <div style="width:30px; height:30px; border-radius:5px; background:${getNameColor(uData.name.toLowerCase())}; display:flex; justify-content:center; align-items:center; font-size:0.8rem; font-weight:bold;">${uData.name.charAt(0).toUpperCase()}</div>
+                      <span style="font-size:0.85rem; font-weight:600;">${uData.name} ${roleBadge}</span>
+                  </div>
+                  ${actionButtonsHTML}
+              `;
+
+              if (actionButtonsHTML !== "") {
+                  const pBtn = mDiv.querySelector('.promote-act');
+                  const mBtn = mDiv.querySelector('.mute-act');
+                  const kBtn = mDiv.querySelector('.kick-act');
+
+                  if(pBtn) pBtn.onclick = () => update(ref(db, `custom_groups/${selectedTargetID}/admins`), { [mUID]: isTargetAdmin ? null : true });
+                  if(mBtn) mBtn.onclick = () => update(ref(db, `custom_groups/${selectedTargetID}/mutedUsers`), { [mUID]: isTargetMuted ? null : true });
+                  if(kBtn) kBtn.onclick = () => { if(confirm(`Remove ${uData.name} from group console Node?`)) remove(ref(db, `custom_groups/${selectedTargetID}/members/${mUID}`)); };
+              }
+
+              infoMembersContainer.appendChild(mDiv);
+          });
+
+          groupInfoModalOverlay.style.display = "flex";
       }
 
       function switchChatMode(mode, targetID = "", targetName = "") {
@@ -577,19 +751,22 @@
           if(mode === "group") {
               btnGroupMode.classList.add('active'); openGroupModalBtn.style.display = "inline-block"; titleFeedText.innerText = t.groupFeedTitle;
               chatMainTitle.innerText = targetName ? targetName.toUpperCase() : "CHOOSE_A_GROUP";
-              chatTheaterFrame.className = "chat-theater theme-group"; activeChatBadge.innerText = targetID === "global" ? t.modeGlobal : t.modeGroup;
+              chatTheaterFrame.className = "chat-theater theme-group"; 
               
-              if(targetID && targetID !== "global") {
+              if (targetID === "global") activeChatBadge.innerText = t.modeGlobal;
+              else if (targetID === "announcement") activeChatBadge.innerText = t.modeAnnouncement;
+              else activeChatBadge.innerText = t.modeGroup;
+              
+              if(targetID) {
                   clearChatBtn.style.display = "inline-block";
                   onValue(ref(db, `custom_groups/${targetID}`), (snapshot) => {
                       if(snapshot.exists() && selectedTargetID === targetID) {
                           activeGroupMeta = snapshot.val();
                           if(activeGroupMeta.creator === currentUserUID) deleteGroupBtn.style.display = "inline-block";
-                          else leaveGroupBtn.style.display = "inline-block";
+                          else if(targetID !== "global" && targetID !== "announcement") leaveGroupBtn.style.display = "inline-block";
+                          checkGroupPermissionsAndMuteState();
                       }
                   });
-              } else if(targetID === "global") {
-                  clearChatBtn.style.display = "inline-block";
               }
               loadGroupChannelsList();
           } else {
@@ -597,6 +774,7 @@
               chatMainTitle.innerText = targetName ? `DM // ${targetName.toUpperCase()}` : "DIRECT_CONSOLE";
               chatTheaterFrame.className = "chat-theater theme-direct"; activeChatBadge.innerText = t.modeDirect;
               if(targetID) clearChatBtn.style.display = "inline-block";
+              checkGroupPermissionsAndMuteState();
               loadRegisteredUsers();
           }
           if(targetID) loadChatMessages();
@@ -621,17 +799,23 @@
 
       function loadGroupChannelsList() {
           usersListContainer.innerHTML = "";
+          
           const globalItem = document.createElement('div'); globalItem.className = `user-item ${selectedTargetID === "global" ? "active" : ""}`;
           globalItem.innerHTML = `<div class="user-alt-avatar" style="background: var(--purple-accent);"><i class="fa-solid fa-users"></i></div><div class="user-info"><h4>Global Chat Room</h4><p>// PUBLIC RADAR HUB</p></div>`;
           globalItem.addEventListener('click', () => { document.querySelectorAll('.user-item').forEach(i => i.classList.remove('active')); globalItem.classList.add('active'); switchChatMode("group", "global", "Global Chat Room"); });
           usersListContainer.appendChild(globalItem);
+
+          const announceItem = document.createElement('div'); announceItem.className = `user-item ${selectedTargetID === "announcement" ? "active" : ""}`;
+          announceItem.innerHTML = `<div class="user-alt-avatar" style="background: #e11d48;"><i class="fa-solid fa-bullhorn"></i></div><div class="user-info"><h4>Global Announcements</h4><p>// ADMIN BROADCAST</p></div>`;
+          announceItem.addEventListener('click', () => { document.querySelectorAll('.user-item').forEach(i => i.classList.remove('active')); announceItem.classList.add('active'); switchChatMode("group", "announcement", "Global Announcements"); });
+          usersListContainer.appendChild(announceItem);
 
           onValue(ref(db, 'custom_groups'), (snapshot) => {
               if (currentMode !== "group") return; document.querySelectorAll('.custom-group-item').forEach(el => el.remove());
               if(snapshot.exists()) {
                   snapshot.forEach(child => {
                       const groupData = child.val();
-                      if(groupData.members && groupData.members[currentUserUID]) {
+                      if(child.key !== "global" && child.key !== "announcement" && groupData.members && groupData.members[currentUserUID]) {
                           const gItem = document.createElement('div'); gItem.className = `user-item custom-group-item ${selectedTargetID === child.key ? 'active' : ''}`;
                           gItem.innerHTML = `<div class="user-alt-avatar" style="background: ${getNameColor(groupData.groupName.toLowerCase())};"><i class="fa-solid fa-hashtag"></i></div><div class="user-info"><h4>${groupData.groupName}</h4><p>// PRIVATE ROOM</p></div>`;
                           gItem.addEventListener('click', () => { document.querySelectorAll('.user-item').forEach(i => i.classList.remove('active')); gItem.classList.add('active'); switchChatMode("group", child.key, groupData.groupName); });
@@ -652,13 +836,21 @@
           });
       }
 
+      async function setupGlobalGroupNodes() {
+          await update(ref(db, 'custom_groups/global'), { groupId: "global", groupName: "Global Chat Room", creator: "SYSTEM_CONSOLE", rules: "Welcome to Global Chat Node! Keep it clean.", about: "Public worldwide terminal synchronization hub room." });
+          await update(ref(db, 'custom_groups/announcement'), { groupId: "announcement", groupName: "Global Announcements", creator: "SYSTEM_CONSOLE", rules: "Official announcements broadcast hub stream.", about: "Critical database firmware core broadcast news." });
+      }
+      setupGlobalGroupNodes();
+
       submitCreateGroupBtn.addEventListener('click', () => {
           const gName = newGroupNameInput.value.trim(); if(!gName) return alert(dictionary[currentLanguage].enterGroupName);
+          const gAbout = newGroupAboutInput.value.trim() || "No custom description setup.";
           const checkedBoxes = memberSelectListContainer.querySelectorAll('input[type="checkbox"]:checked');
           if(checkedBoxes.length === 0) return alert(dictionary[currentLanguage].selectMemberAlert);
           const groupMembers = {}; groupMembers[currentUserUID] = true; checkedBoxes.forEach(box => { groupMembers[box.value] = true; });
           const groupRef = push(ref(db, 'custom_groups'));
-          update(groupRef, { groupId: groupRef.key, groupName: gName, creator: currentUserUID, members: groupMembers, timestamp: Date.now() }).then(() => {
+          
+          update(groupRef, { groupId: groupRef.key, groupName: gName, about: gAbout, creator: currentUserUID, members: groupMembers, admins: {}, mutedUsers: {}, rules: "Welcome to our new group console node stream!", timestamp: Date.now() }).then(() => {
               createGroupModalOverlay.style.display = "none"; switchChatMode("group", groupRef.key, gName);
           });
       });
@@ -744,14 +936,17 @@
                     const meta = document.createElement('div'); meta.className = 'msg-meta-container';
                     meta.innerHTML = `<div class="msg-time">${msgData.timestamp || ''} ${msgData.isEdited ? '(Edited)' : ''}</div>`;
                     
+                    const actions = document.createElement('span'); actions.className = 'msg-actions';
+                    let hasActions = false;
+
                     if(isMe) {
-                        const actions = document.createElement('span'); actions.className = 'msg-actions';
                         actions.innerHTML = `${msgData.type === 'text' ? `<span class="e-btn">Edit</span> | ` : ''}<span class="d-btn">Delete</span>`;
                         if(msgData.type === 'text') actions.querySelector('.e-btn').addEventListener('click', () => { messageInput.value = msgData.message; isEditMode = true; editMessageKey = key; sendBtn.innerHTML = '<i class="fa-solid fa-check"></i>'; messageInput.focus(); });
                         actions.querySelector('.d-btn').addEventListener('click', () => { if(confirm(dictionary[currentLanguage].confirmDeleteMsg)) remove(ref(db, `${getActiveDatabaseRefPath()}/${key}`)); });
-                        meta.appendChild(actions);
+                        hasActions = true;
                     }
-                    
+
+                    if (hasActions) meta.appendChild(actions);
                     contentDiv.appendChild(meta); rowDiv.appendChild(profileDiv); rowDiv.appendChild(contentDiv); messagesBox.appendChild(rowDiv);
                 });
                 messagesBox.scrollTop = messagesBox.scrollHeight;
