@@ -63,15 +63,19 @@
         .theater-title h2 { font-family: 'Syncopate', sans-serif; font-size: 1.05rem; letter-spacing: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 250px; }
         .theater-title p { font-size: 0.7rem; text-transform: uppercase; color: var(--neon-accent); margin-top: 3px; }
         
-        .header-actions { display: flex; gap: 8px; align-items: center; }
-        .action-trigger-btn { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.6); padding: 6px 12px; border-radius: 8px; font-size: 0.7rem; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        .action-trigger-btn:hover { color: #fff; background: rgba(255,255,255,0.1); }
-        .action-trigger-btn.danger-btn { border-color: rgba(220, 53, 69, 0.4); color: #ff4d5e; }
-        .action-trigger-btn.danger-btn:hover { background: rgba(220, 53, 69, 0.1); box-shadow: 0 0 10px rgba(220, 53, 69, 0.2); }
-        .action-trigger-btn.secure-btn { border-color: rgba(0, 240, 255, 0.4); color: var(--neon-accent); }
-        
+        .header-actions { display: flex; gap: 15px; align-items: center; }
         .lang-toggle-btn { background: linear-gradient(45deg, #1f2937, #111827); border: 1px solid var(--neon-accent); color: var(--neon-accent); font-weight: bold; padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; cursor: pointer; transition: 0.3s; }
         .lang-toggle-btn:hover { box-shadow: 0 0 10px var(--neon-glow); background: var(--neon-accent); color: #000; }
+
+        /* Action Buttons Grid in Sidebar (Relocated Below Person Details) */
+        .sidebar-actions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; margin-top: 5px; }
+        .action-trigger-btn { display: flex; align-items: center; justify-content: center; gap: 8px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); padding: 12px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; cursor: pointer; transition: 0.3s; width: 100%; text-transform: uppercase; }
+        .action-trigger-btn i { font-size: 0.85rem; }
+        .action-trigger-btn:hover { color: #fff; background: rgba(255,255,255,0.06); }
+        .action-trigger-btn.danger-btn { border-color: rgba(220, 53, 69, 0.3); color: #ff4d5e; background: rgba(220, 53, 69, 0.02); }
+        .action-trigger-btn.danger-btn:hover { background: rgba(220, 53, 69, 0.1); box-shadow: 0 0 12px rgba(220, 53, 69, 0.2); border-color: #ff4d5e; }
+        .action-trigger-btn.secure-btn { border-color: rgba(0, 240, 255, 0.3); color: var(--neon-accent); background: rgba(0, 240, 255, 0.02); }
+        .action-trigger-btn.secure-btn:hover { background: rgba(0, 240, 255, 0.1); box-shadow: 0 0 12px var(--neon-glow); border-color: var(--neon-accent); }
 
         .rules-banner { background: rgba(168, 85, 247, 0.05); border-bottom: 1px solid rgba(168, 85, 247, 0.15); padding: 8px 30px; font-size: 0.75rem; display: flex; justify-content: space-between; align-items: center; color: #d8b4fe; }
         .edit-rules-btn { background: transparent; border: none; color: var(--neon-accent); cursor: pointer; font-size: 0.7rem; text-decoration: underline; }
@@ -90,11 +94,6 @@
         .msg-row.outgoing .bubble { border-radius: 16px 4px 16px 16px; background: rgba(255, 255, 255, 0.01); border-color: rgba(255, 255, 255, 0.15); }
         
         .chat-media { max-width: 100%; max-height: 200px; border-radius: 12px; margin-top: 5px; cursor: pointer; }
-        .msg-meta-container { display: flex; align-items: center; gap: 8px; margin-top: 5px; }
-        .msg-time { font-size: 0.65rem; color: rgba(255, 255, 255, 0.3); }
-        .msg-actions { font-size: 0.7rem; display: none; cursor: pointer; color: rgba(255,255,255,0.4); }
-        .msg-row:hover .msg-actions { display: inline; }
-        .msg-actions span:hover { text-decoration: underline; color: #fff; }
 
         .input-dock { padding: 20px 30px; background: rgba(0,0,0,0.15); border-top: 1px solid var(--glass-border); position: relative; }
         .dock-wrapper { display: flex; background: rgba(255, 255, 255, 0.01); border: 1px solid var(--glass-border); border-radius: 16px; padding: 6px 12px; align-items: center; position: relative; }
@@ -103,26 +102,39 @@
         .action-btn:hover { color: #fff; background: rgba(255,255,255,0.05); }
         .send-btn { background: #fff; color: #000; width: 42px; height: 42px; border-radius: 12px; margin-left: 5px; transition: 0.3s; }
 
-        /* Emoji Container */
-        .emoji-panel-container { position: absolute; bottom: 85px; right: 30px; width: 280px; height: 220px; background: rgba(10, 15, 30, 0.95); border: 1px solid var(--glass-border); backdrop-filter: blur(20px); border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); display: none; flex-direction: column; overflow: hidden; z-index: 10; }
-        .emoji-panel-tabs { display: flex; background: rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.05); overflow-x: auto; padding: 5px; gap: 5px; }
-        .emoji-tab-btn { background: transparent; border: none; color: rgba(255,255,255,0.5); font-size: 0.9rem; cursor: pointer; padding: 3px 6px; border-radius: 5px; }
-        .emoji-tab-btn.active { background: rgba(255,255,255,0.1); color: #fff; }
-        .emoji-grid-content { flex: 1; padding: 10px; overflow-y: auto; display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; font-size: 1.25rem; text-align: center; }
-        .emoji-item { cursor: pointer; user-select: none; transition: 0.1s; border-radius: 5px; padding: 2px; }
-        .emoji-item:hover { background: rgba(255,255,255,0.1); transform: scale(1.15); }
-
         .data-hub { display: flex; flex-direction: column; gap: 15px; overflow-y: auto; min-height: 0; }
         .hub-card { background: rgba(255, 255, 255, 0.01); border: 1px solid var(--glass-border); border-radius: 20px; padding: 15px; }
         
-        /* Right Panel Styling */
+        /* Right Sidebar Styling */
         .right-sidebar { background: rgba(255, 255, 255, 0.01); border: 1px solid var(--glass-border); border-radius: 24px; padding: 20px; display: flex; flex-direction: column; gap: 20px; overflow-y: auto; }
-        .premium-profile { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; padding-bottom: 20px; border-bottom: 1px solid var(--glass-border); }
+        
+        /* Premium Neon Card Design Around User's Name & Avatar Badge */
+        .premium-profile { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            text-align: center; 
+            gap: 12px; 
+            padding: 25px 20px; 
+            border-radius: 20px;
+            background: rgba(255,255,255,0.01);
+            border: 1px solid var(--neon-accent);
+            box-shadow: 0 0 15px var(--neon-glow), inset 0 0 15px var(--neon-glow);
+            animation: neonGlowPulse 3s infinite ease-in-out;
+            transition: all 0.5s ease;
+        }
+        
+        @keyframes neonGlowPulse {
+            0% { box-shadow: 0 0 12px var(--neon-glow), inset 0 0 10px var(--neon-glow); border-color: var(--neon-accent); }
+            50% { box-shadow: 0 0 22px var(--neon-glow), inset 0 0 18px var(--neon-glow); border-color: #fff; }
+            100% { box-shadow: 0 0 12px var(--neon-glow), inset 0 0 10px var(--neon-glow); border-color: var(--neon-accent); }
+        }
+
         .avatar-container { position: relative; }
         .hex-avatar { width: 85px; height: 85px; background: linear-gradient(45deg, #7000ff, var(--neon-accent)); padding: 2px; border-radius: 24px; }
         .hex-avatar img, .hex-avatar .alt-header-avatar { width: 100%; height: 100%; background: var(--bg-dark); border-radius: 22px; object-fit: cover; }
-        .premium-profile h3 { font-size: 1.1rem; letter-spacing: 0.5px; margin-top: 5px; }
-        .premium-profile p { font-size: 0.7rem; color: rgba(255,255,255,0.4); text-transform: uppercase; margin-top: 2px; background: rgba(255,255,255,0.03); padding: 4px 10px; border-radius: 8px; border: 1px solid var(--glass-border); }
+        .premium-profile h3 { font-size: 1.1rem; letter-spacing: 0.5px; margin-top: 5px; font-weight: 700; text-shadow: 0 0 8px var(--neon-glow); }
+        .premium-profile p { font-size: 0.7rem; color: #fff; text-transform: uppercase; margin-top: 2px; background: rgba(255,255,255,0.05); padding: 4px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); letter-spacing: 1px; }
 
         .feed-title { font-family: 'Syncopate', sans-serif; font-size: 0.65rem; color: rgba(255,255,255,0.3); margin-bottom: 15px; letter-spacing: 2px; display: flex; justify-content: space-between; align-items: center; }
         .create-group-trigger-btn { background: transparent; border: 1px dashed var(--purple-accent); color: var(--purple-accent); padding: 4px 10px; border-radius: 8px; font-size: 0.65rem; cursor: pointer; font-weight: bold; }
@@ -135,7 +147,7 @@
         .user-info h4 { font-size: 0.85rem; color: rgba(255,255,255,0.9); font-weight: 600; }
         .user-info p { font-size: 0.65rem; color: rgba(255,255,255,0.4); margin-top: 2px; }
 
-        .details-panel-card { background: rgba(255,255,255,0.01); border: 1px solid var(--glass-border); border-radius: 20px; padding: 15px; display: flex; flex-direction: column; gap: 10px; }
+        .details-panel-card { background: rgba(255, 255, 255, 0.01); border: 1px solid var(--glass-border); border-radius: 20px; padding: 15px; display: flex; flex-direction: column; gap: 10px; }
         .details-panel-card h4 { font-family: 'Syncopate', sans-serif; font-size: 0.7rem; color: var(--neon-accent); border-bottom: 1px solid var(--glass-border); padding-bottom: 8px; margin-bottom: 5px; }
         .details-desc { font-size: 0.85rem; color: rgba(255,255,255,0.7); line-height: 1.4; }
 
@@ -143,8 +155,7 @@
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); display: none; justify-content: center; align-items: center; z-index: 100; backdrop-filter: blur(15px); }
         .profile-modal { background: rgba(10, 15, 30, 0.9); border: 1px solid rgba(0, 240, 255, 0.2); padding: 35px 30px; border-radius: 24px; width: 90%; max-width: 440px; text-align: center; position: relative; max-height: 85vh; overflow-y: auto; }
         .modal-close { position: absolute; top: 20px; right: 20px; font-size: 1.2rem; cursor: pointer; color: rgba(255,255,255,0.4); }
-        .profile-modal input[type="text"], .profile-modal textarea, .profile-modal select { width: 100%; padding: 14px 20px; margin: 10px 0; border: 1px solid var(--glass-border); background: rgba(255, 255, 255, 0.03); border-radius: 12px; outline: none; color: #fff; font-size: 0.9rem; }
-        .profile-modal textarea { height: 70px; resize: none; }
+        .profile-modal input[type="text"], .profile-modal select { width: 100%; padding: 14px 20px; margin: 10px 0; border: 1px solid var(--glass-border); background: rgba(255, 255, 255, 0.03); border-radius: 12px; outline: none; color: #fff; font-size: 0.9rem; }
         .modal-btn { width: 100%; padding: 14px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 12px; text-transform: uppercase; font-size: 0.85rem; }
         .save-profile-btn { background: #fff; color: #000; }
 
@@ -155,12 +166,10 @@
         ::-webkit-scrollbar { width: 3px; }
         ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.05); border-radius: 10px; }
 
-        /* Settings CSS Elements */
         .color-picker-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 15px 0; }
         .color-dot { height: 40px; border-radius: 10px; cursor: pointer; border: 2px solid transparent; transition: 0.2s; }
         .color-dot.active { border-color: #fff; transform: scale(1.05); }
 
-        /* Block Status Info */
         .block-notice { background: rgba(220, 53, 69, 0.1); border: 1px dashed #ff4d5e; padding: 12px; border-radius: 12px; color: #ff4d5e; font-size: 0.85rem; margin-top: 10px; text-align: center; }
 
         @media (max-width: 1024px) { .interface-grid { grid-template-columns: 80px 1fr; } .right-sidebar { display: none; } }
@@ -176,7 +185,6 @@
     <div class="bg-glow-1"></div>
     <div class="bg-glow-2"></div>
 
-    <!-- AUTHENTICATION[cite: 1] -->
     <div class="auth-wrapper" id="loginScreenWrapper">
         <h2 id="langLoginTitle">යාලුවෝ CHAT</h2>
         <p>// TERMINAL LOGIN</p>
@@ -196,10 +204,8 @@
         <div class="auth-toggle-text" id="langHaveAccountText">දැනටමත් Account එකක් තියෙනවද? <a id="goToLogin">Log In වෙන්න</a></div>
     </div>
 
-    <!-- MAIN INTERFACE[cite: 1] -->
     <div class="interface-grid" id="chatScreenWrapper" style="display: none;">
         
-        <!-- LEFT STATIC NAVBAR with SETTINGS Icon[cite: 1] -->
         <nav class="left-navbar">
             <div class="nav-brand"><i class="fa-solid fa-bolt"></i></div>
             <div class="nav-menu">
@@ -211,7 +217,6 @@
                     <i class="fa-solid fa-earth-asia"></i>
                     <span>GROUP</span>
                 </div>
-                <!-- Settings Icon Added After Group -->
                 <div class="nav-item settings-nav" id="navSettingsLink">
                     <i class="fa-solid fa-gear"></i>
                     <span>SETTINGS</span>
@@ -220,7 +225,6 @@
             <button class="power-btn" id="stripLogoutBtn"><i class="fa-solid fa-power-off"></i></button>
         </nav>
 
-        <!-- CENTER STAGE[cite: 1] -->
         <div class="center-stage">
             <aside class="data-hub">
                 <div class="hub-card" style="flex: 1; display: flex; flex-direction: column; min-height: 0;">
@@ -232,7 +236,6 @@
                 </div>
             </aside>
 
-            <!-- THEATER CHAT VIEW PANEL[cite: 1] -->
             <main class="chat-theater theme-direct" id="chatTheaterFrame">
                 <header class="theater-header">
                     <div style="display: flex; align-items: center;">
@@ -245,13 +248,6 @@
                     
                     <div class="header-actions">
                         <button class="lang-toggle-btn" id="languageToggleBtn">EN / සිං</button>
-                        <!-- Block / Unblock Actions Added Dynamically -->
-                        <button class="action-trigger-btn danger-btn" id="blockUserBtn" style="display:none;"><i class="fa-solid fa-ban"></i> Block User</button>
-                        <button class="action-trigger-btn secure-btn" id="unblockUserBtn" style="display:none;"><i class="fa-solid fa-unlock"></i> Unblock User</button>
-                        
-                        <button class="action-trigger-btn danger-btn" id="clearChatBtn" style="display:none;"><i class="fa-solid fa-trash-can"></i> <span id="langBtnClear">Clear Chat</span></button>
-                        <button class="action-trigger-btn danger-btn" id="leaveGroupBtn" style="display:none;"><i class="fa-solid fa-arrow-right-from-bracket"></i> <span id="langBtnLeave">Leave Group</span></button>
-                        <button class="action-trigger-btn danger-btn" id="deleteGroupBtn" style="display:none;"><i class="fa-solid fa-fire"></i> <span id="langBtnDelete">Delete Group</span></button>
                         <div style="font-size: 0.75rem; font-family: monospace; border: 1px solid rgba(255,255,255,0.1); padding: 5px 10px; border-radius: 6px; font-weight: bold;" id="activeChatBadge">
                             MODE: DIRECT CHAT
                         </div>
@@ -266,17 +262,7 @@
                 <div class="messages-box" id="messages"></div>
 
                 <footer class="input-dock" id="chatInputDock">
-                    <div class="emoji-panel-container" id="emojiPanelContainer">
-                        <div class="emoji-panel-tabs" id="emojiPanelTabs"></div>
-                        <div class="emoji-grid-content" id="emojiGridContent"></div>
-                    </div>
-
                     <div class="dock-wrapper">
-                        <input type="file" id="mediaInput" accept="image/*,video/*" style="display: none;">
-                        <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display: none;">
-                        <button class="action-btn" id="attachBtn"><i class="fa-solid fa-paperclip"></i></button>
-                        <button class="action-btn" id="camBtn"><i class="fa-solid fa-camera"></i></button>
-                        <button class="action-btn" id="emojiTriggerBtn" style="margin-right: 5px;"><i class="fa-regular fa-face-smile" style="font-size:1.15rem; color:var(--neon-accent)"></i></button>
                         <input type="text" id="messageInput" class="dock-input" placeholder="Transmit data stream...">
                         <button class="action-btn send-btn" id="sendBtn"><i class="fa-solid fa-arrow-up-long"></i></button>
                     </div>
@@ -285,7 +271,6 @@
             </main>
         </div>
 
-        <!-- RIGHT SIDEBAR[cite: 1] -->
         <aside class="right-sidebar">
             <div class="premium-profile" id="headerProfileBtn" style="cursor:pointer;">
                 <div class="avatar-container">
@@ -303,10 +288,17 @@
                     <p class="details-desc" style="color: rgba(255,255,255,0.4); text-align: center; padding: 20px 0;">Select a chat node stream to inspect metadata packet logs.</p>
                 </div>
             </div>
+
+            <div class="sidebar-actions-grid" id="sidebarActionsGrid">
+                <button class="action-trigger-btn danger-btn" id="blockUserBtn" style="display:none;"><i class="fa-solid fa-ban"></i> Block User</button>
+                <button class="action-trigger-btn secure-btn" id="unblockUserBtn" style="display:none;"><i class="fa-solid fa-unlock"></i> Unblock User</button>
+                <button class="action-trigger-btn danger-btn" id="clearChatBtn" style="display:none;"><i class="fa-solid fa-trash-can"></i> <span id="langBtnClear">Clear Chat</span></button>
+                <button class="action-trigger-btn danger-btn" id="leaveGroupBtn" style="display:none;"><i class="fa-solid fa-arrow-right-from-bracket"></i> <span id="langBtnLeave">Leave Group</span></button>
+                <button class="action-trigger-btn danger-btn" id="deleteGroupBtn" style="display:none;"><i class="fa-solid fa-fire"></i> <span id="langBtnDelete">Delete Group</span></button>
+            </div>
         </aside>
     </div>
 
-    <!-- MAIN PROFILE & NEON SETTINGS MODAL[cite: 1] -->
     <div class="modal-overlay" id="profileModalOverlay">
         <div class="profile-modal">
             <span class="modal-close" id="closeModalBtn"><i class="fa-solid fa-xmark"></i></span>
@@ -315,11 +307,8 @@
                 <img src="" id="modalAvatarPreview" class="modal-avatar-view" style="width:100%; height:100%; object-fit:cover;">
                 <div id="modalAvatarPlaceholder" class="modal-avatar-placeholder"></div>
             </div>
-            <input type="file" id="profilePicInput" accept="image/*" style="display: none;">
-            <button class="modal-btn" style="background: rgba(255,255,255,0.03); color:#fff; border:1px solid var(--glass-border);" onclick="document.getElementById('profilePicInput').click()" id="langChooseImg">ඡායාරූපයක් තෝරන්න</button>
             <input type="text" id="profileNameInput" placeholder="ඔයාගේ නම...">
             
-            <!-- Neon Colors Customization Feature -->
             <div style="font-size: 0.75rem; text-align: left; margin-top: 15px; color: rgba(255,255,255,0.5); font-weight: bold;">SELECT NEON ACCENT HUE:</div>
             <div class="color-picker-grid">
                 <div class="color-dot" style="background: #00f0ff;" data-color="#00f0ff" data-glow="rgba(0, 240, 255, 0.4)"></div>
@@ -333,14 +322,11 @@
         </div>
     </div>
 
-    <!-- CREATE CUSTOM GROUP MODAL[cite: 1] -->
     <div class="modal-overlay" id="createGroupModalOverlay">
         <div class="profile-modal" style="border-color: var(--purple-accent);">
             <span class="modal-close" id="closeGroupModalBtn"><i class="fa-solid fa-xmark"></i></span>
             <h3>CREATE_CUSTOM_NODE</h3>
             <input type="text" id="newGroupNameInput" placeholder="Group එකේ නම ඇතුළත් කරන්න..." style="text-align: left;">
-            <textarea id="newGroupAboutInput" placeholder="Group එක ගැන විස්තරයක් (About)..." style="text-align: left;"></textarea>
-            <div style="font-size:0.7rem; text-align:left; color:rgba(255,255,255,0.4); font-weight:bold; margin-top:10px;" id="langSelectMembersText">Select Group Members:</div>
             <div class="member-select-list" id="memberSelectListContainer"></div>
             <button class="modal-btn save-profile-btn" id="submitCreateGroupBtn" style="background: var(--purple-accent); color: #000;">Group එක සාදන්න</button>
         </div>
@@ -349,9 +335,9 @@
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
       import { getDatabase, ref, push, onValue, update, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-      import { getStorage, ref as sRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
-      import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, updateProfile, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+      import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
+      // FIREBASE WEB APP PROD APP INITIALIZATION KEYSETS
       const firebaseConfig = {
         apiKey: "AIzaSyBdXSYW5R4zRhC2WIYvlRXjAPHftDvcB30",
         authDomain: "testing-1-fe6c8.firebaseapp.com",
@@ -364,27 +350,21 @@
 
       const app = initializeApp(firebaseConfig);
       const db = getDatabase(app);
-      const storage = getStorage(app); 
       const auth = getAuth(app); 
-
-      const IMGBB_API_KEY = "6385befe9de130fd81ccee5f2a72ab79";
 
       let currentMode = "direct"; 
       let selectedTargetID = ""; 
       let selectedTargetName = "";
       let cachedAllUsers = {}; 
-      let activeGroupMeta = null;
-
       let currentUserUID = ""; 
       let myName = "";
       let myPhotoURL = "";
-      let isEditMode = false;
-      let editMessageKey = "";
       let currentLanguage = "si";
       
       let myActiveColor = "#00f0ff";
       let myActiveGlow = "rgba(0, 240, 255, 0.4)";
       let blockList = {};
+      let activeGroupMeta = null;
 
       const dictionary = {
           si: {
@@ -395,7 +375,9 @@
               role: "පර්යන්ත පාලක", dmFeedTitle: "සම්බන්ධිත පරිශීලකයින් (DMs)", groupFeedTitle: "සමූහ නාලිකා (GROUPS)", newGroupBtn: "නව සමූහයක්",
               profileHeader: "පැතිකඩ වෙනස් කිරීම", chooseImg: "ඡායාරූපයක් තෝරන්න", namePlaceholder: "ඔයාගේ නම...", saveBtn: "විස්තර සුරකින්න", logoutBtn: "Log Out වෙන්න",
               createNodeTitle: "නව සමූහයක් සෑදීම", groupNamePlaceholder: "Group එකේ නම ඇතුළත් කරන්න...", selectMembers: "සමූහ සාමාජිකයන් තෝරන්න:", createGroupBtn: "Group එක සාදන්න",
-              loginFailed: "ලොග් වීම අසාර්ථකයි! ❌", enterGroupName: "නමක් ඇතුළත් කරන්න!", selectMemberAlert: "සාමාජිකයෙක් තෝරන්න!", confirmClearChat: "මෙම කතාබහේ ඇති සියලුම පණිවිඩ මකා දැමීමට ඔබට විශ්වාසද? ⚠️", chatCleared: "Chat එක සාර්ථකව Clear කලා! 🧹", confirmLeaveGroup: "සමූහයෙන් ඉවත් වීමට ඔබට විශ්වාසද? 🚪", leftGroup: "ඔබ සමූහයෙන් සාර්ථකව ඉවත් වුණා!", confirmDeleteGroup: "මෙම සමූහය සහ එහි ඇති සියලුම දත්ත සම්පූර්ණයෙන්ම පද්ධතියෙන් ඉවත් කිරීමට ඔබට විශ්වාසද? 🔥", groupDeleted: "සමූහය සාර්ථකව විනාශ කලා!", confirmDeleteMsg: "මැසේජ් එක මකන්නද?", uploadingStream: "ගොනුව අප්ලෝඩ් වෙමින් පවතී... ⏳"
+              loginFailed: "ලොග් වීම අසාර්ථකයි! ❌", confirmClearChat: "මෙම කතාබහේ ඇති සියලුම පණිවිඩ මකා දැමීමට ඔබට විශ්වාසද? ⚠️",
+              confirmLeaveGroup: "මෙම සමූහයෙන් ඉවත් වීමට ඔබට විශ්වාසද? ⚠️", confirmDeleteGroup: "මෙම සමූහය සම්පූර්ණයෙන්ම මකා දැමීමට ඔබට විශ්වාසද? ⚠️",
+              groupLeft: "ඔබ සාර්ථකව සමූහයෙන් ඉවත් විය.", groupDeleted: "සමූහය සාර්ථකව මකා දැමීය."
           },
           en: {
               loginTitle: "YALUWO CHAT", loginEmail: "Your Email Address...", loginBtn: "Log In Now", noAccount: "Don't have an account? ", signUpLink: "Sign Up",
@@ -405,7 +387,9 @@
               role: "Terminal Controller", dmFeedTitle: "ONLINE_TERMINALS (DMs)", groupFeedTitle: "CHANNELS (GROUPS)", newGroupBtn: "NEW GROUP",
               profileHeader: "CONSOLE_MUTATION", chooseImg: "Choose Image Source", namePlaceholder: "Your Identity Name...", saveBtn: "Save Profile Data", logoutBtn: "Disconnect Node",
               createNodeTitle: "CREATE_CUSTOM_NODE", groupNamePlaceholder: "Enter unique channel name...", selectMembers: "Select Group Members:", createGroupBtn: "Initialize Group",
-              loginFailed: "Login failed! Please check credentials. ❌", enterGroupName: "Please enter a group name!", selectMemberAlert: "Please select at least one member!", confirmClearChat: "Are you sure you want to clear all message logs from this chat stream? ⚠️", chatCleared: "Chat structure cleared successfully! 🧹", confirmLeaveGroup: "Are you sure you want to disconnect from this group? 🚪", leftGroup: "Successfully exited from the group node!", confirmDeleteGroup: "Destroy group node and delete all stored binary packet streams? 🔥", groupDeleted: "Group terminal wiped completely!", confirmDeleteMsg: "Do you want to delete this message?", uploadingStream: "Uploading binary stream... ⏳"
+              loginFailed: "Login failed! Please check credentials. ❌", confirmClearChat: "Are you sure you want to clear all message logs? ⚠️",
+              confirmLeaveGroup: "Are you sure you want to leave this group node? ⚠️", confirmDeleteGroup: "Are you sure you want to completely incinerate this group? ⚠️",
+              groupLeft: "Successfully disconnected from group stream.", groupDeleted: "Group structure entirely purged."
           }
       };
 
@@ -421,7 +405,6 @@
       const chatScreenWrapper = document.getElementById('chatScreenWrapper');
       const profileModalOverlay = document.getElementById('profileModalOverlay');
       const createGroupModalOverlay = document.getElementById('createGroupModalOverlay');
-      const chatHeaderTitleBox = document.getElementById('chatHeaderTitleBox');
 
       const messagesBox = document.getElementById('messages');
       const messageInput = document.getElementById('messageInput');
@@ -451,20 +434,6 @@
       const rightPanelContextTitle = document.getElementById('rightPanelContextTitle');
       const rightPanelDynamicContent = document.getElementById('rightPanelDynamicContent');
 
-      async function uploadToImgBB(file) {
-          const formData = new FormData();
-          formData.append("image", file);
-          try {
-              const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, { method: "POST", body: formData });
-              const data = await res.json();
-              if (data.success) return data.data.url;
-              else throw new Error(data.error.message);
-          } catch (e) {
-              console.error("ImgBB Upload Exception:", e);
-              return null;
-          }
-      }
-
       function getActiveDatabaseRefPath() {
           if(currentMode === 'direct') {
               const pairID = currentUserUID < selectedTargetID ? `${currentUserUID}_${selectedTargetID}` : `${selectedTargetID}_${currentUserUID}`;
@@ -476,7 +445,6 @@
 
       function applyLanguagePack() {
           const pack = dictionary[currentLanguage];
-          
           document.getElementById('langLoginTitle').innerText = pack.loginTitle;
           document.getElementById('loginEmail').placeholder = pack.loginEmail;
           document.getElementById('startChatBtn').innerText = pack.loginBtn;
@@ -496,13 +464,11 @@
           document.getElementById('langTerminalRole').innerText = pack.role;
           document.getElementById('langNewGroupBtn').innerText = pack.newGroupBtn;
           
-          document.getElementById('langChooseImg').innerText = pack.chooseImg;
           document.getElementById('profileNameInput').placeholder = pack.namePlaceholder;
           document.getElementById('saveProfileBtn').innerText = pack.saveBtn;
           document.getElementById('logoutBtn').innerText = pack.logoutBtn;
           
           document.getElementById('newGroupNameInput').placeholder = pack.groupNamePlaceholder;
-          document.getElementById('langSelectMembersText').innerText = pack.selectMembers;
           document.getElementById('submitCreateGroupBtn').innerText = pack.createGroupBtn;
 
           bindAuthToggleDOMs();
@@ -527,7 +493,6 @@
               if(selectedTargetID === 'global_hub') activeChatBadge.innerText = pack.modeGlobal;
               else if(selectedTargetID === 'system_announcements') activeChatBadge.innerText = pack.modeAnnouncement;
               else activeChatBadge.innerText = pack.modeGroup;
-              
               if(feedTitleText) feedTitleText.innerText = pack.groupFeedTitle;
           }
       }
@@ -556,7 +521,6 @@
               signUpWrapper.style.display = 'none';
               chatScreenWrapper.style.display = 'grid';
               
-              // Load Custom Theme Settings if stored
               onValue(ref(db, `users/${user.uid}/themeColor`), (snap) => {
                   if(snap.exists()) {
                       myActiveColor = snap.val();
@@ -570,7 +534,6 @@
                   }
               });
 
-              // Listen to Blocks mapping
               onValue(ref(db, `blocks/${currentUserUID}`), (snap) => {
                   blockList = snap.exists() ? snap.val() : {};
                   loadUsersAndChannelsList();
@@ -620,7 +583,6 @@
 
       mobileBackToListBtn.onclick = () => { chatScreenWrapper.classList.remove('mobile-chat-active'); };
 
-      // DIRECT LINK NAVIGATION[cite: 1]
       navDirectLink.onclick = () => {
           currentMode = "direct";
           navDirectLink.classList.add('active');
@@ -652,7 +614,6 @@
           loadUsersAndChannelsList();
       };
 
-      // GROUP LINK NAVIGATION[cite: 1]
       navGroupLink.onclick = () => {
           currentMode = "group";
           navGroupLink.classList.add('active');
@@ -685,41 +646,36 @@
           listenToMessages();
       };
 
-      // SETTINGS ICON NAVIGATION INTERACTION[cite: 1]
       navSettingsLink.onclick = () => {
           navSettingsLink.classList.add('active');
           navDirectLink.classList.remove('active');
           navGroupLink.classList.remove('active');
-          document.getElementById('headerProfileBtn').click(); // Open Settings Panel Modal automatically
+          document.getElementById('headerProfileBtn').click(); 
       };
 
-      // Function to check if Blocked or Blocked by someone else
       function checkBlockStatus() {
           if (!selectedTargetID || currentMode !== "direct") return;
-
           const blockedByMe = blockList[selectedTargetID] === true;
-          // Check if target user has blocked current user
+
           onValue(ref(db, `blocks/${selectedTargetID}/${currentUserUID}`), (snap) => {
               const blockedByThem = snap.exists() && snap.val() === true;
               
               if (blockedByMe) {
-                  blockUserBtn.style.display = 'none';
-                  unblockUserBtn.style.display = 'inline-block';
-                  document.getElementById('chatInputDock').querySelector('.dock-wrapper').style.display = 'none';
-                  const notice = document.getElementById('blockStatusNotice');
-                  notice.style.display = 'block';
-                  notice.className = 'block-notice';
-                  notice.innerText = "You have blocked this terminal node. Unblock to resume transmission.";
-              } else if (blockedByThem) {
-                  blockUserBtn.style.display = 'inline-block';
+                  blockUserBtn.style.display = 'flex';
                   unblockUserBtn.style.display = 'none';
                   document.getElementById('chatInputDock').querySelector('.dock-wrapper').style.display = 'none';
                   const notice = document.getElementById('blockStatusNotice');
                   notice.style.display = 'block';
-                  notice.className = 'block-notice';
+                  notice.innerText = "You have blocked this terminal node. Unblock to resume transmission.";
+              } else if (blockedByThem) {
+                  blockUserBtn.style.display = 'none';
+                  unblockUserBtn.style.display = 'none';
+                  document.getElementById('chatInputDock').querySelector('.dock-wrapper').style.display = 'none';
+                  const notice = document.getElementById('blockStatusNotice');
+                  notice.style.display = 'block';
                   notice.innerText = "Connection lost. Target terminal has restricted access.";
               } else {
-                  blockUserBtn.style.display = 'inline-block';
+                  blockUserBtn.style.display = 'flex';
                   unblockUserBtn.style.display = 'none';
                   document.getElementById('chatInputDock').querySelector('.dock-wrapper').style.display = 'flex';
                   document.getElementById('blockStatusNotice').style.display = 'none';
@@ -735,7 +691,6 @@
                   if(uid === currentUserUID) return;
                   const u = cachedAllUsers[uid];
                   
-                  // Logic to check if target blocked me. If yes, change display name to user_not_find
                   onValue(ref(db, `blocks/${uid}/${currentUserUID}`), (snapshot) => {
                       const hasBlockedMe = snapshot.exists() && snapshot.val() === true;
                       const displayedName = hasBlockedMe ? "user_not_find" : u.name;
@@ -754,7 +709,7 @@
                           chatMainTitle.innerText = displayedName.toUpperCase();
                           chatSubTitle.innerText = "// PRIVACY LINK STATUS CHECKED";
                           
-                          clearChatBtn.style.display = 'inline-block';
+                          clearChatBtn.style.display = 'flex';
                           chatScreenWrapper.classList.add('mobile-chat-active');
                           
                           checkBlockStatus();
@@ -773,7 +728,6 @@
                   });
               });
           } else {
-              // Channels Listing[cite: 1]
               const preChannels = [
                   { id: 'global_hub', name: 'GLOBAL HUB', subtitle: '// PUBLIC CHAT ROOM' },
                   { id: 'system_announcements', name: 'ANNOUNCEMENTS', subtitle: '// READ ONLY CONSOLE' }
@@ -827,20 +781,20 @@
                                   activeGroupMeta = g;
                                   chatMainTitle.innerText = g.groupName.toUpperCase();
                                   chatSubTitle.innerText = "// CONNECTED NODE";
-                                  clearChatBtn.style.display = 'inline-block';
+                                  clearChatBtn.style.display = 'flex';
                                   blockUserBtn.style.display = 'none';
                                   unblockUserBtn.style.display = 'none';
                                   document.getElementById('chatInputDock').style.display = 'block';
                                   document.getElementById('blockStatusNotice').style.display = 'none';
                                   
                                   if(g.owner === currentUserUID) {
-                                      deleteGroupBtn.style.display = 'inline-block';
+                                      deleteGroupBtn.style.display = 'flex';
                                       leaveGroupBtn.style.display = 'none';
-                                      editRulesBtn.style.display = 'inline-block';
+                                      editRulesBtn.style.display = 'block';
                                   } else {
                                       deleteGroupBtn.style.display = 'none';
-                                      leaveGroupBtn.style.display = 'inline-block';
-                                      editRulesBtn.style.display = (g.admins && g.admins[currentUserUID]) ? 'inline-block' : 'none';
+                                      leaveGroupBtn.style.display = 'flex';
+                                      editRulesBtn.style.display = (g.admins && g.admins[currentUserUID]) ? 'block' : 'none';
                                   }
 
                                   groupRulesBanner.style.display = 'flex';
@@ -858,17 +812,15 @@
           }
       }
 
-      // BLOCK ACTION BUTTON INTERACTION
       blockUserBtn.onclick = () => {
           if (!selectedTargetID || currentMode !== "direct") return;
-          if (confirm(`Are you sure you want to block ${selectedTargetName}? (Chat history will remain saved)`)) {
+          if (confirm(`Are you sure you want to block ${selectedTargetName}?`)) {
               update(ref(db, `blocks/${currentUserUID}`), { [selectedTargetID]: true }).then(() => {
                   checkBlockStatus();
               });
           }
       };
 
-      // UNBLOCK ACTION BUTTON INTERACTION
       unblockUserBtn.onclick = () => {
           if (!selectedTargetID || currentMode !== "direct") return;
           if (confirm(`Do you want to unblock ${selectedTargetName}?`)) {
@@ -878,7 +830,47 @@
           }
       };
 
-      let activeMessagesRef = null;
+      clearChatBtn.onclick = () => {
+          if (!selectedTargetID) return;
+          if (confirm(dictionary[currentLanguage].confirmClearChat)) {
+              const path = getActiveDatabaseRefPath();
+              remove(ref(db, path)).then(() => { alert("Logs fully cleared."); });
+          }
+      };
+
+      leaveGroupBtn.onclick = () => {
+          if(!selectedTargetID || currentMode !== 'group') return;
+          if(confirm(dictionary[currentLanguage].confirmLeaveGroup)) {
+              remove(ref(db, `custom_groups/${selectedTargetID}/members/${currentUserUID}`)).then(() => {
+                  alert(dictionary[currentLanguage].groupLeft);
+                  navGroupLink.click();
+              });
+          }
+      };
+
+      deleteGroupBtn.onclick = () => {
+          if(!selectedTargetID || currentMode !== 'group') return;
+          if(confirm(dictionary[currentLanguage].confirmDeleteGroup)) {
+              remove(ref(db, `custom_groups/${selectedTargetID}`)).then(() => {
+                  remove(ref(db, `group_messages/${selectedTargetID}`)).then(() => {
+                      alert(dictionary[currentLanguage].groupDeleted);
+                      navGroupLink.click();
+                  });
+              });
+          }
+      };
+
+      editRulesBtn.onclick = (e) => {
+          e.stopPropagation();
+          const currentRules = activeGroupMeta ? activeGroupMeta.rules || "" : "";
+          const newRules = prompt("Edit Group Rules Console:", currentRules);
+          if(newRules !== null && selectedTargetID) {
+              update(ref(db, `custom_groups/${selectedTargetID}`), { rules: newRules }).then(() => {
+                  rulesTextDisplay.innerText = newRules;
+              });
+          }
+      };
+
       function listenToMessages() {
           if(!selectedTargetID) return;
           messagesBox.innerHTML = "";
@@ -891,12 +883,8 @@
                   Object.keys(data).forEach(key => {
                       const msgData = data[key];
                       const isMe = msgData.senderID === currentUserUID;
-                      
-                      // Logic to mask name if blocked
                       let senderFinalName = msgData.senderName;
-                      if (!isMe && currentMode === "direct") {
-                          senderFinalName = selectedTargetName; 
-                      }
+                      if (!isMe && currentMode === "direct") { senderFinalName = selectedTargetName; }
 
                       const rowDiv = document.createElement('div');
                       rowDiv.className = `msg-row ${isMe ? 'outgoing' : 'incoming'}`;
@@ -922,11 +910,7 @@
                       
                       const bubble = document.createElement('div');
                       bubble.className = 'bubble';
-                      
-                      if(msgData.type === 'text') bubble.innerText = msgData.message;
-                      else if(msgData.type === 'image') {
-                          bubble.innerHTML = `<img src="${msgData.mediaURL}" class="chat-media" alt="Media">`;
-                      }
+                      bubble.innerText = msgData.message;
                       
                       contentDiv.appendChild(bubble);
                       rowDiv.appendChild(profileDiv);
@@ -958,7 +942,6 @@
       sendBtn.onclick = handlePacketTransmission;
       messageInput.onkeydown = (e) => { if(e.key === 'Enter') handlePacketTransmission(); };
 
-      // COLOR DOTS INTERACTION LOGIC
       const colorDots = document.querySelectorAll('.color-dot');
       colorDots.forEach(dot => {
           dot.onclick = () => {
@@ -968,7 +951,6 @@
               const chosenColor = dot.getAttribute('data-color');
               const chosenGlow = dot.getAttribute('data-glow');
               
-              // Apply real-time preview locally
               document.documentElement.style.setProperty('--neon-accent', chosenColor);
               document.documentElement.style.setProperty('--neon-glow', chosenGlow);
               
@@ -977,12 +959,9 @@
           };
       });
 
-      // PROFILE SAVE[cite: 1]
       document.getElementById('headerProfileBtn').onclick = () => {
           profileModalOverlay.style.display = 'flex';
           document.getElementById('profileNameInput').value = myName;
-          
-          // Pre-select current theme color dot inside settings preview
           colorDots.forEach(d => {
               if(d.getAttribute('data-color') === myActiveColor) d.classList.add('active');
               else d.classList.remove('active');
@@ -991,7 +970,7 @@
 
       document.getElementById('closeModalBtn').onclick = () => { profileModalOverlay.style.display = 'none'; };
 
-      saveProfileBtn.onclick = async () => {
+      document.getElementById('saveProfileBtn').onclick = async () => {
           const typedName = document.getElementById('profileNameInput').value.trim();
           if(!typedName) return;
           
@@ -1006,7 +985,6 @@
           });
       };
 
-      // GROUP CODE STRUCTURES[cite: 1]
       document.getElementById('openGroupModalBtn').onclick = () => {
           createGroupModalOverlay.style.display = 'flex';
           memberSelectListContainer.innerHTML = "";
@@ -1021,7 +999,7 @@
 
       document.getElementById('closeGroupModalBtn').onclick = () => { createGroupModalOverlay.style.display = 'none'; };
 
-      submitCreateGroupBtn.onclick = () => {
+      document.getElementById('submitCreateGroupBtn').onclick = () => {
           const gName = document.getElementById('newGroupNameInput').value.trim();
           if(!gName) return;
           const checkboxes = memberSelectListContainer.querySelectorAll('.group-member-checkbox:checked');
@@ -1033,6 +1011,12 @@
               groupID: newGroupKey, groupName: gName, owner: currentUserUID, members: membersMap, rules: "Be Respectful Node."
           }).then(() => { createGroupModalOverlay.style.display = 'none'; });
       };
+
+      const stripLogoutBtn = document.getElementById('stripLogoutBtn');
+      const logoutBtn = document.getElementById('logoutBtn');
+      const triggerLogoutSequence = () => { if(confirm("Disconnect from network stream?")) signOut(auth); };
+      if(stripLogoutBtn) stripLogoutBtn.onclick = triggerLogoutSequence;
+      if(logoutBtn) logoutBtn.onclick = triggerLogoutSequence;
 
       applyLanguagePack();
     </script>
