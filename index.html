@@ -67,15 +67,13 @@
         .lang-toggle-btn { background: linear-gradient(45deg, #1f2937, #111827); border: 1px solid var(--neon-accent); color: var(--neon-accent); font-weight: bold; padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; cursor: pointer; transition: 0.3s; }
         .lang-toggle-btn:hover { box-shadow: 0 0 10px var(--neon-glow); background: var(--neon-accent); color: #000; }
 
-        /* Action Buttons Grid in Sidebar (Relocated Below Person Details) */
+        /* Action Buttons Grid in Sidebar */
         .sidebar-actions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; margin-top: 5px; }
         .action-trigger-btn { display: flex; align-items: center; justify-content: center; gap: 8px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); padding: 12px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; cursor: pointer; transition: 0.3s; width: 100%; text-transform: uppercase; }
         .action-trigger-btn i { font-size: 0.85rem; }
         .action-trigger-btn:hover { color: #fff; background: rgba(255,255,255,0.06); }
         .action-trigger-btn.danger-btn { border-color: rgba(220, 53, 69, 0.3); color: #ff4d5e; background: rgba(220, 53, 69, 0.02); }
         .action-trigger-btn.danger-btn:hover { background: rgba(220, 53, 69, 0.1); box-shadow: 0 0 12px rgba(220, 53, 69, 0.2); border-color: #ff4d5e; }
-        .action-trigger-btn.secure-btn { border-color: rgba(0, 240, 255, 0.3); color: var(--neon-accent); background: rgba(0, 240, 255, 0.02); }
-        .action-trigger-btn.secure-btn:hover { background: rgba(0, 240, 255, 0.1); box-shadow: 0 0 12px var(--neon-glow); border-color: var(--neon-accent); }
 
         .rules-banner { background: rgba(168, 85, 247, 0.05); border-bottom: 1px solid rgba(168, 85, 247, 0.15); padding: 8px 30px; font-size: 0.75rem; display: flex; justify-content: space-between; align-items: center; color: #d8b4fe; }
         .edit-rules-btn { background: transparent; border: none; color: var(--neon-accent); cursor: pointer; font-size: 0.7rem; text-decoration: underline; }
@@ -87,17 +85,36 @@
         .profile-area { width: 45px; display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
         .avatar-img { width: 36px; height: 36px; border-radius: 10px; object-fit: cover; border: 1px solid rgba(255,255,255,0.2); }
         .avatar-txt { width: 36px; height: 36px; border-radius: 10px; color: white; display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 0.95rem; border: 1px solid rgba(255,255,255,0.2); }
-        .msg-content { max-width: 70%; display: flex; flex-direction: column; align-items: flex-start; margin-left: 12px; }
+        
+        /* Message Bubble and Actions Area */
+        .msg-content { max-width: 70%; display: flex; flex-direction: column; align-items: flex-start; margin-left: 12px; position: relative; }
         .msg-row.outgoing .msg-content { align-items: flex-end; margin-left: 0; margin-right: 12px; }
         .sender-name-bubble { font-size: 0.7rem; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 4px; }
-        .bubble { padding: 12px 18px; border-radius: 4px 16px 16px 16px; font-size: 0.95rem; background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); word-wrap: break-word; }
-        .msg-row.outgoing .bubble { border-radius: 16px 4px 16px 16px; background: rgba(255, 255, 255, 0.01); border-color: rgba(255, 255, 255, 0.15); }
         
-        .chat-media { max-width: 100%; max-height: 200px; border-radius: 12px; margin-top: 5px; cursor: pointer; }
+        .bubble-wrapper { display: flex; align-items: center; gap: 8px; position: relative; }
+        .msg-row.outgoing .bubble-wrapper { flex-direction: row-reverse; }
 
+        .bubble { padding: 12px 18px; border-radius: 4px 16px 16px 16px; font-size: 0.95rem; background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); word-wrap: break-word; position: relative; }
+        .msg-row.outgoing .bubble { border-radius: 16px 4px 16px 16px; background: rgba(255, 255, 255, 0.02); border-color: rgba(255, 255, 255, 0.15); }
+        
+        /* Time Stamp Underneath Bubble */
+        .msg-timestamp { font-size: 0.65rem; color: rgba(255,255,255,0.3); margin-top: 4px; display: block; letter-spacing: 0.5px; }
+        
+        /* Inline Edit and Delete Action Triggers */
+        .msg-actions-trigger { display: none; gap: 6px; }
+        .bubble-wrapper:hover .msg-actions-trigger { display: flex; }
+        .msg-action-inline-btn { background: transparent; border: none; color: rgba(255,255,255,0.4); cursor: pointer; font-size: 0.8rem; transition: 0.2s; padding: 2px; }
+        .msg-action-inline-btn:hover { color: #fff; }
+        .msg-action-inline-btn.delete:hover { color: #ff4d5e; }
+
+        /* --- INPUT BOX FIXED SECTION --- */
         .input-dock { padding: 20px 30px; background: rgba(0,0,0,0.15); border-top: 1px solid var(--glass-border); position: relative; }
-        .dock-wrapper { display: flex; background: rgba(255, 255, 255, 0.01); border: 1px solid var(--glass-border); border-radius: 16px; padding: 6px 12px; align-items: center; position: relative; }
-        .dock-input { flex: 1; background: transparent; border: none; outline: none; color: #fff; font-size: 0.95rem; padding: 10px 12px; }
+        .dock-wrapper { display: flex; background: rgba(255, 255, 255, 0.02); border: 1px solid var(--glass-border); border-radius: 16px; padding: 6px 12px; align-items: center; position: relative; transition: border-color 0.3s, box-shadow 0.3s; }
+        .dock-wrapper:focus-within { border-color: var(--neon-accent); box-shadow: 0 0 15px rgba(0, 240, 255, 0.1); }
+        
+        .dock-input { flex: 1; background: rgba(12, 16, 27, 0.7) !important; border: none; outline: none; color: #fff !important; font-size: 0.95rem; padding: 12px; border-radius: 12px; }
+        .dock-input:-webkit-autofill { -webkit-text-fill-color: #fff !important; -webkit-box-shadow: 0 0 0px 1000px #0c101b inset !important; }
+
         .action-btn { background: transparent; border: none; color: rgba(255,255,255,0.4); width: 38px; height: 38px; border-radius: 10px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.2s; }
         .action-btn:hover { color: #fff; background: rgba(255,255,255,0.05); }
         .send-btn { background: #fff; color: #000; width: 42px; height: 42px; border-radius: 12px; margin-left: 5px; transition: 0.3s; }
@@ -108,27 +125,9 @@
         /* Right Sidebar Styling */
         .right-sidebar { background: rgba(255, 255, 255, 0.01); border: 1px solid var(--glass-border); border-radius: 24px; padding: 20px; display: flex; flex-direction: column; gap: 20px; overflow-y: auto; }
         
-        /* Premium Neon Card Design Around User's Name & Avatar Badge */
-        .premium-profile { 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            text-align: center; 
-            gap: 12px; 
-            padding: 25px 20px; 
-            border-radius: 20px;
-            background: rgba(255,255,255,0.01);
-            border: 1px solid var(--neon-accent);
-            box-shadow: 0 0 15px var(--neon-glow), inset 0 0 15px var(--neon-glow);
-            animation: neonGlowPulse 3s infinite ease-in-out;
-            transition: all 0.5s ease;
-        }
-        
-        @keyframes neonGlowPulse {
-            0% { box-shadow: 0 0 12px var(--neon-glow), inset 0 0 10px var(--neon-glow); border-color: var(--neon-accent); }
-            50% { box-shadow: 0 0 22px var(--neon-glow), inset 0 0 18px var(--neon-glow); border-color: #fff; }
-            100% { box-shadow: 0 0 12px var(--neon-glow), inset 0 0 10px var(--neon-glow); border-color: var(--neon-accent); }
-        }
+        /* Premium Neon Card Design */
+        .premium-profile { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; padding: 25px 20px; border-radius: 20px; background: rgba(255,255,255,0.01); border: 1px solid var(--neon-accent); box-shadow: 0 0 15px var(--neon-glow), inset 0 0 15px var(--neon-glow); animation: neonGlowPulse 3s infinite ease-in-out; }
+        @keyframes neonGlowPulse { 0%, 100% { box-shadow: 0 0 12px var(--neon-glow), inset 0 0 10px var(--neon-glow); border-color: var(--neon-accent); } 50% { box-shadow: 0 0 22px var(--neon-glow), inset 0 0 18px var(--neon-glow); border-color: #fff; } }
 
         .avatar-container { position: relative; }
         .hex-avatar { width: 85px; height: 85px; background: linear-gradient(45deg, #7000ff, var(--neon-accent)); padding: 2px; border-radius: 24px; }
@@ -155,22 +154,20 @@
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); display: none; justify-content: center; align-items: center; z-index: 100; backdrop-filter: blur(15px); }
         .profile-modal { background: rgba(10, 15, 30, 0.9); border: 1px solid rgba(0, 240, 255, 0.2); padding: 35px 30px; border-radius: 24px; width: 90%; max-width: 440px; text-align: center; position: relative; max-height: 85vh; overflow-y: auto; }
         .modal-close { position: absolute; top: 20px; right: 20px; font-size: 1.2rem; cursor: pointer; color: rgba(255,255,255,0.4); }
-        .profile-modal input[type="text"], .profile-modal select { width: 100%; padding: 14px 20px; margin: 10px 0; border: 1px solid var(--glass-border); background: rgba(255, 255, 255, 0.03); border-radius: 12px; outline: none; color: #fff; font-size: 0.9rem; }
+        .profile-modal input[type="text"] { width: 100%; padding: 14px 20px; margin: 10px 0; border: 1px solid var(--glass-border); background: rgba(255, 255, 255, 0.03); border-radius: 12px; outline: none; color: #fff; font-size: 0.9rem; }
         .modal-btn { width: 100%; padding: 14px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 12px; text-transform: uppercase; font-size: 0.85rem; }
         .save-profile-btn { background: #fff; color: #000; }
 
         .member-select-list { max-height: 180px; overflow-y: auto; text-align: left; margin: 15px 0; padding: 5px; border: 1px solid var(--glass-border); border-radius: 10px; background: rgba(0,0,0,0.2); }
         .member-select-item { display: flex; align-items: center; justify-content: space-between; padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.03); }
         
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
-        ::-webkit-scrollbar { width: 3px; }
-        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.05); border-radius: 10px; }
-
         .color-picker-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 15px 0; }
         .color-dot { height: 40px; border-radius: 10px; cursor: pointer; border: 2px solid transparent; transition: 0.2s; }
         .color-dot.active { border-color: #fff; transform: scale(1.05); }
 
-        .block-notice { background: rgba(220, 53, 69, 0.1); border: 1px dashed #ff4d5e; padding: 12px; border-radius: 12px; color: #ff4d5e; font-size: 0.85rem; margin-top: 10px; text-align: center; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        ::-webkit-scrollbar { width: 3px; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.05); border-radius: 10px; }
 
         @media (max-width: 1024px) { .interface-grid { grid-template-columns: 80px 1fr; } .right-sidebar { display: none; } }
         @media (max-width: 768px) {
@@ -262,11 +259,11 @@
                 <div class="messages-box" id="messages"></div>
 
                 <footer class="input-dock" id="chatInputDock">
-                    <div class="dock-wrapper">
+                    <div class="dock-wrapper" id="dockWrapper">
                         <input type="text" id="messageInput" class="dock-input" placeholder="Transmit data stream...">
                         <button class="action-btn send-btn" id="sendBtn"><i class="fa-solid fa-arrow-up-long"></i></button>
                     </div>
-                    <div id="blockStatusNotice" style="display: none;"></div>
+                    <div id="blockStatusNotice" style="display: none; text-align: center; color: #ff4d5e; font-weight: bold; padding: 10px;"></div>
                 </footer>
             </main>
         </div>
@@ -304,8 +301,7 @@
             <span class="modal-close" id="closeModalBtn"><i class="fa-solid fa-xmark"></i></span>
             <h3>SETTINGS_CONSOLE</h3>
             <div class="modal-avatar-wrapper" style="width:90px; height:90px; margin:15px auto; border:1px solid var(--neon-accent); border-radius:20px; overflow:hidden;">
-                <img src="" id="modalAvatarPreview" class="modal-avatar-view" style="width:100%; height:100%; object-fit:cover;">
-                <div id="modalAvatarPlaceholder" class="modal-avatar-placeholder"></div>
+                <div id="modalAvatarPlaceholder" class="modal-avatar-placeholder" style="width:100%; height:100%;"></div>
             </div>
             <input type="text" id="profileNameInput" placeholder="ඔයාගේ නම...">
             
@@ -334,10 +330,9 @@
 
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-      import { getDatabase, ref, push, onValue, update, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+      import { getDatabase, ref, push, onValue, update, remove, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
       import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-      // FIREBASE WEB APP PROD APP INITIALIZATION KEYSETS
       const firebaseConfig = {
         apiKey: "AIzaSyBdXSYW5R4zRhC2WIYvlRXjAPHftDvcB30",
         authDomain: "testing-1-fe6c8.firebaseapp.com",
@@ -394,6 +389,7 @@
       };
 
       function getNameColor(name) {
+          if(!name) return '#3b82f6';
           let hash = 0;
           for (let i = 0; i < name.length; i++) { hash = name.charCodeAt(i) + ((hash << 5) - hash); }
           const colors = ['#ff4d5e', '#fd7e14', '#a855f7', '#ec4899', '#00f0ff', '#00ff87', '#3b82f6'];
@@ -410,6 +406,7 @@
       const messageInput = document.getElementById('messageInput');
       const sendBtn = document.getElementById('sendBtn');
       const usersListContainer = document.getElementById('usersListContainer');
+      const memberSelectListContainer = document.getElementById('memberSelectListContainer');
       
       const navDirectLink = document.getElementById('navDirectLink');
       const navGroupLink = document.getElementById('navGroupLink');
@@ -433,6 +430,7 @@
 
       const rightPanelContextTitle = document.getElementById('rightPanelContextTitle');
       const rightPanelDynamicContent = document.getElementById('rightPanelDynamicContent');
+      const dockWrapper = document.getElementById('dockWrapper');
 
       function getActiveDatabaseRefPath() {
           if(currentMode === 'direct') {
@@ -510,17 +508,20 @@
               myPhotoURL = user.photoURL || "";
               
               document.getElementById('headerName').innerText = myName;
-              const hAvatarContainer = document.getElementById('headerAvatarContainer');
-              if(myPhotoURL) {
-                  hAvatarContainer.innerHTML = `<img src="${myPhotoURL}" alt="Avatar">`;
-              } else {
-                  hAvatarContainer.innerHTML = `<div class="alt-header-avatar" style="background:${getNameColor(myName)}; display:flex; justify-content:center; align-items:center; font-weight:bold; height:100%; width:100%; border-radius:22px;">${myName.charAt(0).toUpperCase()}</div>`;
-              }
+              updateHeaderAvatar();
 
               loginWrapper.style.display = 'none';
               signUpWrapper.style.display = 'none';
               chatScreenWrapper.style.display = 'grid';
               
+              update(ref(db, `users/${user.uid}`), {
+                  uid: user.uid,
+                  name: myName,
+                  email: user.email,
+                  photoURL: myPhotoURL,
+                  lastSeen: Date.now()
+              });
+
               onValue(ref(db, `users/${user.uid}/themeColor`), (snap) => {
                   if(snap.exists()) {
                       myActiveColor = snap.val();
@@ -540,14 +541,6 @@
                   if(currentMode === "direct" && selectedTargetID) checkBlockStatus();
               });
 
-              update(ref(db, `users/${user.uid}`), {
-                  uid: user.uid,
-                  name: myName,
-                  email: user.email,
-                  photoURL: myPhotoURL,
-                  lastSeen: Date.now()
-              });
-
               onValue(ref(db, 'users'), (snapshot) => {
                   if(snapshot.exists()) { cachedAllUsers = snapshot.val(); }
                   loadUsersAndChannelsList();
@@ -558,6 +551,19 @@
               chatScreenWrapper.style.display = 'none';
           }
       });
+
+      function updateHeaderAvatar(){
+          const hAvatarContainer = document.getElementById('headerAvatarContainer');
+          const mPlaceholder = document.getElementById('modalAvatarPlaceholder');
+          if(myPhotoURL) {
+              hAvatarContainer.innerHTML = `<img src="${myPhotoURL}" alt="Avatar">`;
+              mPlaceholder.innerHTML = `<img src="${myPhotoURL}" style="width:100%; height:100%; object-fit:cover;">`;
+          } else {
+              const html = `<div class="alt-header-avatar" style="background:${getNameColor(myName || 'U')}; display:flex; justify-content:center; align-items:center; font-weight:bold; height:100%; width:100%; border-radius:22px;">${(myName || 'U').charAt(0).toUpperCase()}</div>`;
+              hAvatarContainer.innerHTML = html;
+              mPlaceholder.innerHTML = html;
+          }
+      }
 
       document.getElementById('startChatBtn').onclick = () => {
           const email = document.getElementById('loginEmail').value.trim();
@@ -576,7 +582,16 @@
           if(pass !== conf) { alert("Passwords do not match!"); return; }
           if(email && pass) {
               createUserWithEmailAndPassword(auth, email, pass).then((cred) => {
-                  updateProfile(cred.user, { displayName: email.split('@')[0] });
+                  const defaultName = email.split('@')[0];
+                  updateProfile(cred.user, { displayName: defaultName }).then(()=>{
+                      set(ref(db, `users/${cred.user.uid}`), {
+                          uid: cred.user.uid,
+                          name: defaultName,
+                          email: email,
+                          photoURL: "",
+                          lastSeen: Date.now()
+                      });
+                  });
               }).catch(err => alert(err.message));
           }
       };
@@ -646,12 +661,7 @@
           listenToMessages();
       };
 
-      navSettingsLink.onclick = () => {
-          navSettingsLink.classList.add('active');
-          navDirectLink.classList.remove('active');
-          navGroupLink.classList.remove('active');
-          document.getElementById('headerProfileBtn').click(); 
-      };
+      navSettingsLink.onclick = () => { document.getElementById('headerProfileBtn').click(); };
 
       function checkBlockStatus() {
           if (!selectedTargetID || currentMode !== "direct") return;
@@ -659,75 +669,64 @@
 
           onValue(ref(db, `blocks/${selectedTargetID}/${currentUserUID}`), (snap) => {
               const blockedByThem = snap.exists() && snap.val() === true;
+              const notice = document.getElementById('blockStatusNotice');
               
               if (blockedByMe) {
-                  blockUserBtn.style.display = 'flex';
-                  unblockUserBtn.style.display = 'none';
-                  document.getElementById('chatInputDock').querySelector('.dock-wrapper').style.display = 'none';
-                  const notice = document.getElementById('blockStatusNotice');
+                  blockUserBtn.style.display = 'none';
+                  unblockUserBtn.style.display = 'flex';
+                  dockWrapper.style.display = 'none';
                   notice.style.display = 'block';
                   notice.innerText = "You have blocked this terminal node. Unblock to resume transmission.";
               } else if (blockedByThem) {
                   blockUserBtn.style.display = 'none';
                   unblockUserBtn.style.display = 'none';
-                  document.getElementById('chatInputDock').querySelector('.dock-wrapper').style.display = 'none';
-                  const notice = document.getElementById('blockStatusNotice');
+                  dockWrapper.style.display = 'none';
                   notice.style.display = 'block';
                   notice.innerText = "Connection lost. Target terminal has restricted access.";
               } else {
                   blockUserBtn.style.display = 'flex';
                   unblockUserBtn.style.display = 'none';
-                  document.getElementById('chatInputDock').querySelector('.dock-wrapper').style.display = 'flex';
-                  document.getElementById('blockStatusNotice').style.display = 'none';
+                  dockWrapper.style.display = 'flex';
+                  notice.style.display = 'none';
               }
           });
       }
 
       function loadUsersAndChannelsList() {
-          usersListContainer.innerHTML = "";
-          
           if(currentMode === "direct") {
+              usersListContainer.innerHTML = "";
               Object.keys(cachedAllUsers).forEach(uid => {
                   if(uid === currentUserUID) return;
                   const u = cachedAllUsers[uid];
+                  const displayedName = u.name || "Anonymous";
+                  const item = document.createElement('div');
+                  item.className = `user-item ${selectedTargetID === uid ? 'active' : ''}`;
                   
-                  onValue(ref(db, `blocks/${uid}/${currentUserUID}`), (snapshot) => {
-                      const hasBlockedMe = snapshot.exists() && snapshot.val() === true;
-                      const displayedName = hasBlockedMe ? "user_not_find" : u.name;
-
-                      const item = document.createElement('div');
-                      item.className = `user-item ${selectedTargetID === uid ? 'active' : ''}`;
+                  let avatarMark = "";
+                  if(u.photoURL) avatarMark = `<img src="${u.photoURL}" alt="U">`;
+                  else avatarMark = `<div class="user-alt-avatar" style="background:${getNameColor(displayedName)}; color:white;">${displayedName.charAt(0).toUpperCase()}</div>`;
+                  
+                  item.innerHTML = `${avatarMark}<div class="user-info"><h4>${displayedName}</h4><p>// SECURE DM NODE</p></div>`;
+                  item.onclick = () => {
+                      selectedTargetID = uid;
+                      selectedTargetName = displayedName;
+                      chatMainTitle.innerText = displayedName.toUpperCase();
+                      chatSubTitle.innerText = "// PRIVACY LINK STATUS CHECKED";
                       
-                      let avatarMark = "";
-                      if(u.photoURL && !hasBlockedMe) avatarMark = `<img src="${u.photoURL}" alt="U">`;
-                      else avatarMark = `<div class="user-alt-avatar" style="background:${getNameColor(displayedName)}; color:white;">${displayedName.charAt(0).toUpperCase()}</div>`;
-                      
-                      item.innerHTML = `${avatarMark}<div class="user-info"><h4>${displayedName}</h4><p>// SECURE NODE</p></div>`;
-                      item.onclick = () => {
-                          selectedTargetID = uid;
-                          selectedTargetName = displayedName;
-                          chatMainTitle.innerText = displayedName.toUpperCase();
-                          chatSubTitle.innerText = "// PRIVACY LINK STATUS CHECKED";
-                          
-                          clearChatBtn.style.display = 'flex';
-                          chatScreenWrapper.classList.add('mobile-chat-active');
-                          
-                          checkBlockStatus();
+                      clearChatBtn.style.display = 'flex';
+                      chatScreenWrapper.classList.add('mobile-chat-active');
+                      checkBlockStatus();
 
-                          rightPanelContextTitle.innerText = "PEER_METADATA";
-                          rightPanelDynamicContent.innerHTML = `
-                            <div class="details-desc">
-                                <p style="margin-bottom:8px;"><strong>Identity Node:</strong> ${displayedName}</p>
-                                <p style="margin-bottom:8px;"><strong>Status:</strong> Encrypted Link</p>
-                            </div>`;
-                          
-                          loadUsersAndChannelsList();
-                          listenToMessages();
-                      };
-                      usersListContainer.appendChild(item);
-                  });
+                      rightPanelContextTitle.innerText = "PEER_METADATA";
+                      rightPanelDynamicContent.innerHTML = `<div class="details-desc"><p style="margin-bottom:8px;"><strong>Identity Node:</strong> ${displayedName}</p><p style="margin-bottom:8px;"><strong>Status:</strong> Encrypted Link</p></div>`;
+                      
+                      loadUsersAndChannelsList();
+                      listenToMessages();
+                  };
+                  usersListContainer.appendChild(item);
               });
           } else {
+              usersListContainer.innerHTML = "";
               const preChannels = [
                   { id: 'global_hub', name: 'GLOBAL HUB', subtitle: '// PUBLIC CHAT ROOM' },
                   { id: 'system_announcements', name: 'ANNOUNCEMENTS', subtitle: '// READ ONLY CONSOLE' }
@@ -736,8 +735,7 @@
               preChannels.forEach(ch => {
                   const item = document.createElement('div');
                   item.className = `user-item ${selectedTargetID === ch.id ? 'active' : ''}`;
-                  item.innerHTML = `<div class="user-alt-avatar" style="background:#4b5563; color:white;"><i class="fa-solid fa-server"></i></div>
-                                    <div class="user-info"><h4>${ch.name}</h4><p>${ch.subtitle}</p></div>`;
+                  item.innerHTML = `<div class="user-alt-avatar" style="background:#4b5563; color:white;"><i class="fa-solid fa-server"></i></div><div class="user-info"><h4>${ch.name}</h4><p>${ch.subtitle}</p></div>`;
                   item.onclick = () => {
                       selectedTargetID = ch.id;
                       selectedTargetName = ch.name;
@@ -772,8 +770,7 @@
                           if(g.members && g.members[currentUserUID]) {
                               const item = document.createElement('div');
                               item.className = `user-item custom-group-dom-item ${selectedTargetID === gKey ? 'active' : ''}`;
-                              item.innerHTML = `<div class="user-alt-avatar" style="background:${getNameColor(g.groupName)}; color:white;"><i class="fa-solid fa-users-rectangle"></i></div>
-                                                <div class="user-info"><h4>${g.groupName}</h4><p>// CUSTOM GROUP NODE</p></div>`;
+                              item.innerHTML = `<div class="user-alt-avatar" style="background:${getNameColor(g.groupName)}; color:white;"><i class="fa-solid fa-users-rectangle"></i></div><div class="user-info"><h4>${g.groupName}</h4><p>// CUSTOM GROUP NODE</p></div>`;
                               
                               item.onclick = () => {
                                   selectedTargetID = gKey;
@@ -815,18 +812,14 @@
       blockUserBtn.onclick = () => {
           if (!selectedTargetID || currentMode !== "direct") return;
           if (confirm(`Are you sure you want to block ${selectedTargetName}?`)) {
-              update(ref(db, `blocks/${currentUserUID}`), { [selectedTargetID]: true }).then(() => {
-                  checkBlockStatus();
-              });
+              update(ref(db, `blocks/${currentUserUID}`), { [selectedTargetID]: true }).then(() => { checkBlockStatus(); });
           }
       };
 
       unblockUserBtn.onclick = () => {
           if (!selectedTargetID || currentMode !== "direct") return;
           if (confirm(`Do you want to unblock ${selectedTargetName}?`)) {
-              remove(ref(db, `blocks/${currentUserUID}/${selectedTargetID}`)).then(() => {
-                  checkBlockStatus();
-              });
+              remove(ref(db, `blocks/${currentUserUID}/${selectedTargetID}`)).then(() => { checkBlockStatus(); });
           }
       };
 
@@ -865,15 +858,40 @@
           const currentRules = activeGroupMeta ? activeGroupMeta.rules || "" : "";
           const newRules = prompt("Edit Group Rules Console:", currentRules);
           if(newRules !== null && selectedTargetID) {
-              update(ref(db, `custom_groups/${selectedTargetID}`), { rules: newRules }).then(() => {
-                  rulesTextDisplay.innerText = newRules;
-              });
+              update(ref(db, `custom_groups/${selectedTargetID}`), { rules: newRules }).then(() => { rulesTextDisplay.innerText = newRules; });
           }
       };
 
+      // Inline Message Controls: Edit & Delete Functions
+      window.initiateInlineEdit = function(msgKey, currentText) {
+          const newText = prompt("Edit your message terminal packet:", currentText);
+          if (newText !== null && newText.trim() !== "") {
+              const path = getActiveDatabaseRefPath();
+              update(ref(db, `${path}/${msgKey}`), { message: newText.trim() });
+          }
+      };
+
+      window.initiateInlineDelete = function(msgKey) {
+          if (confirm("Are you sure you want to permanently incinerate this message packet? ⚠️")) {
+              const path = getActiveDatabaseRefPath();
+              remove(ref(db, `${path}/${msgKey}`));
+          }
+      };
+
+      function formatTimestamp(ts) {
+          if (!ts) return "";
+          const date = new Date(ts);
+          let hours = date.getHours();
+          let minutes = date.getMinutes();
+          const ampm = hours >= 12 ? 'PM' : 'AM';
+          hours = hours % 12;
+          hours = hours ? hours : 12; 
+          minutes = minutes < 10 ? '0' + minutes : minutes;
+          return `${hours}:${minutes} ${ampm}`;
+      }
+
       function listenToMessages() {
           if(!selectedTargetID) return;
-          messagesBox.innerHTML = "";
           const path = getActiveDatabaseRefPath();
           
           onValue(ref(db, path), (snapshot) => {
@@ -883,7 +901,8 @@
                   Object.keys(data).forEach(key => {
                       const msgData = data[key];
                       const isMe = msgData.senderID === currentUserUID;
-                      let senderFinalName = msgData.senderName;
+                      let senderFinalName = msgData.senderName || "User";
+                      
                       if (!isMe && currentMode === "direct") { senderFinalName = selectedTargetName; }
 
                       const rowDiv = document.createElement('div');
@@ -892,10 +911,10 @@
                       const profileDiv = document.createElement('div');
                       profileDiv.className = 'profile-area';
                       
-                      if(msgData.senderPhoto && senderFinalName !== "user_not_find") {
+                      if(msgData.senderPhoto && isMe) {
                           profileDiv.innerHTML = `<img src="${msgData.senderPhoto}" class="avatar-img" alt="P">`;
                       } else {
-                          profileDiv.innerHTML = `<div class="avatar-txt" style="background:${getNameColor(senderFinalName || 'U')}">${(senderFinalName || "U").charAt(0).toUpperCase()}</div>`;
+                          profileDiv.innerHTML = `<div class="avatar-txt" style="background:${getNameColor(senderFinalName)}">${senderFinalName.charAt(0).toUpperCase()}</div>`;
                       }
                       
                       const contentDiv = document.createElement('div');
@@ -904,15 +923,37 @@
                       if(!isMe) {
                           const nameBubble = document.createElement('div');
                           nameBubble.className = 'sender-name-bubble';
-                          nameBubble.innerText = senderFinalName || "Unknown";
+                          nameBubble.innerText = senderFinalName;
                           contentDiv.appendChild(nameBubble);
                       }
                       
+                      const bubbleWrapper = document.createElement('div');
+                      bubbleWrapper.className = 'bubble-wrapper';
+
                       const bubble = document.createElement('div');
                       bubble.className = 'bubble';
                       bubble.innerText = msgData.message;
+                      bubbleWrapper.appendChild(bubble);
+
+                      // If the message is mine, inject Edit & Delete controls seamlessly
+                      if (isMe) {
+                          const actionsDiv = document.createElement('div');
+                          actionsDiv.className = 'msg-actions-trigger';
+                          actionsDiv.innerHTML = `
+                              <button class="msg-action-inline-btn" onclick="initiateInlineEdit('${key}', \`${msgData.message.replace(/'/g, "\\'")}\`)"><i class="fa-solid fa-pen"></i></button>
+                              <button class="msg-action-inline-btn delete" onclick="initiateInlineDelete('${key}')"><i class="fa-solid fa-trash"></i></button>
+                          `;
+                          bubbleWrapper.appendChild(actionsDiv);
+                      }
+
+                      contentDiv.appendChild(bubbleWrapper);
+
+                      // Inject nicely formatted timestamp underneath the bubble
+                      const timeStampSpan = document.createElement('span');
+                      timeStampSpan.className = 'msg-timestamp';
+                      timeStampSpan.innerText = formatTimestamp(msgData.timestamp);
+                      contentDiv.appendChild(timeStampSpan);
                       
-                      contentDiv.appendChild(bubble);
                       rowDiv.appendChild(profileDiv);
                       rowDiv.appendChild(contentDiv);
                       messagesBox.appendChild(rowDiv);
@@ -929,14 +970,13 @@
           
           const pack = {
               senderID: currentUserUID,
-              senderName: myName,
-              senderPhoto: myPhotoURL,
+              senderName: myName || "User",
+              senderPhoto: myPhotoURL || "",
               message: txt,
               type: 'text',
               timestamp: Date.now()
           };
-          push(ref(db, path), pack);
-          messageInput.value = "";
+          push(ref(db, path), pack).then(()=>{ messageInput.value = ""; });
       }
 
       sendBtn.onclick = handlePacketTransmission;
@@ -947,13 +987,11 @@
           dot.onclick = () => {
               colorDots.forEach(d => d.classList.remove('active'));
               dot.classList.add('active');
-              
               const chosenColor = dot.getAttribute('data-color');
               const chosenGlow = dot.getAttribute('data-glow');
               
               document.documentElement.style.setProperty('--neon-accent', chosenColor);
               document.documentElement.style.setProperty('--neon-glow', chosenGlow);
-              
               myActiveColor = chosenColor;
               myActiveGlow = chosenGlow;
           };
@@ -975,13 +1013,13 @@
           if(!typedName) return;
           
           update(ref(db, `users/${currentUserUID}`), {
-              name: typedName,
-              themeColor: myActiveColor,
-              themeGlow: myActiveGlow
+              name: typedName, themeColor: myActiveColor, themeGlow: myActiveGlow
           }).then(() => {
               myName = typedName;
               document.getElementById('headerName').innerText = myName;
+              updateHeaderAvatar();
               profileModalOverlay.style.display = 'none';
+              loadUsersAndChannelsList();
           });
       };
 
@@ -992,7 +1030,7 @@
               if(uid === currentUserUID) return;
               const row = document.createElement('div');
               row.className = 'member-select-item';
-              row.innerHTML = `<span>${cachedAllUsers[uid].name}</span><input type="checkbox" class="group-member-checkbox" value="${uid}">`;
+              row.innerHTML = `<span>${cachedAllUsers[uid].name || "User"}</span><input type="checkbox" class="group-member-checkbox" value="${uid}">`;
               memberSelectListContainer.appendChild(row);
           });
       };
@@ -1009,7 +1047,10 @@
           const newGroupKey = push(ref(db, 'custom_groups')).key;
           update(ref(db, `custom_groups/${newGroupKey}`), {
               groupID: newGroupKey, groupName: gName, owner: currentUserUID, members: membersMap, rules: "Be Respectful Node."
-          }).then(() => { createGroupModalOverlay.style.display = 'none'; });
+          }).then(() => { 
+              createGroupModalOverlay.style.display = 'none'; 
+              document.getElementById('newGroupNameInput').value = "";
+          });
       };
 
       const stripLogoutBtn = document.getElementById('stripLogoutBtn');
