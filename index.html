@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=1300, initial-scale=0.3, maximum-scale=1.0">
     <title>AERO_CHAT // Multi-Terminal Console</title>
     <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -35,11 +35,11 @@
         .auth-toggle-text { margin-top: 25px; font-size: 0.85rem; color: rgba(255,255,255,0.4); }
         .auth-toggle-text a { color: var(--neon-accent); text-decoration: none; font-weight: 600; cursor: pointer; }
 
-        /* --- INTERFACE GRID --- */
-        .interface-grid { width: 98vw; max-width: 1600px; height: 95vh; display: grid; grid-template-columns: 80px 1fr 360px; gap: 15px; position: relative; }
+        /* --- INTERFACE GRID (DESKTOP MODE PRESERVED) --- */
+        .interface-grid { width: 98vw; min-width: 1200px; height: 95vh; display: grid; grid-template-columns: 80px 1fr 360px; gap: 15px; position: relative; }
 
         /* Left Static Navbar */
-        .left-navbar { background: rgba(255,255,255,0.01); border: 1px solid var(--glass-border); border-radius: 24px; display: flex; flex-direction: column; align-items: center; padding: 25px 0; justify-content: space-between; }
+        .left-navbar { background: rgba(255,255,255,0.01); border: 1px solid var(--glass-border); border-radius: 24px; display: flex; flex-direction: column; align-items: center; padding: 25px 0; justify-content: space-between; z-index: 20; }
         .nav-brand { font-size: 1.5rem; color: #fff; margin-bottom: 30px; animation: pulse 2s infinite; }
         .nav-menu { display: flex; flex-direction: column; gap: 25px; align-items: center; width: 100%; }
         .nav-item { width: 55px; height: 55px; border-radius: 16px; display: flex; flex-direction: column; justify-content: center; align-items: center; color: rgba(255,255,255,0.4); cursor: pointer; transition: 0.3s; font-size: 0.65rem; font-weight: bold; text-transform: uppercase; gap: 4px; }
@@ -52,9 +52,9 @@
         .power-btn:hover { background: #ff4d5e; color: #000; box-shadow: 0 0 15px rgba(220,53,69,0.4); }
 
         /* Main Center Panel */
-        .center-stage { display: grid; grid-template-columns: 320px 1fr; gap: 15px; }
+        .center-stage { display: grid; grid-template-columns: 320px 1fr; gap: 15px; height: 100%; overflow: hidden; }
 
-        .chat-theater { background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%); backdrop-filter: blur(40px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 24px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.4); }
+        .chat-theater { background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%); backdrop-filter: blur(40px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 24px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.4); height: 100%; }
         .theater-header { padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--glass-border); gap: 10px; }
         
         .mobile-back-btn { display: none; background: transparent; border: none; color: #fff; font-size: 1.2rem; cursor: pointer; padding-right: 10px; }
@@ -102,7 +102,7 @@
         
         /* Inline Edit and Delete Action Triggers */
         .msg-actions-trigger { display: none; gap: 6px; }
-        .bubble-wrapper:hover .msg-actions-trigger { display: flex; }
+        .bubble-wrapper:hover .msg-actions-trigger, .msg-row:active .msg-actions-trigger { display: flex; }
         .msg-action-inline-btn { background: transparent; border: none; color: rgba(255,255,255,0.4); cursor: pointer; font-size: 0.8rem; transition: 0.2s; padding: 2px; }
         .msg-action-inline-btn:hover { color: #fff; }
         .msg-action-inline-btn.delete:hover { color: #ff4d5e; }
@@ -119,8 +119,8 @@
         .action-btn:hover { color: #fff; background: rgba(255,255,255,0.05); }
         .send-btn { background: #fff; color: #000; width: 42px; height: 42px; border-radius: 12px; margin-left: 5px; transition: 0.3s; }
 
-        .data-hub { display: flex; flex-direction: column; gap: 15px; overflow-y: auto; min-height: 0; }
-        .hub-card { background: rgba(255, 255, 255, 0.01); border: 1px solid var(--glass-border); border-radius: 20px; padding: 15px; }
+        .data-hub { display: flex; flex-direction: column; gap: 15px; overflow-y: auto; min-height: 0; height: 100%; }
+        .hub-card { background: rgba(255, 255, 255, 0.01); border: 1px solid var(--glass-border); border-radius: 20px; padding: 15px; height: 100%; }
         
         /* Right Sidebar Styling */
         .right-sidebar { background: rgba(255, 255, 255, 0.01); border: 1px solid var(--glass-border); border-radius: 24px; padding: 20px; display: flex; flex-direction: column; gap: 20px; overflow-y: auto; }
@@ -169,11 +169,27 @@
         ::-webkit-scrollbar { width: 3px; }
         ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.05); border-radius: 10px; }
 
-        @media (max-width: 1024px) { .interface-grid { grid-template-columns: 80px 1fr; } .right-sidebar { display: none; } }
-        @media (max-width: 768px) {
-            body { padding: 5px; } .interface-grid { grid-template-columns: 1fr; height: 98vh; width: 100vw; gap: 0; } .left-navbar { display: none; }
-            .center-stage { grid-template-columns: 1fr; } .data-hub { display: flex; width: 100%; height: 100%; } .chat-theater { display: none; width: 100%; height: 100%; }
-            .interface-grid.mobile-chat-active .data-hub { display: none; } .interface-grid.mobile-chat-active .chat-theater { display: flex; } .mobile-back-btn { display: inline-block; }
+        /* --- FULL PC VIEW ON MOBILE DEVICES ENABLED --- */
+        @media (max-width: 1024px) {
+            body {
+                overflow-x: auto;
+                align-items: flex-start;
+                padding: 10px;
+            }
+            .interface-grid {
+                grid-template-columns: 80px 1fr 320px;
+                min-width: 1100px;
+                height: 96vh;
+            }
+            .right-sidebar {
+                display: flex !important;
+            }
+            .data-hub {
+                display: flex !important;
+            }
+            .chat-theater {
+                display: flex !important;
+            }
         }
     </style>
 </head>
@@ -625,6 +641,7 @@
           rightPanelContextTitle.innerText = "NODE_METADATA";
           rightPanelDynamicContent.innerHTML = `<p class="details-desc" style="color: rgba(255,255,255,0.4); text-align: center; padding: 20px 0;">Select a direct user node to review connectivity states.</p>`;
           
+          chatScreenWrapper.classList.remove('mobile-chat-active');
           applyLanguagePack();
           loadUsersAndChannelsList();
       };
@@ -656,6 +673,7 @@
           rightPanelContextTitle.innerText = "GROUP_METADATA";
           rightPanelDynamicContent.innerHTML = `<p class="details-desc" style="color: rgba(255,255,255,0.7);"><strong>Channel:</strong> Global Public Node<br><br>All active terminals sync securely inside this global stream architecture automatically.</p>`;
           
+          chatScreenWrapper.classList.remove('mobile-chat-active');
           applyLanguagePack();
           loadUsersAndChannelsList();
           listenToMessages();
