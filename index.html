@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=1300, initial-scale=0.3, maximum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>AERO_CHAT // Multi-Terminal Console</title>
     <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -19,7 +19,7 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background: var(--bg-dark); color: #fff; height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; }
+        body { background: var(--bg-dark); color: #fff; height: 100vh; height: 100dvh; display: flex; justify-content: center; align-items: center; overflow: hidden; }
 
         .bg-glow-1 { position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, rgba(112,0,255,0.15) 0%, transparent 70%); top: -10%; left: -10%; pointer-events: none; }
         .bg-glow-2 { position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, rgba(0,240,255,0.1) 0%, transparent 70%); bottom: -10%; right: -10%; pointer-events: none; }
@@ -169,27 +169,74 @@
         ::-webkit-scrollbar { width: 3px; }
         ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.05); border-radius: 10px; }
 
-        /* --- FULL PC VIEW ON MOBILE DEVICES ENABLED --- */
+        /* --- MOBILE RESPONSIVE ADAPTATIONS --- */
         @media (max-width: 1024px) {
             body {
-                overflow-x: auto;
-                align-items: flex-start;
-                padding: 10px;
+                overflow-x: hidden;
+                align-items: stretch;
+                padding: 0;
             }
             .interface-grid {
-                grid-template-columns: 80px 1fr 320px;
-                min-width: 1100px;
-                height: 96vh;
+                width: 100vw;
+                min-width: unset;
+                height: 100vh;
+                height: 100dvh;
+                display: flex;
+                flex-direction: column;
+                gap: 0;
             }
-            .right-sidebar {
-                display: flex !important;
+            .left-navbar {
+                flex-direction: row;
+                width: 100%;
+                height: 60px;
+                border-radius: 0;
+                padding: 0 15px;
+                border-left: none;
+                border-right: none;
+                border-top: none;
+            }
+            .nav-brand { margin-bottom: 0; }
+            .nav-menu { flex-direction: row; justify-content: center; width: auto; gap: 15px; }
+            .nav-item { width: 45px; height: 45px; font-size: 0.55rem; }
+            .power-btn { width: 38px; height: 38px; }
+
+            .center-stage {
+                display: flex;
+                flex: 1;
+                width: 100%;
+                position: relative;
+                overflow: hidden;
             }
             .data-hub {
-                display: flex !important;
+                width: 100%;
+                height: 100%;
             }
             .chat-theater {
-                display: flex !important;
+                position: absolute;
+                top: 0;
+                left: 100%;
+                width: 100%;
+                height: 100%;
+                border-radius: 0;
+                border: none;
+                transition: transform 0.3s ease-in-out;
+                z-index: 30;
             }
+            .interface-grid.mobile-chat-active .chat-theater {
+                transform: translateX(-100%);
+            }
+            .mobile-back-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .right-sidebar {
+                display: none !important;
+            }
+            .theater-header { padding: 12px 15px; }
+            .messages-box { padding: 15px; }
+            .input-dock { padding: 12px 15px; }
+            .msg-content { max-width: 85%; }
         }
     </style>
 </head>
