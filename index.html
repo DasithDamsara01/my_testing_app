@@ -19,13 +19,13 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background: var(--bg-dark); color: #fff; height: 100vh; height: 100dvh; display: flex; justify-content: center; align-items: center; overflow: hidden; }
+        body { background: var(--bg-dark); color: #fff; min-height: 100vh; min-height: 100dvh; display: flex; justify-content: center; align-items: center; overflow-x: hidden; }
 
-        .bg-glow-1 { position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, rgba(112,0,255,0.15) 0%, transparent 70%); top: -10%; left: -10%; pointer-events: none; }
-        .bg-glow-2 { position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, rgba(0,240,255,0.1) 0%, transparent 70%); bottom: -10%; right: -10%; pointer-events: none; }
+        .bg-glow-1 { position: fixed; width: 600px; height: 600px; background: radial-gradient(circle, rgba(112,0,255,0.15) 0%, transparent 70%); top: -10%; left: -10%; pointer-events: none; z-index: 0; }
+        .bg-glow-2 { position: fixed; width: 600px; height: 600px; background: radial-gradient(circle, rgba(0,240,255,0.1) 0%, transparent 70%); bottom: -10%; right: -10%; pointer-events: none; z-index: 0; }
 
         /* --- AUTH SCREENS --- */
-        .auth-wrapper { position: relative; background: linear-gradient(135deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.01) 100%); backdrop-filter: blur(40px); border: 1px solid rgba(255, 255, 255, 0.08); padding: 40px; border-radius: 24px; width: 100%; max-width: 420px; box-shadow: 0 30px 60px rgba(0,0,0,0.4); text-align: center; z-index: 10; }
+        .auth-wrapper { position: relative; background: linear-gradient(135deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.01) 100%); backdrop-filter: blur(40px); border: 1px solid rgba(255, 255, 255, 0.08); padding: 40px 25px; border-radius: 24px; width: 90%; max-width: 420px; box-shadow: 0 30px 60px rgba(0,0,0,0.4); text-align: center; z-index: 10; margin: 20px auto; }
         .auth-wrapper h2 { font-family: 'Syncopate', sans-serif; font-size: 1.2rem; letter-spacing: 2px; margin-bottom: 10px; }
         .auth-wrapper p { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--neon-accent); margin-bottom: 30px; }
         .auth-wrapper input { width: 100%; padding: 14px 20px; margin-bottom: 18px; border: 1px solid var(--glass-border); background: rgba(255, 255, 255, 0.02); border-radius: 12px; outline: none; color: #fff; }
@@ -35,13 +35,13 @@
         .auth-toggle-text { margin-top: 25px; font-size: 0.85rem; color: rgba(255,255,255,0.4); }
         .auth-toggle-text a { color: var(--neon-accent); text-decoration: none; font-weight: 600; cursor: pointer; }
 
-        /* --- INTERFACE GRID (DESKTOP MODE PRESERVED) --- */
-        .interface-grid { width: 98vw; min-width: 1200px; height: 95vh; display: grid; grid-template-columns: 80px 1fr 360px; gap: 15px; position: relative; }
+        /* --- INTERFACE GRID (DESKTOP MODE DEFAULT) --- */
+        .interface-grid { width: 98vw; max-width: 1600px; height: 95vh; display: grid; grid-template-columns: 80px 1fr 340px; gap: 15px; position: relative; z-index: 10; }
 
         /* Left Static Navbar */
-        .left-navbar { background: rgba(255,255,255,0.01); border: 1px solid var(--glass-border); border-radius: 24px; display: flex; flex-direction: column; align-items: center; padding: 25px 0; justify-content: space-between; z-index: 20; }
+        .left-navbar { background: rgba(255,255,255,0.01); border: 1px solid var(--glass-border); border-radius: 24px; display: flex; flex-direction: column; align-items: center; padding: 25px 0; justify-content: space-between; z-index: 20; backdrop-filter: blur(20px); }
         .nav-brand { font-size: 1.5rem; color: #fff; margin-bottom: 30px; animation: pulse 2s infinite; }
-        .nav-menu { display: flex; flex-direction: column; gap: 25px; align-items: center; width: 100%; }
+        .nav-menu { display: flex; flex-direction: column; gap: 20px; align-items: center; width: 100%; }
         .nav-item { width: 55px; height: 55px; border-radius: 16px; display: flex; flex-direction: column; justify-content: center; align-items: center; color: rgba(255,255,255,0.4); cursor: pointer; transition: 0.3s; font-size: 0.65rem; font-weight: bold; text-transform: uppercase; gap: 4px; }
         .nav-item i { font-size: 1.2rem; }
         .nav-item:hover, .nav-item.active { background: rgba(255,255,255,0.03); color: #fff; }
@@ -52,18 +52,18 @@
         .power-btn:hover { background: #ff4d5e; color: #000; box-shadow: 0 0 15px rgba(220,53,69,0.4); }
 
         /* Main Center Panel */
-        .center-stage { display: grid; grid-template-columns: 320px 1fr; gap: 15px; height: 100%; overflow: hidden; }
+        .center-stage { display: grid; grid-template-columns: 300px 1fr; gap: 15px; height: 100%; overflow: hidden; }
 
         .chat-theater { background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%); backdrop-filter: blur(40px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 24px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.4); height: 100%; }
-        .theater-header { padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--glass-border); gap: 10px; }
+        .theater-header { padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--glass-border); gap: 10px; }
         
         .mobile-back-btn { display: none; background: transparent; border: none; color: #fff; font-size: 1.2rem; cursor: pointer; padding-right: 10px; }
 
-        .theater-title { padding: 8px 16px; border-radius: 12px; transition: all 0.3s ease; display: flex; flex-direction: column; }
-        .theater-title h2 { font-family: 'Syncopate', sans-serif; font-size: 1.05rem; letter-spacing: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 250px; }
+        .theater-title { padding: 4px 8px; border-radius: 12px; transition: all 0.3s ease; display: flex; flex-direction: column; }
+        .theater-title h2 { font-family: 'Syncopate', sans-serif; font-size: 1.05rem; letter-spacing: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 220px; }
         .theater-title p { font-size: 0.7rem; text-transform: uppercase; color: var(--neon-accent); margin-top: 3px; }
         
-        .header-actions { display: flex; gap: 15px; align-items: center; }
+        .header-actions { display: flex; gap: 10px; align-items: center; }
         .lang-toggle-btn { background: linear-gradient(45deg, #1f2937, #111827); border: 1px solid var(--neon-accent); color: var(--neon-accent); font-weight: bold; padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; cursor: pointer; transition: 0.3s; }
         .lang-toggle-btn:hover { box-shadow: 0 0 10px var(--neon-glow); background: var(--neon-accent); color: #000; }
 
@@ -75,32 +75,29 @@
         .action-trigger-btn.danger-btn { border-color: rgba(220, 53, 69, 0.3); color: #ff4d5e; background: rgba(220, 53, 69, 0.02); }
         .action-trigger-btn.danger-btn:hover { background: rgba(220, 53, 69, 0.1); box-shadow: 0 0 12px rgba(220, 53, 69, 0.2); border-color: #ff4d5e; }
 
-        .rules-banner { background: rgba(168, 85, 247, 0.05); border-bottom: 1px solid rgba(168, 85, 247, 0.15); padding: 8px 30px; font-size: 0.75rem; display: flex; justify-content: space-between; align-items: center; color: #d8b4fe; }
+        .rules-banner { background: rgba(168, 85, 247, 0.05); border-bottom: 1px solid rgba(168, 85, 247, 0.15); padding: 8px 25px; font-size: 0.75rem; display: flex; justify-content: space-between; align-items: center; color: #d8b4fe; }
         .edit-rules-btn { background: transparent; border: none; color: var(--neon-accent); cursor: pointer; font-size: 0.7rem; text-decoration: underline; }
 
-        .messages-box { flex: 1; padding: 20px 30px; overflow-y: auto; display: flex; flex-direction: column; gap: 20px; }
+        .messages-box { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 20px; }
         .msg-row { display: flex; width: 100%; position: relative; }
         .msg-row.incoming { justify-content: flex-start; }
         .msg-row.outgoing { flex-direction: row-reverse; }
-        .profile-area { width: 45px; display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
-        .avatar-img { width: 36px; height: 36px; border-radius: 10px; object-fit: cover; border: 1px solid rgba(255,255,255,0.2); }
-        .avatar-txt { width: 36px; height: 36px; border-radius: 10px; color: white; display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 0.95rem; border: 1px solid rgba(255,255,255,0.2); }
+        .profile-area { width: 40px; display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+        .avatar-img { width: 34px; height: 34px; border-radius: 10px; object-fit: cover; border: 1px solid rgba(255,255,255,0.2); }
+        .avatar-txt { width: 34px; height: 34px; border-radius: 10px; color: white; display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 0.85rem; border: 1px solid rgba(255,255,255,0.2); }
         
-        /* Message Bubble and Actions Area */
-        .msg-content { max-width: 70%; display: flex; flex-direction: column; align-items: flex-start; margin-left: 12px; position: relative; }
-        .msg-row.outgoing .msg-content { align-items: flex-end; margin-left: 0; margin-right: 12px; }
-        .sender-name-bubble { font-size: 0.7rem; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 4px; }
+        .msg-content { max-width: 75%; display: flex; flex-direction: column; align-items: flex-start; margin-left: 10px; position: relative; }
+        .msg-row.outgoing .msg-content { align-items: flex-end; margin-left: 0; margin-right: 10px; }
+        .sender-name-bubble { font-size: 0.65rem; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 4px; }
         
         .bubble-wrapper { display: flex; align-items: center; gap: 8px; position: relative; }
         .msg-row.outgoing .bubble-wrapper { flex-direction: row-reverse; }
 
-        .bubble { padding: 12px 18px; border-radius: 4px 16px 16px 16px; font-size: 0.95rem; background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); word-wrap: break-word; position: relative; }
+        .bubble { padding: 10px 16px; border-radius: 4px 16px 16px 16px; font-size: 0.9rem; background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); word-break: break-word; position: relative; }
         .msg-row.outgoing .bubble { border-radius: 16px 4px 16px 16px; background: rgba(255, 255, 255, 0.02); border-color: rgba(255, 255, 255, 0.15); }
         
-        /* Time Stamp Underneath Bubble */
         .msg-timestamp { font-size: 0.65rem; color: rgba(255,255,255,0.3); margin-top: 4px; display: block; letter-spacing: 0.5px; }
         
-        /* Inline Edit and Delete Action Triggers */
         .msg-actions-trigger { display: none; gap: 6px; }
         .bubble-wrapper:hover .msg-actions-trigger, .msg-row:active .msg-actions-trigger { display: flex; }
         .msg-action-inline-btn { background: transparent; border: none; color: rgba(255,255,255,0.4); cursor: pointer; font-size: 0.8rem; transition: 0.2s; padding: 2px; }
@@ -108,135 +105,137 @@
         .msg-action-inline-btn.delete:hover { color: #ff4d5e; }
 
         /* --- INPUT BOX FIXED SECTION --- */
-        .input-dock { padding: 20px 30px; background: rgba(0,0,0,0.15); border-top: 1px solid var(--glass-border); position: relative; }
-        .dock-wrapper { display: flex; background: rgba(255, 255, 255, 0.02); border: 1px solid var(--glass-border); border-radius: 16px; padding: 6px 12px; align-items: center; position: relative; transition: border-color 0.3s, box-shadow 0.3s; }
+        .input-dock { padding: 15px 20px; background: rgba(0,0,0,0.2); border-top: 1px solid var(--glass-border); position: relative; }
+        .dock-wrapper { display: flex; background: rgba(255, 255, 255, 0.02); border: 1px solid var(--glass-border); border-radius: 16px; padding: 4px 8px; align-items: center; position: relative; transition: border-color 0.3s; }
         .dock-wrapper:focus-within { border-color: var(--neon-accent); box-shadow: 0 0 15px rgba(0, 240, 255, 0.1); }
         
-        .dock-input { flex: 1; background: rgba(12, 16, 27, 0.7) !important; border: none; outline: none; color: #fff !important; font-size: 0.95rem; padding: 12px; border-radius: 12px; }
-        .dock-input:-webkit-autofill { -webkit-text-fill-color: #fff !important; -webkit-box-shadow: 0 0 0px 1000px #0c101b inset !important; }
+        .dock-input { flex: 1; background: rgba(12, 16, 27, 0.7) !important; border: none; outline: none; color: #fff !important; font-size: 0.9rem; padding: 10px 12px; border-radius: 12px; }
 
         .action-btn { background: transparent; border: none; color: rgba(255,255,255,0.4); width: 38px; height: 38px; border-radius: 10px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.2s; }
         .action-btn:hover { color: #fff; background: rgba(255,255,255,0.05); }
-        .send-btn { background: #fff; color: #000; width: 42px; height: 42px; border-radius: 12px; margin-left: 5px; transition: 0.3s; }
+        .send-btn { background: #fff; color: #000; width: 40px; height: 40px; border-radius: 12px; margin-left: 5px; transition: 0.3s; }
 
-        .data-hub { display: flex; flex-direction: column; gap: 15px; overflow-y: auto; min-height: 0; height: 100%; }
-        .hub-card { background: rgba(255, 255, 255, 0.01); border: 1px solid var(--glass-border); border-radius: 20px; padding: 15px; height: 100%; }
+        .data-hub { display: flex; flex-direction: column; gap: 15px; overflow-y: auto; height: 100%; }
+        .hub-card { background: rgba(255, 255, 255, 0.01); border: 1px solid var(--glass-border); border-radius: 20px; padding: 15px; height: 100%; display: flex; flex-direction: column; }
         
-        /* Right Sidebar Styling */
-        .right-sidebar { background: rgba(255, 255, 255, 0.01); border: 1px solid var(--glass-border); border-radius: 24px; padding: 20px; display: flex; flex-direction: column; gap: 20px; overflow-y: auto; }
+        .right-sidebar { background: rgba(255, 255, 255, 0.01); border: 1px solid var(--glass-border); border-radius: 24px; padding: 20px; display: flex; flex-direction: column; gap: 15px; overflow-y: auto; }
         
-        /* Premium Neon Card Design */
-        .premium-profile { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; padding: 25px 20px; border-radius: 20px; background: rgba(255,255,255,0.01); border: 1px solid var(--neon-accent); box-shadow: 0 0 15px var(--neon-glow), inset 0 0 15px var(--neon-glow); animation: neonGlowPulse 3s infinite ease-in-out; }
-        @keyframes neonGlowPulse { 0%, 100% { box-shadow: 0 0 12px var(--neon-glow), inset 0 0 10px var(--neon-glow); border-color: var(--neon-accent); } 50% { box-shadow: 0 0 22px var(--neon-glow), inset 0 0 18px var(--neon-glow); border-color: #fff; } }
+        .premium-profile { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; padding: 20px 15px; border-radius: 20px; background: rgba(255,255,255,0.01); border: 1px solid var(--neon-accent); box-shadow: 0 0 15px var(--neon-glow); }
+        .hex-avatar { width: 75px; height: 75px; background: linear-gradient(45deg, #7000ff, var(--neon-accent)); padding: 2px; border-radius: 20px; }
+        .hex-avatar img, .hex-avatar .alt-header-avatar { width: 100%; height: 100%; background: var(--bg-dark); border-radius: 18px; object-fit: cover; }
+        .premium-profile h3 { font-size: 1rem; letter-spacing: 0.5px; font-weight: 700; }
+        .premium-profile p { font-size: 0.65rem; color: #fff; text-transform: uppercase; background: rgba(255,255,255,0.05); padding: 4px 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); letter-spacing: 1px; }
 
-        .avatar-container { position: relative; }
-        .hex-avatar { width: 85px; height: 85px; background: linear-gradient(45deg, #7000ff, var(--neon-accent)); padding: 2px; border-radius: 24px; }
-        .hex-avatar img, .hex-avatar .alt-header-avatar { width: 100%; height: 100%; background: var(--bg-dark); border-radius: 22px; object-fit: cover; }
-        .premium-profile h3 { font-size: 1.1rem; letter-spacing: 0.5px; margin-top: 5px; font-weight: 700; text-shadow: 0 0 8px var(--neon-glow); }
-        .premium-profile p { font-size: 0.7rem; color: #fff; text-transform: uppercase; margin-top: 2px; background: rgba(255,255,255,0.05); padding: 4px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); letter-spacing: 1px; }
-
-        .feed-title { font-family: 'Syncopate', sans-serif; font-size: 0.65rem; color: rgba(255,255,255,0.3); margin-bottom: 15px; letter-spacing: 2px; display: flex; justify-content: space-between; align-items: center; }
+        .feed-title { font-family: 'Syncopate', sans-serif; font-size: 0.65rem; color: rgba(255,255,255,0.3); margin-bottom: 12px; letter-spacing: 2px; display: flex; justify-content: space-between; align-items: center; }
         .create-group-trigger-btn { background: transparent; border: 1px dashed var(--purple-accent); color: var(--purple-accent); padding: 4px 10px; border-radius: 8px; font-size: 0.65rem; cursor: pointer; font-weight: bold; }
-        .create-group-trigger-btn:hover { background: var(--purple-accent); color: #000; box-shadow: 0 0 10px var(--purple-glow); }
 
-        .user-list { display: flex; flex-direction: column; gap: 10px; flex: 1; overflow-y: auto; }
-        .user-item { display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 14px; cursor: pointer; border: 1px solid transparent; background: rgba(255,255,255,0.01); transition: 0.2s; }
-        .user-item:hover, .user-item.active { background: rgba(255,255,255,0.03); }
-        .user-item img, .user-item .user-alt-avatar { width: 38px; height: 38px; border-radius: 10px; object-fit: cover; display: flex; justify-content: center; align-items: center; font-size: 0.9rem; font-weight: bold; }
-        .user-info h4 { font-size: 0.85rem; color: rgba(255,255,255,0.9); font-weight: 600; }
+        .user-list { display: flex; flex-direction: column; gap: 8px; flex: 1; overflow-y: auto; }
+        .user-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 14px; cursor: pointer; border: 1px solid transparent; background: rgba(255,255,255,0.01); transition: 0.2s; }
+        .user-item:hover, .user-item.active { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.1); }
+        .user-item img, .user-item .user-alt-avatar { width: 36px; height: 36px; border-radius: 10px; object-fit: cover; display: flex; justify-content: center; align-items: center; font-size: 0.85rem; font-weight: bold; }
+        .user-info h4 { font-size: 0.8rem; color: rgba(255,255,255,0.9); font-weight: 600; }
         .user-info p { font-size: 0.65rem; color: rgba(255,255,255,0.4); margin-top: 2px; }
 
         .details-panel-card { background: rgba(255, 255, 255, 0.01); border: 1px solid var(--glass-border); border-radius: 20px; padding: 15px; display: flex; flex-direction: column; gap: 10px; }
         .details-panel-card h4 { font-family: 'Syncopate', sans-serif; font-size: 0.7rem; color: var(--neon-accent); border-bottom: 1px solid var(--glass-border); padding-bottom: 8px; margin-bottom: 5px; }
-        .details-desc { font-size: 0.85rem; color: rgba(255,255,255,0.7); line-height: 1.4; }
+        .details-desc { font-size: 0.8rem; color: rgba(255,255,255,0.7); line-height: 1.4; }
 
         /* MODALS */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); display: none; justify-content: center; align-items: center; z-index: 100; backdrop-filter: blur(15px); }
-        .profile-modal { background: rgba(10, 15, 30, 0.9); border: 1px solid rgba(0, 240, 255, 0.2); padding: 35px 30px; border-radius: 24px; width: 90%; max-width: 440px; text-align: center; position: relative; max-height: 85vh; overflow-y: auto; }
-        .modal-close { position: absolute; top: 20px; right: 20px; font-size: 1.2rem; cursor: pointer; color: rgba(255,255,255,0.4); }
-        .profile-modal input[type="text"] { width: 100%; padding: 14px 20px; margin: 10px 0; border: 1px solid var(--glass-border); background: rgba(255, 255, 255, 0.03); border-radius: 12px; outline: none; color: #fff; font-size: 0.9rem; }
-        .modal-btn { width: 100%; padding: 14px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 12px; text-transform: uppercase; font-size: 0.85rem; }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); display: none; justify-content: center; align-items: center; z-index: 100; backdrop-filter: blur(15px); }
+        .profile-modal { background: rgba(10, 15, 30, 0.95); border: 1px solid rgba(0, 240, 255, 0.2); padding: 30px 20px; border-radius: 24px; width: 90%; max-width: 400px; text-align: center; position: relative; max-height: 90vh; overflow-y: auto; }
+        .modal-close { position: absolute; top: 15px; right: 15px; font-size: 1.2rem; cursor: pointer; color: rgba(255,255,255,0.4); }
+        .profile-modal input[type="text"] { width: 100%; padding: 12px 16px; margin: 10px 0; border: 1px solid var(--glass-border); background: rgba(255, 255, 255, 0.03); border-radius: 12px; outline: none; color: #fff; font-size: 0.85rem; }
+        .modal-btn { width: 100%; padding: 12px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 10px; text-transform: uppercase; font-size: 0.8rem; }
         .save-profile-btn { background: #fff; color: #000; }
 
-        .member-select-list { max-height: 180px; overflow-y: auto; text-align: left; margin: 15px 0; padding: 5px; border: 1px solid var(--glass-border); border-radius: 10px; background: rgba(0,0,0,0.2); }
-        .member-select-item { display: flex; align-items: center; justify-content: space-between; padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.03); }
+        .member-select-list { max-height: 160px; overflow-y: auto; text-align: left; margin: 12px 0; padding: 5px; border: 1px solid var(--glass-border); border-radius: 10px; background: rgba(0,0,0,0.2); }
+        .member-select-item { display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 0.85rem; }
         
         .color-picker-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 15px 0; }
-        .color-dot { height: 40px; border-radius: 10px; cursor: pointer; border: 2px solid transparent; transition: 0.2s; }
+        .color-dot { height: 35px; border-radius: 10px; cursor: pointer; border: 2px solid transparent; }
         .color-dot.active { border-color: #fff; transform: scale(1.05); }
 
         @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-        ::-webkit-scrollbar { width: 3px; }
-        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.05); border-radius: 10px; }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
 
-        /* --- MOBILE RESPONSIVE ADAPTATIONS --- */
-        @media (max-width: 1024px) {
+        /* ==========================================================================
+           --- MOBILE RESPONSIVE ENGINE (ANDROID CHROME, IOS SAFARI, EDGE FIX) ---
+           ========================================================================== */
+        @media screen and (max-width: 1024px) {
             body {
-                overflow-x: hidden;
-                align-items: stretch;
-                padding: 0;
+                align-items: flex-start;
+                overflow-y: auto;
+                height: auto;
+                min-height: 100dvh;
             }
+
             .interface-grid {
                 width: 100vw;
-                min-width: unset;
-                height: 100vh;
-                height: 100dvh;
+                height: auto;
+                min-height: 100dvh;
                 display: flex;
-                flex-direction: column;
-                gap: 0;
+                flex-direction: column; /* VERTICAL STACKED LAYOUT (SCREENSHOT LOOK) */
+                gap: 15px;
+                padding: 10px;
             }
+
+            /* 1. Top Navbar Responsive Horizontal Bar */
             .left-navbar {
                 flex-direction: row;
                 width: 100%;
                 height: 60px;
-                border-radius: 0;
+                border-radius: 16px;
                 padding: 0 15px;
-                border-left: none;
-                border-right: none;
-                border-top: none;
+                justify-content: space-between;
+                position: sticky;
+                top: 0;
+                z-index: 50;
+                background: rgba(2, 4, 10, 0.9);
             }
-            .nav-brand { margin-bottom: 0; }
-            .nav-menu { flex-direction: row; justify-content: center; width: auto; gap: 15px; }
-            .nav-item { width: 45px; height: 45px; font-size: 0.55rem; }
-            .power-btn { width: 38px; height: 38px; }
+            .nav-brand { margin-bottom: 0; font-size: 1.2rem; }
+            .nav-menu { flex-direction: row; justify-content: center; width: auto; gap: 10px; }
+            .nav-item { width: 45px; height: 45px; font-size: 0.55rem; border-radius: 12px; }
+            .nav-item i { font-size: 1rem; }
+            .power-btn { width: 38px; height: 38px; border-radius: 10px; }
 
+            /* 2. Middle Container Stacked */
             .center-stage {
                 display: flex;
-                flex: 1;
-                width: 100%;
-                position: relative;
-                overflow: hidden;
+                flex-direction: column;
+                gap: 15px;
+                height: auto;
             }
+
+            /* 3. User / Channel Feed Panel */
             .data-hub {
                 width: 100%;
-                height: 100%;
+                max-height: 300px; /* Easily scrollable list */
             }
+
+            /* 4. Main Chat Theater Panel */
             .chat-theater {
-                position: absolute;
-                top: 0;
-                left: 100%;
                 width: 100%;
-                height: 100%;
-                border-radius: 0;
-                border: none;
-                transition: transform 0.3s ease-in-out;
-                z-index: 30;
+                height: 75vh;
+                height: 75dvh; /* Dynamic Viewport Height for Mobile Chrome & Safari */
+                border-radius: 20px;
             }
-            .interface-grid.mobile-chat-active .chat-theater {
-                transform: translateX(-100%);
-            }
-            .mobile-back-btn {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
+
+            .theater-header { padding: 10px 15px; }
+            .messages-box { padding: 12px 15px; }
+            .input-dock { padding: 10px 12px; }
+
+            /* 5. Profile & Actions Panel (Stacked at Bottom) */
             .right-sidebar {
-                display: none !important;
+                width: 100%;
+                display: flex !important; /* Screen shot - Slidebar down layout */
+                border-radius: 20px;
+                margin-bottom: 20px;
             }
-            .theater-header { padding: 12px 15px; }
-            .messages-box { padding: 15px; }
-            .input-dock { padding: 12px 15px; }
-            .msg-content { max-width: 85%; }
+
+            .sidebar-actions-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -245,8 +244,9 @@
     <div class="bg-glow-1"></div>
     <div class="bg-glow-2"></div>
 
+    <!-- AUTHENTICATION PANELS -->
     <div class="auth-wrapper" id="loginScreenWrapper">
-        <h2 id="langLoginTitle">Lightneee</h2>
+        <h2 id="langLoginTitle">YALUWO CHAT</h2>
         <p>// TERMINAL LOGIN</p>
         <input type="email" id="loginEmail" placeholder="ඔයාගේ Email එක...">
         <input type="password" id="loginPassword" placeholder="Password...">
@@ -255,7 +255,7 @@
     </div>
 
     <div class="auth-wrapper" id="signUpScreenWrapper" style="display: none;">
-        <h2 id="langSignUpTitle">යාලුවෝ CHAT</h2>
+        <h2 id="langSignUpTitle">YALUWO CHAT</h2>
         <p>// REGISTER CONSOLE</p>
         <input type="email" id="signUpEmail" placeholder="නව Email ලිපිනයක්...">
         <input type="password" id="signUpPassword" placeholder="නව Password එකක්...">
@@ -264,8 +264,10 @@
         <div class="auth-toggle-text" id="langHaveAccountText">දැනටමත් Account එකක් තියෙනවද? <a id="goToLogin">Log In වෙන්න</a></div>
     </div>
 
+    <!-- MAIN CHAT APPLICATION -->
     <div class="interface-grid" id="chatScreenWrapper" style="display: none;">
         
+        <!-- TOP NAVBAR -->
         <nav class="left-navbar">
             <div class="nav-brand"><i class="fa-solid fa-bolt"></i></div>
             <div class="nav-menu">
@@ -285,9 +287,10 @@
             <button class="power-btn" id="stripLogoutBtn"><i class="fa-solid fa-power-off"></i></button>
         </nav>
 
+        <!-- CENTER STAGE (FEEDS & CHAT) -->
         <div class="center-stage">
             <aside class="data-hub">
-                <div class="hub-card" style="flex: 1; display: flex; flex-direction: column; min-height: 0;">
+                <div class="hub-card">
                     <div class="feed-title" id="listFeedTitle">
                         <span id="titleFeedText">ONLINE_TERMINALS (DMs)</span>
                         <button class="create-group-trigger-btn" id="openGroupModalBtn" style="display:none;"><i class="fa-solid fa-plus"></i> <span id="langNewGroupBtn">NEW GROUP</span></button>
@@ -308,7 +311,7 @@
                     
                     <div class="header-actions">
                         <button class="lang-toggle-btn" id="languageToggleBtn">EN / සිං</button>
-                        <div style="font-size: 0.75rem; font-family: monospace; border: 1px solid rgba(255,255,255,0.1); padding: 5px 10px; border-radius: 6px; font-weight: bold;" id="activeChatBadge">
+                        <div style="font-size: 0.7rem; font-family: monospace; border: 1px solid rgba(255,255,255,0.1); padding: 5px 8px; border-radius: 6px; font-weight: bold;" id="activeChatBadge">
                             MODE: DIRECT CHAT
                         </div>
                     </div>
@@ -326,11 +329,12 @@
                         <input type="text" id="messageInput" class="dock-input" placeholder="Transmit data stream...">
                         <button class="action-btn send-btn" id="sendBtn"><i class="fa-solid fa-arrow-up-long"></i></button>
                     </div>
-                    <div id="blockStatusNotice" style="display: none; text-align: center; color: #ff4d5e; font-weight: bold; padding: 10px;"></div>
+                    <div id="blockStatusNotice" style="display: none; text-align: center; color: #ff4d5e; font-weight: bold; padding: 10px; font-size:0.85rem;"></div>
                 </footer>
             </main>
         </div>
 
+        <!-- BOTTOM SLIDEBAR / OPTIONS -->
         <aside class="right-sidebar">
             <div class="premium-profile" id="headerProfileBtn" style="cursor:pointer;">
                 <div class="avatar-container">
@@ -345,7 +349,7 @@
             <div class="details-panel-card" id="rightDetailsPanel">
                 <h4 id="rightPanelContextTitle">CONSOLE_METADATA</h4>
                 <div id="rightPanelDynamicContent">
-                    <p class="details-desc" style="color: rgba(255,255,255,0.4); text-align: center; padding: 20px 0;">Select a chat node stream to inspect metadata packet logs.</p>
+                    <p class="details-desc" style="color: rgba(255,255,255,0.4); text-align: center; padding: 10px 0;">Select a chat node stream to inspect metadata packet logs.</p>
                 </div>
             </div>
 
@@ -359,16 +363,17 @@
         </aside>
     </div>
 
+    <!-- MODAL POPUPS -->
     <div class="modal-overlay" id="profileModalOverlay">
         <div class="profile-modal">
             <span class="modal-close" id="closeModalBtn"><i class="fa-solid fa-xmark"></i></span>
             <h3>SETTINGS_CONSOLE</h3>
-            <div class="modal-avatar-wrapper" style="width:90px; height:90px; margin:15px auto; border:1px solid var(--neon-accent); border-radius:20px; overflow:hidden;">
+            <div class="modal-avatar-wrapper" style="width:80px; height:80px; margin:15px auto; border:1px solid var(--neon-accent); border-radius:20px; overflow:hidden;">
                 <div id="modalAvatarPlaceholder" class="modal-avatar-placeholder" style="width:100%; height:100%;"></div>
             </div>
             <input type="text" id="profileNameInput" placeholder="ඔයාගේ නම...">
             
-            <div style="font-size: 0.75rem; text-align: left; margin-top: 15px; color: rgba(255,255,255,0.5); font-weight: bold;">SELECT NEON ACCENT HUE:</div>
+            <div style="font-size: 0.7rem; text-align: left; margin-top: 15px; color: rgba(255,255,255,0.5); font-weight: bold;">SELECT NEON ACCENT HUE:</div>
             <div class="color-picker-grid">
                 <div class="color-dot" style="background: #00f0ff;" data-color="#00f0ff" data-glow="rgba(0, 240, 255, 0.4)"></div>
                 <div class="color-dot" style="background: #a855f7;" data-color="#a855f7" data-glow="rgba(168, 85, 247, 0.4)"></div>
@@ -377,7 +382,7 @@
             </div>
 
             <button class="modal-btn save-profile-btn" id="saveProfileBtn">විස්තර සුරකින්න</button>
-            <button class="modal-btn logout-btn" id="logoutBtn" style="background: rgba(220, 53, 69, 0.1); color: #ff4d5e; border: 1px solid rgba(220, 53, 69, 0.2); margin-top: 15px;">Log Out වෙන්න</button>
+            <button class="modal-btn logout-btn" id="logoutBtn" style="background: rgba(220, 53, 69, 0.1); color: #ff4d5e; border: 1px solid rgba(220, 53, 69, 0.2); margin-top: 10px;">Log Out වෙන්න</button>
         </div>
     </div>
 
@@ -391,6 +396,7 @@
         </div>
     </div>
 
+    <!-- FIREBASE AND SYSTEM LOGIC -->
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
       import { getDatabase, ref, push, onValue, update, remove, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
@@ -426,8 +432,8 @@
 
       const dictionary = {
           si: {
-              loginTitle: "යාලුවෝ CHAT", loginEmail: "ඔයාගේ Email එක...", loginBtn: "Log In වෙන්න", noAccount: "Account එකක් නැද්ද? ", signUpLink: "Sign Up වෙන්න",
-              signUpTitle: "යාලුවෝ CHAT", signNewEmail: "නව Email ලිපිනයක්...", signPass: "නව Password එකක්...", signConf: "Password නැවත ඇතුළත් කරන්න...", signBtn: "Account එක හදන්න", haveAccount: "දැනටමත් Account එකක් තියෙනවද? ", loginLink: "Log In වෙන්න",
+              loginTitle: "YALUWO CHAT", loginEmail: "ඔයාගේ Email එක...", loginBtn: "Log In වෙන්න", noAccount: "Account එකක් නැද්ද? ", signUpLink: "Sign Up වෙන්න",
+              signUpTitle: "YALUWO CHAT", signNewEmail: "නව Email ලිපිනයක්...", signPass: "නව Password එකක්...", signConf: "Password නැවත ඇතුළත් කරන්න...", signBtn: "Account එක හදන්න", haveAccount: "දැනටමත් Account එකක් තියෙනවද? ", loginLink: "Log In වෙන්න",
               stripDirect: "Direct", stripGroup: "Group", clearChat: "Chat Clear කරන්න", leaveGroup: "Group එකෙන් අයින් වෙන්න", deleteGroup: "Group එක Delete කරන්න",
               modeDirect: "MODE: DIRECT CHAT", modeGroup: "MODE: PRIVATE GROUP", modeGlobal: "MODE: GLOBAL HUB", modeAnnouncement: "MODE: ANNOUNCEMENT", inputPlaceholder: "පණිවිඩයක් ලියන්න...",
               role: "පර්යන්ත පාලක", dmFeedTitle: "සම්බන්ධිත පරිශීලකයින් (DMs)", groupFeedTitle: "සමූහ නාලිකා (GROUPS)", newGroupBtn: "නව සමූහයක්",
@@ -489,7 +495,6 @@
       const groupRulesBanner = document.getElementById('groupRulesBanner');
       const rulesTextDisplay = document.getElementById('rulesTextDisplay');
       const editRulesBtn = document.getElementById('editRulesBtn');
-      const mobileBackToListBtn = document.getElementById('mobileBackToListBtn');
 
       const rightPanelContextTitle = document.getElementById('rightPanelContextTitle');
       const rightPanelDynamicContent = document.getElementById('rightPanelDynamicContent');
@@ -622,7 +627,7 @@
               hAvatarContainer.innerHTML = `<img src="${myPhotoURL}" alt="Avatar">`;
               mPlaceholder.innerHTML = `<img src="${myPhotoURL}" style="width:100%; height:100%; object-fit:cover;">`;
           } else {
-              const html = `<div class="alt-header-avatar" style="background:${getNameColor(myName || 'U')}; display:flex; justify-content:center; align-items:center; font-weight:bold; height:100%; width:100%; border-radius:22px;">${(myName || 'U').charAt(0).toUpperCase()}</div>`;
+              const html = `<div class="alt-header-avatar" style="background:${getNameColor(myName || 'U')}; display:flex; justify-content:center; align-items:center; font-weight:bold; height:100%; width:100%; border-radius:18px;">${(myName || 'U').charAt(0).toUpperCase()}</div>`;
               hAvatarContainer.innerHTML = html;
               mPlaceholder.innerHTML = html;
           }
@@ -659,8 +664,6 @@
           }
       };
 
-      mobileBackToListBtn.onclick = () => { chatScreenWrapper.classList.remove('mobile-chat-active'); };
-
       navDirectLink.onclick = () => {
           currentMode = "direct";
           navDirectLink.classList.add('active');
@@ -686,9 +689,8 @@
           document.getElementById('blockStatusNotice').style.display = 'none';
           
           rightPanelContextTitle.innerText = "NODE_METADATA";
-          rightPanelDynamicContent.innerHTML = `<p class="details-desc" style="color: rgba(255,255,255,0.4); text-align: center; padding: 20px 0;">Select a direct user node to review connectivity states.</p>`;
+          rightPanelDynamicContent.innerHTML = `<p class="details-desc" style="color: rgba(255,255,255,0.4); text-align: center; padding: 10px 0;">Select a direct user node to review connectivity states.</p>`;
           
-          chatScreenWrapper.classList.remove('mobile-chat-active');
           applyLanguagePack();
           loadUsersAndChannelsList();
       };
@@ -718,9 +720,8 @@
           document.getElementById('blockStatusNotice').style.display = 'none';
           
           rightPanelContextTitle.innerText = "GROUP_METADATA";
-          rightPanelDynamicContent.innerHTML = `<p class="details-desc" style="color: rgba(255,255,255,0.7);"><strong>Channel:</strong> Global Public Node<br><br>All active terminals sync securely inside this global stream architecture automatically.</p>`;
+          rightPanelDynamicContent.innerHTML = `<p class="details-desc" style="color: rgba(255,255,255,0.7);"><strong>Channel:</strong> Global Public Node<br>All active terminals sync securely inside this global stream architecture automatically.</p>`;
           
-          chatScreenWrapper.classList.remove('mobile-chat-active');
           applyLanguagePack();
           loadUsersAndChannelsList();
           listenToMessages();
@@ -779,14 +780,18 @@
                       chatSubTitle.innerText = "// PRIVACY LINK STATUS CHECKED";
                       
                       clearChatBtn.style.display = 'flex';
-                      chatScreenWrapper.classList.add('mobile-chat-active');
                       checkBlockStatus();
 
                       rightPanelContextTitle.innerText = "PEER_METADATA";
-                      rightPanelDynamicContent.innerHTML = `<div class="details-desc"><p style="margin-bottom:8px;"><strong>Identity Node:</strong> ${displayedName}</p><p style="margin-bottom:8px;"><strong>Status:</strong> Encrypted Link</p></div>`;
+                      rightPanelDynamicContent.innerHTML = `<div class="details-desc"><p style="margin-bottom:5px;"><strong>Identity Node:</strong> ${displayedName}</p><p><strong>Status:</strong> Encrypted Link</p></div>`;
                       
                       loadUsersAndChannelsList();
                       listenToMessages();
+
+                      // Auto Scroll to Chat Box on Mobile when user clicked
+                      if(window.innerWidth <= 1024) {
+                          document.getElementById('chatTheaterFrame').scrollIntoView({ behavior: 'smooth' });
+                      }
                   };
                   usersListContainer.appendChild(item);
               });
@@ -816,9 +821,12 @@
                       document.getElementById('chatInputDock').style.display = 'block';
                       document.getElementById('blockStatusNotice').style.display = 'none';
                       
-                      chatScreenWrapper.classList.add('mobile-chat-active');
                       loadUsersAndChannelsList();
                       listenToMessages();
+
+                      if(window.innerWidth <= 1024) {
+                          document.getElementById('chatTheaterFrame').scrollIntoView({ behavior: 'smooth' });
+                      }
                   };
                   usersListContainer.appendChild(item);
               });
@@ -861,10 +869,13 @@
 
                                   groupRulesBanner.style.display = 'flex';
                                   rulesTextDisplay.innerText = g.rules || "No rules set yet.";
-                                  chatScreenWrapper.classList.add('mobile-chat-active');
                                   
                                   loadUsersAndChannelsList();
                                   listenToMessages();
+
+                                  if(window.innerWidth <= 1024) {
+                                      document.getElementById('chatTheaterFrame').scrollIntoView({ behavior: 'smooth' });
+                                  }
                               };
                               usersListContainer.appendChild(item);
                           }
@@ -927,7 +938,6 @@
           }
       };
 
-      // Inline Message Controls: Edit & Delete Functions
       window.initiateInlineEdit = function(msgKey, currentText) {
           const newText = prompt("Edit your message terminal packet:", currentText);
           if (newText !== null && newText.trim() !== "") {
@@ -1000,7 +1010,6 @@
                       bubble.innerText = msgData.message;
                       bubbleWrapper.appendChild(bubble);
 
-                      // If the message is mine, inject Edit & Delete controls seamlessly
                       if (isMe) {
                           const actionsDiv = document.createElement('div');
                           actionsDiv.className = 'msg-actions-trigger';
@@ -1013,7 +1022,6 @@
 
                       contentDiv.appendChild(bubbleWrapper);
 
-                      // Inject nicely formatted timestamp underneath the bubble
                       const timeStampSpan = document.createElement('span');
                       timeStampSpan.className = 'msg-timestamp';
                       timeStampSpan.innerText = formatTimestamp(msgData.timestamp);
