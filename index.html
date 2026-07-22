@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AERO_CHAT // Multi-Terminal Console</title>
+    <title>Lightneee App // Console</title>
     <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -26,16 +26,16 @@
 
         /* --- AUTH SCREENS --- */
         .auth-wrapper { position: relative; background: linear-gradient(135deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.01) 100%); backdrop-filter: blur(40px); border: 1px solid rgba(255, 255, 255, 0.08); padding: 40px 25px; border-radius: 24px; width: 90%; max-width: 420px; box-shadow: 0 30px 60px rgba(0,0,0,0.4); text-align: center; z-index: 10; margin: 20px auto; }
-        .auth-wrapper h2 { font-family: 'Syncopate', sans-serif; font-size: 1.2rem; letter-spacing: 2px; margin-bottom: 10px; }
+        .auth-wrapper h2 { font-family: 'Syncopate', sans-serif; font-size: 1.4rem; letter-spacing: 2px; margin-bottom: 10px; color: #fff; }
         .auth-wrapper p { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--neon-accent); margin-bottom: 30px; }
-        .auth-wrapper input { width: 100%; padding: 14px 20px; margin-bottom: 18px; border: 1px solid var(--glass-border); background: rgba(255, 255, 255, 0.02); border-radius: 12px; outline: none; color: #fff; }
+        .auth-wrapper input { width: 100%; padding: 14px 20px; margin-bottom: 12px; border: 1px solid var(--glass-border); background: rgba(255, 255, 255, 0.02); border-radius: 12px; outline: none; color: #fff; font-size: 0.9rem; }
         .auth-wrapper input:focus { border-color: var(--neon-accent); box-shadow: 0 0 15px rgba(0, 240, 255, 0.15); }
-        .auth-btn { width: 100%; border: none; padding: 15px; border-radius: 12px; cursor: pointer; font-size: 0.95rem; font-weight: bold; color: #000; background: #fff; text-transform: uppercase; transition: 0.3s; }
+        .auth-btn { width: 100%; border: none; padding: 15px; border-radius: 12px; cursor: pointer; font-size: 0.95rem; font-weight: bold; color: #000; background: #fff; text-transform: uppercase; transition: 0.3s; margin-top: 10px; }
         .auth-btn:hover { background: var(--neon-accent); box-shadow: 0 0 20px var(--neon-glow); transform: translateY(-2px); }
         .auth-toggle-text { margin-top: 25px; font-size: 0.85rem; color: rgba(255,255,255,0.4); }
         .auth-toggle-text a { color: var(--neon-accent); text-decoration: none; font-weight: 600; cursor: pointer; }
 
-        /* --- INTERFACE GRID (DESKTOP MODE DEFAULT) --- */
+        /* --- INTERFACE GRID --- */
         .interface-grid { width: 98vw; max-width: 1600px; height: 95vh; display: grid; grid-template-columns: 80px 1fr 340px; gap: 15px; position: relative; z-index: 10; }
 
         /* Left Static Navbar */
@@ -64,10 +64,8 @@
         .theater-title p { font-size: 0.7rem; text-transform: uppercase; color: var(--neon-accent); margin-top: 3px; }
         
         .header-actions { display: flex; gap: 10px; align-items: center; }
-        .lang-toggle-btn { background: linear-gradient(45deg, #1f2937, #111827); border: 1px solid var(--neon-accent); color: var(--neon-accent); font-weight: bold; padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; cursor: pointer; transition: 0.3s; }
-        .lang-toggle-btn:hover { box-shadow: 0 0 10px var(--neon-glow); background: var(--neon-accent); color: #000; }
 
-        /* Action Buttons Grid in Sidebar */
+        /* Sidebar Action Grid */
         .sidebar-actions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; margin-top: 5px; }
         .action-trigger-btn { display: flex; align-items: center; justify-content: center; gap: 8px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); padding: 12px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; cursor: pointer; transition: 0.3s; width: 100%; text-transform: uppercase; }
         .action-trigger-btn i { font-size: 0.85rem; }
@@ -104,7 +102,7 @@
         .msg-action-inline-btn:hover { color: #fff; }
         .msg-action-inline-btn.delete:hover { color: #ff4d5e; }
 
-        /* --- INPUT BOX FIXED SECTION --- */
+        /* Input Dock */
         .input-dock { padding: 15px 20px; background: rgba(0,0,0,0.2); border-top: 1px solid var(--glass-border); position: relative; }
         .dock-wrapper { display: flex; background: rgba(255, 255, 255, 0.02); border: 1px solid var(--glass-border); border-radius: 16px; padding: 4px 8px; align-items: center; position: relative; transition: border-color 0.3s; }
         .dock-wrapper:focus-within { border-color: var(--neon-accent); box-shadow: 0 0 15px rgba(0, 240, 255, 0.1); }
@@ -120,11 +118,11 @@
         
         .right-sidebar { background: rgba(255, 255, 255, 0.01); border: 1px solid var(--glass-border); border-radius: 24px; padding: 20px; display: flex; flex-direction: column; gap: 15px; overflow-y: auto; }
         
-        .premium-profile { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; padding: 20px 15px; border-radius: 20px; background: rgba(255,255,255,0.01); border: 1px solid var(--neon-accent); box-shadow: 0 0 15px var(--neon-glow); }
-        .hex-avatar { width: 75px; height: 75px; background: linear-gradient(45deg, #7000ff, var(--neon-accent)); padding: 2px; border-radius: 20px; }
+        .premium-profile { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; padding: 20px 15px; border-radius: 20px; background: rgba(255,255,255,0.01); border: 1px solid #00ff87; box-shadow: 0 0 15px rgba(0, 255, 135, 0.2); transition: all 0.3s ease; }
+        .hex-avatar { width: 75px; height: 75px; background: linear-gradient(45deg, #00ff87, var(--neon-accent)); padding: 2px; border-radius: 20px; }
         .hex-avatar img, .hex-avatar .alt-header-avatar { width: 100%; height: 100%; background: var(--bg-dark); border-radius: 18px; object-fit: cover; }
-        .premium-profile h3 { font-size: 1rem; letter-spacing: 0.5px; font-weight: 700; }
-        .premium-profile p { font-size: 0.65rem; color: #fff; text-transform: uppercase; background: rgba(255,255,255,0.05); padding: 4px 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); letter-spacing: 1px; }
+        .premium-profile h3 { font-size: 1rem; letter-spacing: 0.5px; font-weight: 700; word-break: break-all; }
+        .premium-profile p { font-size: 0.75rem; color: var(--neon-accent); margin-top: 2px; font-weight: 600; }
 
         .feed-title { font-family: 'Syncopate', sans-serif; font-size: 0.65rem; color: rgba(255,255,255,0.3); margin-bottom: 12px; letter-spacing: 2px; display: flex; justify-content: space-between; align-items: center; }
         .create-group-trigger-btn { background: transparent; border: 1px dashed var(--purple-accent); color: var(--purple-accent); padding: 4px 10px; border-radius: 8px; font-size: 0.65rem; cursor: pointer; font-weight: bold; }
@@ -144,9 +142,61 @@
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); display: none; justify-content: center; align-items: center; z-index: 100; backdrop-filter: blur(15px); }
         .profile-modal { background: rgba(10, 15, 30, 0.95); border: 1px solid rgba(0, 240, 255, 0.2); padding: 30px 20px; border-radius: 24px; width: 90%; max-width: 400px; text-align: center; position: relative; max-height: 90vh; overflow-y: auto; }
         .modal-close { position: absolute; top: 15px; right: 15px; font-size: 1.2rem; cursor: pointer; color: rgba(255,255,255,0.4); }
-        .profile-modal input[type="text"] { width: 100%; padding: 12px 16px; margin: 10px 0; border: 1px solid var(--glass-border); background: rgba(255, 255, 255, 0.03); border-radius: 12px; outline: none; color: #fff; font-size: 0.85rem; }
+        .profile-modal input[type="text"] { width: 100%; padding: 12px 16px; margin: 6px 0; border: 1px solid var(--glass-border); background: rgba(255, 255, 255, 0.03); border-radius: 12px; outline: none; color: #fff; font-size: 0.85rem; }
         .modal-btn { width: 100%; padding: 12px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 10px; text-transform: uppercase; font-size: 0.8rem; }
         .save-profile-btn { background: #fff; color: #000; }
+
+        /* PROFILE PHOTO CONTAINER & ACTION BUTTONS */
+        .modal-avatar-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            margin: 15px 0;
+        }
+        .modal-avatar-wrapper {
+            position: relative;
+            width: 85px;
+            height: 85px;
+            border: 2px solid var(--neon-accent);
+            border-radius: 20px;
+            overflow: hidden;
+            background: var(--bg-dark);
+        }
+        .modal-avatar-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .avatar-action-btns {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            align-items: center;
+        }
+        .avatar-icon-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.8);
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: 0.3s;
+        }
+        .avatar-icon-btn:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--neon-accent);
+            transform: translateY(-2px);
+        }
+        .avatar-icon-btn.delete-icon:hover {
+            color: #ff4d5e;
+            background: rgba(220, 53, 69, 0.15);
+            border-color: #ff4d5e;
+            box-shadow: 0 0 12px rgba(220, 53, 69, 0.3);
+        }
 
         .member-select-list { max-height: 160px; overflow-y: auto; text-align: left; margin: 12px 0; padding: 5px; border: 1px solid var(--glass-border); border-radius: 10px; background: rgba(0,0,0,0.2); }
         .member-select-item { display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 0.85rem; }
@@ -155,87 +205,30 @@
         .color-dot { height: 35px; border-radius: 10px; cursor: pointer; border: 2px solid transparent; }
         .color-dot.active { border-color: #fff; transform: scale(1.05); }
 
+        .error-message { color: #ff4d5e; font-size: 0.7rem; text-align: left; margin-top: -4px; margin-bottom: 8px; font-weight: 600; display: none; }
+
         @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
 
-        /* ==========================================================================
-           --- MOBILE RESPONSIVE ENGINE (ANDROID CHROME, IOS SAFARI, EDGE FIX) ---
-           ========================================================================== */
+        /* Mobile Layout Stack */
         @media screen and (max-width: 1024px) {
-            body {
-                align-items: flex-start;
-                overflow-y: auto;
-                height: auto;
-                min-height: 100dvh;
-            }
-
-            .interface-grid {
-                width: 100vw;
-                height: auto;
-                min-height: 100dvh;
-                display: flex;
-                flex-direction: column; /* VERTICAL STACKED LAYOUT (SCREENSHOT LOOK) */
-                gap: 15px;
-                padding: 10px;
-            }
-
-            /* 1. Top Navbar Responsive Horizontal Bar */
-            .left-navbar {
-                flex-direction: row;
-                width: 100%;
-                height: 60px;
-                border-radius: 16px;
-                padding: 0 15px;
-                justify-content: space-between;
-                position: sticky;
-                top: 0;
-                z-index: 50;
-                background: rgba(2, 4, 10, 0.9);
-            }
+            body { align-items: flex-start; overflow-y: auto; height: auto; min-height: 100dvh; }
+            .interface-grid { width: 100vw; height: auto; min-height: 100dvh; display: flex; flex-direction: column; gap: 15px; padding: 10px; }
+            .left-navbar { flex-direction: row; width: 100%; height: 60px; border-radius: 16px; padding: 0 15px; justify-content: space-between; position: sticky; top: 0; z-index: 50; background: rgba(2, 4, 10, 0.9); }
             .nav-brand { margin-bottom: 0; font-size: 1.2rem; }
             .nav-menu { flex-direction: row; justify-content: center; width: auto; gap: 10px; }
             .nav-item { width: 45px; height: 45px; font-size: 0.55rem; border-radius: 12px; }
             .nav-item i { font-size: 1rem; }
             .power-btn { width: 38px; height: 38px; border-radius: 10px; }
-
-            /* 2. Middle Container Stacked */
-            .center-stage {
-                display: flex;
-                flex-direction: column;
-                gap: 15px;
-                height: auto;
-            }
-
-            /* 3. User / Channel Feed Panel */
-            .data-hub {
-                width: 100%;
-                max-height: 300px; /* Easily scrollable list */
-            }
-
-            /* 4. Main Chat Theater Panel */
-            .chat-theater {
-                width: 100%;
-                height: 75vh;
-                height: 75dvh; /* Dynamic Viewport Height for Mobile Chrome & Safari */
-                border-radius: 20px;
-            }
-
+            .center-stage { display: flex; flex-direction: column; gap: 15px; height: auto; }
+            .data-hub { width: 100%; max-height: 300px; }
+            .chat-theater { width: 100%; height: 75vh; height: 75dvh; border-radius: 20px; }
             .theater-header { padding: 10px 15px; }
             .messages-box { padding: 12px 15px; }
             .input-dock { padding: 10px 12px; }
-
-            /* 5. Profile & Actions Panel (Stacked at Bottom) */
-            .right-sidebar {
-                width: 100%;
-                display: flex !important; /* Screen shot - Slidebar down layout */
-                border-radius: 20px;
-                margin-bottom: 20px;
-            }
-
-            .sidebar-actions-grid {
-                grid-template-columns: 1fr;
-            }
+            .right-sidebar { width: 100%; display: flex !important; border-radius: 20px; margin-bottom: 20px; }
+            .sidebar-actions-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -246,22 +239,26 @@
 
     <!-- AUTHENTICATION PANELS -->
     <div class="auth-wrapper" id="loginScreenWrapper">
-        <h2 id="langLoginTitle">YALUWO CHAT</h2>
+        <h2>Lightneee</h2>
         <p>// TERMINAL LOGIN</p>
-        <input type="email" id="loginEmail" placeholder="ඔයාගේ Email එක...">
-        <input type="password" id="loginPassword" placeholder="Password...">
-        <button class="auth-btn" id="startChatBtn">Log In වෙන්න</button>
-        <div class="auth-toggle-text" id="langNoAccountText">Account එකක් නැද්ද? <a id="goToSignUp">Sign Up වෙන්න</a></div>
+        <input type="email" id="loginEmail" placeholder="Enter Your Email...">
+        <input type="password" id="loginPassword" placeholder="Enter Password...">
+        <button class="auth-btn" id="startChatBtn">Log In</button>
+        <div class="auth-toggle-text">Don't have an account? <a id="goToSignUp">Sign Up</a></div>
     </div>
 
+    <!-- REGISTER CONSOLE WITH USERNAME INPUT -->
     <div class="auth-wrapper" id="signUpScreenWrapper" style="display: none;">
-        <h2 id="langSignUpTitle">YALUWO CHAT</h2>
+        <h2>Lightneee</h2>
         <p>// REGISTER CONSOLE</p>
-        <input type="email" id="signUpEmail" placeholder="නව Email ලිපිනයක්...">
-        <input type="password" id="signUpPassword" placeholder="නව Password එකක්...">
-        <input type="password" id="signUpConfirmPassword" placeholder="Password නැවත ඇතුළත් කරන්න...">
-        <button class="auth-btn" id="submitSignUpBtn">Account එක හදන්න</button>
-        <div class="auth-toggle-text" id="langHaveAccountText">දැනටමත් Account එකක් තියෙනවද? <a id="goToLogin">Log In වෙන්න</a></div>
+        <input type="text" id="signUpName" placeholder="Your Full Name...">
+        <input type="text" id="signUpUsername" placeholder="Username (e.g. dasithdamsara)...">
+        <div id="signUpUsernameErrorMsg" class="error-message">Please use lowercase English letters (a-z) only for Username.</div>
+        <input type="email" id="signUpEmail" placeholder="New Email Address...">
+        <input type="password" id="signUpPassword" placeholder="Create Password...">
+        <input type="password" id="signUpConfirmPassword" placeholder="Confirm Password...">
+        <button class="auth-btn" id="submitSignUpBtn">Register Account</button>
+        <div class="auth-toggle-text">Already have an account? <a id="goToLogin">Log In</a></div>
     </div>
 
     <!-- MAIN CHAT APPLICATION -->
@@ -293,7 +290,7 @@
                 <div class="hub-card">
                     <div class="feed-title" id="listFeedTitle">
                         <span id="titleFeedText">ONLINE_TERMINALS (DMs)</span>
-                        <button class="create-group-trigger-btn" id="openGroupModalBtn" style="display:none;"><i class="fa-solid fa-plus"></i> <span id="langNewGroupBtn">NEW GROUP</span></button>
+                        <button class="create-group-trigger-btn" id="openGroupModalBtn" style="display:none;"><i class="fa-solid fa-plus"></i> <span>NEW GROUP</span></button>
                     </div>
                     <div class="user-list theme-direct-list" id="usersListContainer"></div>
                 </div>
@@ -310,7 +307,6 @@
                     </div>
                     
                     <div class="header-actions">
-                        <button class="lang-toggle-btn" id="languageToggleBtn">EN / සිං</button>
                         <div style="font-size: 0.7rem; font-family: monospace; border: 1px solid rgba(255,255,255,0.1); padding: 5px 8px; border-radius: 6px; font-weight: bold;" id="activeChatBadge">
                             MODE: DIRECT CHAT
                         </div>
@@ -334,15 +330,15 @@
             </main>
         </div>
 
-        <!-- BOTTOM SLIDEBAR / OPTIONS -->
+        <!-- RIGHT SIDEBAR / USER PROFILE PANEL -->
         <aside class="right-sidebar">
             <div class="premium-profile" id="headerProfileBtn" style="cursor:pointer;">
                 <div class="avatar-container">
                     <div class="hex-avatar" id="headerAvatarContainer"></div>
                 </div>
                 <div>
-                    <h3 id="headerName">User</h3>
-                    <p id="langTerminalRole">Terminal Controller</p>
+                    <h3 id="headerName">User Name</h3>
+                    <p id="headerUsername">@username</p>
                 </div>
             </div>
 
@@ -356,9 +352,9 @@
             <div class="sidebar-actions-grid" id="sidebarActionsGrid">
                 <button class="action-trigger-btn danger-btn" id="blockUserBtn" style="display:none;"><i class="fa-solid fa-ban"></i> Block User</button>
                 <button class="action-trigger-btn secure-btn" id="unblockUserBtn" style="display:none;"><i class="fa-solid fa-unlock"></i> Unblock User</button>
-                <button class="action-trigger-btn danger-btn" id="clearChatBtn" style="display:none;"><i class="fa-solid fa-trash-can"></i> <span id="langBtnClear">Clear Chat</span></button>
-                <button class="action-trigger-btn danger-btn" id="leaveGroupBtn" style="display:none;"><i class="fa-solid fa-arrow-right-from-bracket"></i> <span id="langBtnLeave">Leave Group</span></button>
-                <button class="action-trigger-btn danger-btn" id="deleteGroupBtn" style="display:none;"><i class="fa-solid fa-fire"></i> <span id="langBtnDelete">Delete Group</span></button>
+                <button class="action-trigger-btn danger-btn" id="clearChatBtn" style="display:none;"><i class="fa-solid fa-trash-can"></i> <span>Clear Chat</span></button>
+                <button class="action-trigger-btn danger-btn" id="leaveGroupBtn" style="display:none;"><i class="fa-solid fa-arrow-right-from-bracket"></i> <span>Leave Group</span></button>
+                <button class="action-trigger-btn danger-btn" id="deleteGroupBtn" style="display:none;"><i class="fa-solid fa-fire"></i> <span>Delete Group</span></button>
             </div>
         </aside>
     </div>
@@ -368,11 +364,34 @@
         <div class="profile-modal">
             <span class="modal-close" id="closeModalBtn"><i class="fa-solid fa-xmark"></i></span>
             <h3>SETTINGS_CONSOLE</h3>
-            <div class="modal-avatar-wrapper" style="width:80px; height:80px; margin:15px auto; border:1px solid var(--neon-accent); border-radius:20px; overflow:hidden;">
-                <div id="modalAvatarPlaceholder" class="modal-avatar-placeholder" style="width:100%; height:100%;"></div>
-            </div>
-            <input type="text" id="profileNameInput" placeholder="ඔයාගේ නම...">
             
+            <!-- AVATAR UPLOADER WITH EDIT & DELETE ICONS -->
+            <div class="modal-avatar-container">
+                <div class="modal-avatar-wrapper">
+                    <div id="modalAvatarPlaceholder" style="width:100%; height:100%;"></div>
+                </div>
+                <div class="avatar-action-btns">
+                    <div class="avatar-icon-btn edit-icon" id="editAvatarBtn" title="Change Profile Picture">
+                        <i class="fa-solid fa-pencil"></i>
+                    </div>
+                    <div class="avatar-icon-btn delete-icon" id="deleteAvatarBtn" title="Delete Profile Picture">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HIDDEN FILE INPUT -->
+            <input type="file" id="profilePhotoInput" accept="image/*" style="display: none;">
+            
+            <!-- UPPER FIELD: FULL NAME -->
+            <div style="font-size: 0.65rem; text-align: left; margin-top: 5px; color: var(--neon-accent); font-weight: bold; text-transform: uppercase;">Full Name:</div>
+            <input type="text" id="profileNameInput" placeholder="Enter Full Name..." required>
+            
+            <!-- LOWER FIELD: USERNAME WITH @ PREFIX -->
+            <div style="font-size: 0.65rem; text-align: left; margin-top: 8px; color: var(--neon-accent); font-weight: bold; text-transform: uppercase;">Username:</div>
+            <input type="text" id="profileUsernameInput" placeholder="@username" required>
+            <div id="usernameErrorMsg" class="error-message">Please use lowercase English letters (a-z) or numbers for Username.</div>
+
             <div style="font-size: 0.7rem; text-align: left; margin-top: 15px; color: rgba(255,255,255,0.5); font-weight: bold;">SELECT NEON ACCENT HUE:</div>
             <div class="color-picker-grid">
                 <div class="color-dot" style="background: #00f0ff;" data-color="#00f0ff" data-glow="rgba(0, 240, 255, 0.4)"></div>
@@ -381,8 +400,8 @@
                 <div class="color-dot" style="background: #ff007f;" data-color="#ff007f" data-glow="rgba(255, 0, 127, 0.4)"></div>
             </div>
 
-            <button class="modal-btn save-profile-btn" id="saveProfileBtn">විස්තර සුරකින්න</button>
-            <button class="modal-btn logout-btn" id="logoutBtn" style="background: rgba(220, 53, 69, 0.1); color: #ff4d5e; border: 1px solid rgba(220, 53, 69, 0.2); margin-top: 10px;">Log Out වෙන්න</button>
+            <button class="modal-btn save-profile-btn" id="saveProfileBtn">Save Profile</button>
+            <button class="modal-btn logout-btn" id="logoutBtn" style="background: rgba(220, 53, 69, 0.1); color: #ff4d5e; border: 1px solid rgba(220, 53, 69, 0.2); margin-top: 10px;">Log Out</button>
         </div>
     </div>
 
@@ -390,9 +409,9 @@
         <div class="profile-modal" style="border-color: var(--purple-accent);">
             <span class="modal-close" id="closeGroupModalBtn"><i class="fa-solid fa-xmark"></i></span>
             <h3>CREATE_CUSTOM_NODE</h3>
-            <input type="text" id="newGroupNameInput" placeholder="Group එකේ නම ඇතුළත් කරන්න..." style="text-align: left;">
+            <input type="text" id="newGroupNameInput" placeholder="Enter Group Name..." style="text-align: left;">
             <div class="member-select-list" id="memberSelectListContainer"></div>
-            <button class="modal-btn save-profile-btn" id="submitCreateGroupBtn" style="background: var(--purple-accent); color: #000;">Group එක සාදන්න</button>
+            <button class="modal-btn save-profile-btn" id="submitCreateGroupBtn" style="background: var(--purple-accent); color: #000;">Create Group</button>
         </div>
     </div>
 
@@ -422,40 +441,39 @@
       let cachedAllUsers = {}; 
       let currentUserUID = ""; 
       let myName = "";
+      let myUsername = "";
       let myPhotoURL = "";
-      let currentLanguage = "si";
+      let newSelectedBase64Photo = null; // null = unmodified, "" = deleted, string = new photo
       
       let myActiveColor = "#00f0ff";
       let myActiveGlow = "rgba(0, 240, 255, 0.4)";
       let blockList = {};
       let activeGroupMeta = null;
 
-      const dictionary = {
-          si: {
-              loginTitle: "YALUWO CHAT", loginEmail: "ඔයාගේ Email එක...", loginBtn: "Log In වෙන්න", noAccount: "Account එකක් නැද්ද? ", signUpLink: "Sign Up වෙන්න",
-              signUpTitle: "YALUWO CHAT", signNewEmail: "නව Email ලිපිනයක්...", signPass: "නව Password එකක්...", signConf: "Password නැවත ඇතුළත් කරන්න...", signBtn: "Account එක හදන්න", haveAccount: "දැනටමත් Account එකක් තියෙනවද? ", loginLink: "Log In වෙන්න",
-              stripDirect: "Direct", stripGroup: "Group", clearChat: "Chat Clear කරන්න", leaveGroup: "Group එකෙන් අයින් වෙන්න", deleteGroup: "Group එක Delete කරන්න",
-              modeDirect: "MODE: DIRECT CHAT", modeGroup: "MODE: PRIVATE GROUP", modeGlobal: "MODE: GLOBAL HUB", modeAnnouncement: "MODE: ANNOUNCEMENT", inputPlaceholder: "පණිවිඩයක් ලියන්න...",
-              role: "පර්යන්ත පාලක", dmFeedTitle: "සම්බන්ධිත පරිශීලකයින් (DMs)", groupFeedTitle: "සමූහ නාලිකා (GROUPS)", newGroupBtn: "නව සමූහයක්",
-              profileHeader: "පැතිකඩ වෙනස් කිරීම", chooseImg: "ඡායාරූපයක් තෝරන්න", namePlaceholder: "ඔයාගේ නම...", saveBtn: "විස්තර සුරකින්න", logoutBtn: "Log Out වෙන්න",
-              createNodeTitle: "නව සමූහයක් සෑදීම", groupNamePlaceholder: "Group එකේ නම ඇතුළත් කරන්න...", selectMembers: "සමූහ සාමාජිකයන් තෝරන්න:", createGroupBtn: "Group එක සාදන්න",
-              loginFailed: "ලොග් වීම අසාර්ථකයි! ❌", confirmClearChat: "මෙම කතාබහේ ඇති සියලුම පණිවිඩ මකා දැමීමට ඔබට විශ්වාසද? ⚠️",
-              confirmLeaveGroup: "මෙම සමූහයෙන් ඉවත් වීමට ඔබට විශ්වාසද? ⚠️", confirmDeleteGroup: "මෙම සමූහය සම්පූර්ණයෙන්ම මකා දැමීමට ඔබට විශ්වාසද? ⚠️",
-              groupLeft: "ඔබ සාර්ථකව සමූහයෙන් ඉවත් විය.", groupDeleted: "සමූහය සාර්ථකව මකා දැමීය."
-          },
-          en: {
-              loginTitle: "YALUWO CHAT", loginEmail: "Your Email Address...", loginBtn: "Log In Now", noAccount: "Don't have an account? ", signUpLink: "Sign Up",
-              signUpTitle: "YALUWO CHAT", signNewEmail: "New Email Address...", signPass: "Create Password...", signConf: "Confirm Password...", signBtn: "Register Account", haveAccount: "Already have an account? ", loginLink: "Log In",
-              stripDirect: "Direct", stripGroup: "Group", clearChat: "Clear Chat", leaveGroup: "Leave Group", deleteGroup: "Delete Group",
-              modeDirect: "MODE: SECURE DM", modeGroup: "MODE: PRIVATE GROUP", modeGlobal: "MODE: GLOBAL HUB", modeAnnouncement: "MODE: ANNOUNCEMENT", inputPlaceholder: "Transmit data stream...",
-              role: "Terminal Controller", dmFeedTitle: "ONLINE_TERMINALS (DMs)", groupFeedTitle: "CHANNELS (GROUPS)", newGroupBtn: "NEW GROUP",
-              profileHeader: "CONSOLE_MUTATION", chooseImg: "Choose Image Source", namePlaceholder: "Your Identity Name...", saveBtn: "Save Profile Data", logoutBtn: "Disconnect Node",
-              createNodeTitle: "CREATE_CUSTOM_NODE", groupNamePlaceholder: "Enter unique channel name...", selectMembers: "Select Group Members:", createGroupBtn: "Initialize Group",
-              loginFailed: "Login failed! Please check credentials. ❌", confirmClearChat: "Are you sure you want to clear all message logs? ⚠️",
-              confirmLeaveGroup: "Are you sure you want to leave this group node? ⚠️", confirmDeleteGroup: "Are you sure you want to completely incinerate this group? ⚠️",
-              groupLeft: "Successfully disconnected from group stream.", groupDeleted: "Group structure entirely purged."
-          }
+      /* Standardized username formatting logic with @ prefix */
+      function formatDisplayUsername(rawUsername) {
+          if (!rawUsername) return "@username";
+          let clean = rawUsername.toString().replace(/^@/, '').toLowerCase().replace(/[^a-z0-9_]/g, '');
+          return `@${clean}`;
+      }
+
+      /* Real-time username input auto-formatting */
+      const handleUsernameInputFormat = (inputElem) => {
+          inputElem.addEventListener('input', () => {
+              let val = inputElem.value;
+              if (!val.startsWith('@')) {
+                  val = '@' + val.replace(/@/g, '');
+              }
+              let cleanBody = val.slice(1).toLowerCase().replace(/[^a-z0-9_]/g, '');
+              inputElem.value = '@' + cleanBody;
+          });
       };
+
+      const signUpUsernameElem = document.getElementById('signUpUsername');
+      const profileUsernameInputElem = document.getElementById('profileUsernameInput');
+      
+      handleUsernameInputFormat(signUpUsernameElem);
+      handleUsernameInputFormat(profileUsernameInputElem);
 
       function getNameColor(name) {
           if(!name) return '#3b82f6';
@@ -509,74 +527,59 @@
           }
       }
 
-      function applyLanguagePack() {
-          const pack = dictionary[currentLanguage];
-          document.getElementById('langLoginTitle').innerText = pack.loginTitle;
-          document.getElementById('loginEmail').placeholder = pack.loginEmail;
-          document.getElementById('startChatBtn').innerText = pack.loginBtn;
-          document.getElementById('langNoAccountText').innerHTML = `${pack.noAccount} <a id="goToSignUp">${pack.signUpLink}</a>`;
+      /* Updates Top/Right Profile Banner Card */
+      function updateRightProfileCard(name, username, photoURL) {
+          const nameContainer = document.getElementById('headerName');
+          const usernameContainer = document.getElementById('headerUsername');
+          const avatarContainer = document.getElementById('headerAvatarContainer');
           
-          document.getElementById('langSignUpTitle').innerText = pack.signUpTitle;
-          document.getElementById('signUpEmail').placeholder = pack.signNewEmail;
-          document.getElementById('signUpPassword').placeholder = pack.signPass;
-          document.getElementById('signUpConfirmPassword').placeholder = pack.signConf;
-          document.getElementById('submitSignUpBtn').innerText = pack.signBtn;
-          document.getElementById('langHaveAccountText').innerHTML = `${pack.haveAccount} <a id="goToLogin">${pack.loginLink}</a>`;
+          nameContainer.innerText = name || "User Name";
+          usernameContainer.innerText = formatDisplayUsername(username);
           
-          document.getElementById('langBtnClear').innerText = pack.clearChat;
-          document.getElementById('langBtnLeave').innerText = pack.leaveGroup;
-          document.getElementById('langBtnDelete').innerText = pack.deleteGroup;
-          messageInput.placeholder = pack.inputPlaceholder;
-          document.getElementById('langTerminalRole').innerText = pack.role;
-          document.getElementById('langNewGroupBtn').innerText = pack.newGroupBtn;
-          
-          document.getElementById('profileNameInput').placeholder = pack.namePlaceholder;
-          document.getElementById('saveProfileBtn').innerText = pack.saveBtn;
-          document.getElementById('logoutBtn').innerText = pack.logoutBtn;
-          
-          document.getElementById('newGroupNameInput').placeholder = pack.groupNamePlaceholder;
-          document.getElementById('submitCreateGroupBtn').innerText = pack.createGroupBtn;
-
-          bindAuthToggleDOMs();
-          refreshDynamicUIHeadings();
-      }
-
-      function bindAuthToggleDOMs() {
-          const gsu = document.getElementById('goToSignUp');
-          if(gsu) gsu.onclick = () => { loginWrapper.style.display = 'none'; signUpWrapper.style.display = 'block'; };
-          const gtl = document.getElementById('goToLogin');
-          if(gtl) gtl.onclick = () => { signUpWrapper.style.display = 'none'; loginWrapper.style.display = 'block'; };
-      }
-
-      function refreshDynamicUIHeadings() {
-          const pack = dictionary[currentLanguage];
-          const feedTitleText = document.getElementById('titleFeedText');
-          
-          if(currentMode === 'direct') {
-              activeChatBadge.innerText = pack.modeDirect;
-              if(feedTitleText) feedTitleText.innerText = pack.dmFeedTitle;
+          if(photoURL) {
+              avatarContainer.innerHTML = `<img src="${photoURL}" alt="Avatar">`;
           } else {
-              if(selectedTargetID === 'global_hub') activeChatBadge.innerText = pack.modeGlobal;
-              else if(selectedTargetID === 'system_announcements') activeChatBadge.innerText = pack.modeAnnouncement;
-              else activeChatBadge.innerText = pack.modeGroup;
-              if(feedTitleText) feedTitleText.innerText = pack.groupFeedTitle;
+              avatarContainer.innerHTML = `<div class="alt-header-avatar" style="background:${getNameColor(name || 'U')}; display:flex; justify-content:center; align-items:center; font-weight:bold; height:100%; width:100%; border-radius:18px;">${(name || 'U').charAt(0).toUpperCase()}</div>`;
           }
       }
 
-      document.getElementById('languageToggleBtn').onclick = () => {
-          currentLanguage = currentLanguage === 'si' ? 'en' : 'si';
-          applyLanguagePack();
-          loadUsersAndChannelsList();
-      };
+      function refreshDynamicUIHeadings() {
+          const feedTitleText = document.getElementById('titleFeedText');
+          
+          if(currentMode === 'direct') {
+              activeChatBadge.innerText = "MODE: DIRECT CHAT";
+              if(feedTitleText) feedTitleText.innerText = "ONLINE_TERMINALS (DMs)";
+          } else {
+              if(selectedTargetID === 'global_hub') activeChatBadge.innerText = "MODE: GLOBAL HUB";
+              else if(selectedTargetID === 'system_announcements') activeChatBadge.innerText = "MODE: ANNOUNCEMENT";
+              else activeChatBadge.innerText = "MODE: PRIVATE GROUP";
+              if(feedTitleText) feedTitleText.innerText = "CHANNELS (GROUPS)";
+          }
+      }
+
+      document.getElementById('goToSignUp').onclick = () => { loginWrapper.style.display = 'none'; signUpWrapper.style.display = 'block'; };
+      document.getElementById('goToLogin').onclick = () => { signUpWrapper.style.display = 'none'; loginWrapper.style.display = 'block'; };
 
       onAuthStateChanged(auth, (user) => {
           if (user) {
               currentUserUID = user.uid;
-              myName = user.displayName || user.email.split('@')[0];
-              myPhotoURL = user.photoURL || "";
               
-              document.getElementById('headerName').innerText = myName;
-              updateHeaderAvatar();
+              /* Realtime listener for User Profile Details */
+              onValue(ref(db, `users/${user.uid}`), (snap) => {
+                  if(snap.exists()) {
+                      const userData = snap.val();
+                      myName = userData.name || user.displayName || user.email.split('@')[0];
+                      myUsername = userData.username || myName.toLowerCase().replace(/[^a-z0-9_]/g, '');
+                      myPhotoURL = userData.photoURL || user.photoURL || "";
+                  } else {
+                      myName = user.displayName || user.email.split('@')[0];
+                      myUsername = myName.toLowerCase().replace(/[^a-z0-9_]/g, '');
+                      myPhotoURL = user.photoURL || "";
+                  }
+                  updateRightProfileCard(myName, myUsername, myPhotoURL);
+              });
+
+              updateHeaderAvatarModal();
 
               loginWrapper.style.display = 'none';
               signUpWrapper.style.display = 'none';
@@ -584,9 +587,6 @@
               
               update(ref(db, `users/${user.uid}`), {
                   uid: user.uid,
-                  name: myName,
-                  email: user.email,
-                  photoURL: myPhotoURL,
                   lastSeen: Date.now()
               });
 
@@ -620,15 +620,16 @@
           }
       });
 
-      function updateHeaderAvatar(){
-          const hAvatarContainer = document.getElementById('headerAvatarContainer');
+      function updateHeaderAvatarModal(tempSrc = null){
           const mPlaceholder = document.getElementById('modalAvatarPlaceholder');
-          if(myPhotoURL) {
-              hAvatarContainer.innerHTML = `<img src="${myPhotoURL}" alt="Avatar">`;
-              mPlaceholder.innerHTML = `<img src="${myPhotoURL}" style="width:100%; height:100%; object-fit:cover;">`;
+          
+          let srcToUse = tempSrc !== null ? tempSrc : myPhotoURL;
+          if (newSelectedBase64Photo === "") srcToUse = ""; // Marked as deleted
+
+          if(srcToUse) {
+              mPlaceholder.innerHTML = `<img src="${srcToUse}" style="width:100%; height:100%; object-fit:cover;">`;
           } else {
               const html = `<div class="alt-header-avatar" style="background:${getNameColor(myName || 'U')}; display:flex; justify-content:center; align-items:center; font-weight:bold; height:100%; width:100%; border-radius:18px;">${(myName || 'U').charAt(0).toUpperCase()}</div>`;
-              hAvatarContainer.innerHTML = html;
               mPlaceholder.innerHTML = html;
           }
       }
@@ -638,23 +639,39 @@
           const pass = document.getElementById('loginPassword').value.trim();
           if(email && pass) {
               signInWithEmailAndPassword(auth, email, pass).catch(err => {
-                  alert(dictionary[currentLanguage].loginFailed + "\n" + err.message);
+                  alert("Login failed! " + err.message);
               });
           }
       };
 
+      /* SIGN UP LOGIC WITH NAME & USERNAME */
       document.getElementById('submitSignUpBtn').onclick = () => {
+          const name = document.getElementById('signUpName').value.trim();
+          let rawUserVal = signUpUsernameElem.value.trim().replace(/^@/, '');
+          const username = rawUserVal.toLowerCase().replace(/[^a-z0-9_]/g, '');
           const email = document.getElementById('signUpEmail').value.trim();
           const pass = document.getElementById('signUpPassword').value.trim();
           const conf = document.getElementById('signUpConfirmPassword').value.trim();
+          const errDisp = document.getElementById('signUpUsernameErrorMsg');
+
+          if(!name) { alert("Please enter your name."); return; }
+
+          if(!username) {
+              errDisp.style.display = 'block';
+              return;
+          } else {
+              errDisp.style.display = 'none';
+          }
+
           if(pass !== conf) { alert("Passwords do not match!"); return; }
+
           if(email && pass) {
               createUserWithEmailAndPassword(auth, email, pass).then((cred) => {
-                  const defaultName = email.split('@')[0];
-                  updateProfile(cred.user, { displayName: defaultName }).then(()=>{
+                  updateProfile(cred.user, { displayName: name }).then(()=>{
                       set(ref(db, `users/${cred.user.uid}`), {
                           uid: cred.user.uid,
-                          name: defaultName,
+                          name: name,
+                          username: username,
                           email: email,
                           photoURL: "",
                           lastSeen: Date.now()
@@ -679,6 +696,8 @@
           chatMainTitle.innerText = "SECURE_LINK_STREAM";
           chatSubTitle.innerText = "// P2P TERMINAL";
           
+          updateRightProfileCard(myName, myUsername, myPhotoURL);
+
           clearChatBtn.style.display = 'none';
           leaveGroupBtn.style.display = 'none';
           deleteGroupBtn.style.display = 'none';
@@ -691,7 +710,7 @@
           rightPanelContextTitle.innerText = "NODE_METADATA";
           rightPanelDynamicContent.innerHTML = `<p class="details-desc" style="color: rgba(255,255,255,0.4); text-align: center; padding: 10px 0;">Select a direct user node to review connectivity states.</p>`;
           
-          applyLanguagePack();
+          refreshDynamicUIHeadings();
           loadUsersAndChannelsList();
       };
 
@@ -710,6 +729,8 @@
           chatMainTitle.innerText = "GLOBAL HUB";
           chatSubTitle.innerText = "// PUBLIC STREAM";
           
+          updateRightProfileCard("GLOBAL HUB", "global", "");
+
           clearChatBtn.style.display = 'none';
           leaveGroupBtn.style.display = 'none';
           deleteGroupBtn.style.display = 'none';
@@ -722,7 +743,7 @@
           rightPanelContextTitle.innerText = "GROUP_METADATA";
           rightPanelDynamicContent.innerHTML = `<p class="details-desc" style="color: rgba(255,255,255,0.7);"><strong>Channel:</strong> Global Public Node<br>All active terminals sync securely inside this global stream architecture automatically.</p>`;
           
-          applyLanguagePack();
+          refreshDynamicUIHeadings();
           loadUsersAndChannelsList();
           listenToMessages();
       };
@@ -765,6 +786,9 @@
                   if(uid === currentUserUID) return;
                   const u = cachedAllUsers[uid];
                   const displayedName = u.name || "Anonymous";
+                  const rawUsername = u.username || displayedName;
+                  const formattedUsername = formatDisplayUsername(rawUsername);
+                  
                   const item = document.createElement('div');
                   item.className = `user-item ${selectedTargetID === uid ? 'active' : ''}`;
                   
@@ -772,23 +796,24 @@
                   if(u.photoURL) avatarMark = `<img src="${u.photoURL}" alt="U">`;
                   else avatarMark = `<div class="user-alt-avatar" style="background:${getNameColor(displayedName)}; color:white;">${displayedName.charAt(0).toUpperCase()}</div>`;
                   
-                  item.innerHTML = `${avatarMark}<div class="user-info"><h4>${displayedName}</h4><p>// SECURE DM NODE</p></div>`;
+                  item.innerHTML = `${avatarMark}<div class="user-info"><h4>${displayedName}</h4><p>${formattedUsername}</p></div>`;
                   item.onclick = () => {
                       selectedTargetID = uid;
                       selectedTargetName = displayedName;
                       chatMainTitle.innerText = displayedName.toUpperCase();
                       chatSubTitle.innerText = "// PRIVACY LINK STATUS CHECKED";
                       
+                      updateRightProfileCard(displayedName, formattedUsername, u.photoURL || "");
+
                       clearChatBtn.style.display = 'flex';
                       checkBlockStatus();
 
                       rightPanelContextTitle.innerText = "PEER_METADATA";
-                      rightPanelDynamicContent.innerHTML = `<div class="details-desc"><p style="margin-bottom:5px;"><strong>Identity Node:</strong> ${displayedName}</p><p><strong>Status:</strong> Encrypted Link</p></div>`;
+                      rightPanelDynamicContent.innerHTML = `<div class="details-desc"><p style="margin-bottom:5px;"><strong>Identity Node:</strong> ${displayedName}</p><p style="margin-bottom:5px;"><strong>Handle:</strong> ${formattedUsername}</p><p><strong>Status:</strong> Encrypted Link</p></div>`;
                       
                       loadUsersAndChannelsList();
                       listenToMessages();
 
-                      // Auto Scroll to Chat Box on Mobile when user clicked
                       if(window.innerWidth <= 1024) {
                           document.getElementById('chatTheaterFrame').scrollIntoView({ behavior: 'smooth' });
                       }
@@ -812,6 +837,8 @@
                       chatMainTitle.innerText = ch.name;
                       chatSubTitle.innerText = ch.subtitle;
                       
+                      updateRightProfileCard(ch.name, "channel", "");
+
                       clearChatBtn.style.display = 'none';
                       leaveGroupBtn.style.display = 'none';
                       deleteGroupBtn.style.display = 'none';
@@ -851,6 +878,9 @@
                                   activeGroupMeta = g;
                                   chatMainTitle.innerText = g.groupName.toUpperCase();
                                   chatSubTitle.innerText = "// CONNECTED NODE";
+
+                                  updateRightProfileCard(g.groupName, "group", "");
+
                                   clearChatBtn.style.display = 'flex';
                                   blockUserBtn.style.display = 'none';
                                   unblockUserBtn.style.display = 'none';
@@ -901,7 +931,7 @@
 
       clearChatBtn.onclick = () => {
           if (!selectedTargetID) return;
-          if (confirm(dictionary[currentLanguage].confirmClearChat)) {
+          if (confirm("Are you sure you want to clear all message logs? ⚠️")) {
               const path = getActiveDatabaseRefPath();
               remove(ref(db, path)).then(() => { alert("Logs fully cleared."); });
           }
@@ -909,9 +939,9 @@
 
       leaveGroupBtn.onclick = () => {
           if(!selectedTargetID || currentMode !== 'group') return;
-          if(confirm(dictionary[currentLanguage].confirmLeaveGroup)) {
+          if(confirm("Are you sure you want to leave this group node? ⚠️")) {
               remove(ref(db, `custom_groups/${selectedTargetID}/members/${currentUserUID}`)).then(() => {
-                  alert(dictionary[currentLanguage].groupLeft);
+                  alert("Successfully disconnected from group stream.");
                   navGroupLink.click();
               });
           }
@@ -919,10 +949,10 @@
 
       deleteGroupBtn.onclick = () => {
           if(!selectedTargetID || currentMode !== 'group') return;
-          if(confirm(dictionary[currentLanguage].confirmDeleteGroup)) {
+          if(confirm("Are you sure you want to completely incinerate this group? ⚠️")) {
               remove(ref(db, `custom_groups/${selectedTargetID}`)).then(() => {
                   remove(ref(db, `group_messages/${selectedTargetID}`)).then(() => {
-                      alert(dictionary[currentLanguage].groupDeleted);
+                      alert("Group structure entirely purged.");
                       navGroupLink.click();
                   });
               });
@@ -1070,9 +1100,52 @@
           };
       });
 
+      /* EDIT & DELETE PHOTO ACTIONS */
+      const editAvatarBtn = document.getElementById('editAvatarBtn');
+      const deleteAvatarBtn = document.getElementById('deleteAvatarBtn');
+      const profilePhotoInput = document.getElementById('profilePhotoInput');
+
+      // Click Edit (Pencil) Button
+      editAvatarBtn.onclick = () => {
+          profilePhotoInput.click();
+      };
+
+      // Click Delete (Trash Can) Button
+      deleteAvatarBtn.onclick = () => {
+          newSelectedBase64Photo = ""; // Mark as empty to remove photo
+          updateHeaderAvatarModal("");
+      };
+
+      profilePhotoInput.onchange = (e) => {
+          const file = e.target.files[0];
+          if(file) {
+              if (file.size > 2 * 1024 * 1024) {
+                  alert("Image size is too large! Please choose an image smaller than 2MB.");
+                  return;
+              }
+              const reader = new FileReader();
+              reader.onload = (evt) => {
+                  newSelectedBase64Photo = evt.target.result;
+                  updateHeaderAvatarModal(newSelectedBase64Photo);
+              };
+              reader.readAsDataURL(file);
+          }
+      };
+
+      /* Dynamic Opening & Field Pre-filling for Settings Modal */
       document.getElementById('headerProfileBtn').onclick = () => {
           profileModalOverlay.style.display = 'flex';
-          document.getElementById('profileNameInput').value = myName;
+          newSelectedBase64Photo = null; // Reset temp holder
+          
+          // Pre-fill Name in upper field
+          document.getElementById('profileNameInput').value = myName || "";
+          
+          // Pre-fill Username with @ prefix in lower field
+          document.getElementById('profileUsernameInput').value = formatDisplayUsername(myUsername);
+          document.getElementById('usernameErrorMsg').style.display = 'none';
+          
+          updateHeaderAvatarModal();
+
           colorDots.forEach(d => {
               if(d.getAttribute('data-color') === myActiveColor) d.classList.add('active');
               else d.classList.remove('active');
@@ -1081,16 +1154,51 @@
 
       document.getElementById('closeModalBtn').onclick = () => { profileModalOverlay.style.display = 'none'; };
 
+      /* Save Profile Logic in Settings Modal */
       document.getElementById('saveProfileBtn').onclick = async () => {
           const typedName = document.getElementById('profileNameInput').value.trim();
-          if(!typedName) return;
           
+          let rawUsernameVal = document.getElementById('profileUsernameInput').value.trim().replace(/^@/, '');
+          const typedUsername = rawUsernameVal.toLowerCase().replace(/[^a-z0-9_]/g, '');
+          const errorMsg = document.getElementById('usernameErrorMsg');
+
+          if(!typedName) {
+              alert("Name field cannot be empty.");
+              return;
+          }
+
+          if(!typedUsername) {
+              errorMsg.style.display = 'block';
+              return;
+          } else {
+              errorMsg.style.display = 'none';
+          }
+
+          // Determine final photo URL to store
+          let photoToSave = myPhotoURL;
+          if (newSelectedBase64Photo !== null) {
+              photoToSave = newSelectedBase64Photo; // will be base64 string or "" (if deleted)
+          }
+
+          /* Update user node parameters in Realtime Database */
           update(ref(db, `users/${currentUserUID}`), {
-              name: typedName, themeColor: myActiveColor, themeGlow: myActiveGlow
+              name: typedName, 
+              username: typedUsername,
+              photoURL: photoToSave,
+              themeColor: myActiveColor, 
+              themeGlow: myActiveGlow
           }).then(() => {
               myName = typedName;
-              document.getElementById('headerName').innerText = myName;
-              updateHeaderAvatar();
+              myUsername = typedUsername;
+              myPhotoURL = photoToSave;
+              
+              if(auth.currentUser) {
+                  updateProfile(auth.currentUser, { photoURL: photoToSave });
+              }
+
+              /* Instant sync across profile elements */
+              updateRightProfileCard(myName, myUsername, myPhotoURL);
+              updateHeaderAvatarModal();
               profileModalOverlay.style.display = 'none';
               loadUsersAndChannelsList();
           });
@@ -1132,7 +1240,7 @@
       if(stripLogoutBtn) stripLogoutBtn.onclick = triggerLogoutSequence;
       if(logoutBtn) logoutBtn.onclick = triggerLogoutSequence;
 
-      applyLanguagePack();
+      refreshDynamicUIHeadings();
     </script>
 </body>
 </html>
